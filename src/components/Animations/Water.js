@@ -1,8 +1,8 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../Lottie/weather.json'
+import animationData from '../../Lottie/water.json'
 
-const Weather = () => {
+const Water = () => {
 
     const defaultOptions = {
         loop: true,
@@ -19,4 +19,4 @@ const Weather = () => {
     )
 }
 
-export default Weather
+export default Water

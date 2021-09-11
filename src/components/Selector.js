@@ -12,7 +12,6 @@ import SnowNight from './Animations/SnowNight'
 
 const Selector = (props) => {
     const { role } = props
-    console.log(role)
     // eslint-disable-next-line default-case
     switch(role) {
       case '01d':

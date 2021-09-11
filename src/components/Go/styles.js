@@ -6,25 +6,13 @@ display: flex;
 flex-direction: row;
 justify-content: space-evenly;
 margin: 20px;
-border: #171717 solid 1px;
 border-radius: 2px;
 
 & input {
-  padding: 10px;
+  padding: 20px;
   font-size: 14px;
   border: none;
   outline: none;
-  font-family: Montserrat;
-  font-weight: bold;
-}
-& button {
-  background-color: #171717;
-  font-size: 14px;
-  padding: 0 10px;
-  color: white;
-  border: none;
-  outline: none;
-  cursor: pointer;
   font-family: Montserrat;
   font-weight: bold;
 }

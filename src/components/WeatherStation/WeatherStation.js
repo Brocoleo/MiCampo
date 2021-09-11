@@ -1,7 +1,6 @@
 import React from "react";
 
-import Selector from "../Selector";
-import {Condition, WeatherInfoContainer, WeatherInfoLabel, Location, InfoContainer, InfoIcon, InfoLabel, WeatherContainer} from "./styles"
+import { WeatherInfoContainer, WeatherInfoLabel, InfoContainer, InfoIcon, InfoLabel} from "./styles"
 
 export const WeatherInfoIcons = {
     atardecer: "/react-weather-app/icons/sunset.svg",
@@ -24,24 +23,14 @@ const WeatherInfoComponent = (props) => {
         </InfoContainer>
     );
 };
-const WeatherComponent = (props) => {
+const WeatherStation = (props) => {
     const {weather} = props;
     const isDay = weather?.weather[0].icon?.includes('d')
     const getTime = (timeStamp) => {
         return `${new Date(timeStamp * 1000).getHours()} : ${new Date(timeStamp * 1000).getMinutes()}`
     }
     return (
-        <>
-        <Location>{`${weather?.name}, ${weather?.sys?.country}`}</Location>
-            <WeatherContainer>
-            
-                <Condition>
-                    <span>{`${Math.floor(weather?.main?.temp - 273)}°C`}</span>
-                    {`  |  ${weather?.weather[0].description}`}
-                </Condition>
-                <Selector role={weather?.weather[0].icon} />
-            </WeatherContainer>
-            
+        <>            
 
             <WeatherInfoLabel>Informacion climatica</WeatherInfoLabel>
             <WeatherInfoContainer>
@@ -55,4 +44,4 @@ const WeatherComponent = (props) => {
     );
 };
 
-export default WeatherComponent;
+export default WeatherStation;

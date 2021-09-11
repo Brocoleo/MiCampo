@@ -1,27 +1,17 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Axios from "axios";
-import CityComponent from "./components/City/CityComponent";
+import Go from "./components/Go/Go";
 import WeatherComponent from "./components/WheatherInfo/WeatherInfo";
-
-
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 380px;
-  padding: 20px 10px;
-  margin: auto;
-  border-radius: 30px;
-  box-shadow: 0 3px 6px 0 #334257;
-  background: #2a329e;
-  font-family: Montserrat;
-`;
+import Water from "./components/Animations/Water";
+import Navbar from "./components/Navbar/Navbar";
+import Grid from '@material-ui/core/Grid';
+import useStyles, { MiniContainer, Container, MiniContainer2 } from './styles'
+import WeatherStation from "./components/WeatherStation/WeatherStation";
 
 
 
 function App() {
+  const classes = useStyles();
   const [city, updateCity] = useState();
   const [weather, updateWeather] = useState();
   const fetchWeather = async (e) => {
@@ -32,13 +22,39 @@ function App() {
     updateWeather(response.data);
   };
   return (
-    <Container>
+    <>
+
       {city && weather ? (
-        <WeatherComponent weather={weather} city={city} />
+      <div className={classes.root}>
+      <Grid container spacing={3}>
+      <Navbar />
+        <Grid item xs>
+        <MiniContainer>
+        <WeatherStation weather={weather} city={city}/>
+        </MiniContainer>
+        <MiniContainer2>
+        <WeatherStation weather={weather} city={city}/>
+        </MiniContainer2>
+        </Grid>
+        <Grid item xs>
+        <Container>
+        <WeatherComponent weather={weather} city={city}/>
+        </Container>
+        </Grid>
+        
+      </Grid>
+    </div>
+       
       ) : (
-        <CityComponent updateCity={updateCity} fetchWeather={fetchWeather} />
+       <>
+       <Navbar />
+        <Water />    
+        <Go updateCity={updateCity} fetchWeather={fetchWeather} />
+        </> 
       )}
-    </Container>
+    
+    </>
+
   );
 }
 
