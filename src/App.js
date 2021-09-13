@@ -5,7 +5,7 @@ import WeatherComponent from "./components/WheatherInfo/WeatherInfo";
 import Water from "./components/Animations/Water";
 import Navbar from "./components/Navbar/Navbar";
 import Grid from '@material-ui/core/Grid';
-import useStyles, { MiniContainer, Container, MiniContainer2 } from './styles'
+import useStyles, { MiniContainer, Container, MiniContainer2,CenteredContent} from './styles'
 import WeatherStation from "./components/WeatherStation/WeatherStation";
 
 
@@ -48,8 +48,11 @@ function App() {
       ) : (
        <>
        <Navbar />
-        <Water />    
+       <CenteredContent>
+        <Water />  
+        </CenteredContent>  
         <Go updateCity={updateCity} fetchWeather={fetchWeather} />
+        
         </> 
       )}
     

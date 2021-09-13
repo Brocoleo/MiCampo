@@ -57,4 +57,8 @@ background: rgb(6,84,70);
 background: linear-gradient(90deg, rgba(6,84,70,1) 28%, rgba(25,113,99,1) 74%);
 font-family: Montserrat;
 `;
+export const CenteredContent = styled.div`
+margin-top: 50%;
+
+`;
 
