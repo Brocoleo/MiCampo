@@ -22,7 +22,8 @@ export default  makeStyles((theme) => ({
   border-radius: 30px;
   padding: 2px;
   box-shadow: 0 6px 9px 0 #5F7A61;
-  background: #2a329e;
+  background: rgb(52,79,161);
+background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
   font-family: Montserrat;
   @media (max-width: 768px) {
     margin-top: 9%;
@@ -38,7 +39,8 @@ flex-direction: column;
 align-items: center;
 border-radius: 30px;
 box-shadow: 0 6px 9px 0 #5F7A61;
-background: #184D47;
+background: rgb(6,84,70);
+background: linear-gradient(90deg, rgba(6,84,70,1) 28%, rgba(25,113,99,1) 74%);
 font-family: Montserrat;
 `;
 export const MiniContainer2 = styled.div`
@@ -51,7 +53,8 @@ margin-top: 5%;
 align-items: center;
 border-radius: 30px;
 box-shadow: 0 6px 9px 0 #5F7A61;
-background: #184D47;
+background: rgb(6,84,70);
+background: linear-gradient(90deg, rgba(6,84,70,1) 28%, rgba(25,113,99,1) 74%);
 font-family: Montserrat;
 `;
 
