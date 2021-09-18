@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../Lottie/stormShowerDay.json'
+import animationData from '../../assets/stormShowerDay.json'
 
 const StormShowerDay = () => {
 

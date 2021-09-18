@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Axios from "axios";
 import Go from "./components/Go/Go";
 import WeatherComponent from "./components/WheatherInfo/WeatherInfo";
+import Assistant from './components/Assistent/Assistent'
 import Water from "./components/Animations/Water";
 import Navbar from "./components/Navbar/Navbar";
 import Grid from '@material-ui/core/Grid';
-import useStyles, { MiniContainer, Container, MiniContainer2,CenteredContent} from './styles'
+import useStyles, { MiniContainer, Container,CenteredContent} from './styles'
 import WeatherStation from "./components/WeatherStation/WeatherStation";
 
 
@@ -31,10 +32,9 @@ function App() {
         <Grid item xs>
         <MiniContainer>
         <WeatherStation weather={weather} city={city}/>
+        <Assistant/>
         </MiniContainer>
-        <MiniContainer2>
-        <WeatherStation weather={weather} city={city}/>
-        </MiniContainer2>
+       
         </Grid>
         <Grid item xs>
         <Container>

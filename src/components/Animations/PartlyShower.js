@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../Lottie/partlyShower.json'
+import animationData from '../../assets/partlyShower.json'
 
 const PartlyShower = () => {
 

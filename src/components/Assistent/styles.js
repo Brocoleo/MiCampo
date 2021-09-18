@@ -1,21 +1,6 @@
 import styled from "styled-components";
 
-export const Location = styled.span`
-  margin: 15px auto;
-  text-transform: capitalize;
-  font-size: 4vh;
-  color:white;
-  font-weight: bold;
-`;
-export const Condition = styled.span`
-  margin: 20px auto;
-  text-transform: capitalize;
-  font-size: 14px;
-  color: #EEEEEE;
-  & span {
-    font-size: 28px;
-  }
-`;
+
 export const WeatherInfoLabel = styled.span`
   margin: 20px 25px 10px;
   text-transform: none;
@@ -25,12 +10,7 @@ export const WeatherInfoLabel = styled.span`
   font-size: 14px;
   color: #fff;
 `;
-export const WeatherIcon = styled.img`
-  width: 100px;
-  height: 100px;
-  margin: 5px auto;
 
-`;
 export const WeatherContainer = styled.div`
   display: flex;
   width: 100%;

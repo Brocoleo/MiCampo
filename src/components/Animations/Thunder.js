@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../Lottie/cloudy.json'
+import animationData from '../../assets/cloudy.json'
 
 const Thunder = () => {
 

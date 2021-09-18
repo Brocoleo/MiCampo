@@ -14,7 +14,7 @@ export default  makeStyles((theme) => ({
 
 
   export const Container = styled.div`
-  margin-top: 4%;
+  margin-top: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,10 +31,10 @@ background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%)
 `;
 
 export const MiniContainer = styled.div`
+margin-top: 2%;
 display: flex;
 padding: 1px;
-width: 90%;
-height: 50%;
+width: 380px;
 flex-direction: column;
 align-items: center;
 border-radius: 30px;
@@ -46,7 +46,7 @@ font-family: Montserrat;
 export const MiniContainer2 = styled.div`
 display: flex;
 padding: 7px;
-width: 90%;
+width: 50%;
 height: 50%;
 flex-direction: column;
 margin-top: 5%;
@@ -57,6 +57,8 @@ background: rgb(6,84,70);
 background: linear-gradient(90deg, rgba(6,84,70,1) 28%, rgba(25,113,99,1) 74%);
 font-family: Montserrat;
 `;
+
+
 export const CenteredContent = styled.div`
 margin-top: 50%;
 

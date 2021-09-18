@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../Lottie/night.json'
+import animationData from '../../assets/night.json'
 
 const Nigth = (icono) => {
 

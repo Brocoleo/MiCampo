@@ -1,10 +1,9 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../assets/mist.json'
+import animationData from '../../assets/robot.json'
 
-const Mist = (icono) => {
+const Robot = () => {
 
-    console.log(icono)
     const defaultOptions = {
         loop: true,
         autoplay: true, 
@@ -20,4 +19,4 @@ const Mist = (icono) => {
     )
 }
 
-export default Mist
+export default Robot

@@ -18,8 +18,8 @@ export const Condition = styled.span`
 `;
 export const WeatherInfoLabel = styled.span`
   margin: 20px 25px 10px;
-  text-transform: capitalize;
-  text-align: start;
+  text-transform: none;
+  text-align: center;
   width: 90%;
   font-weight: bold;
   font-size: 14px;

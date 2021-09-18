@@ -43,13 +43,14 @@ const WeatherComponent = (props) => {
             </WeatherContainer>
             
 
-            <WeatherInfoLabel>Informacion climatica</WeatherInfoLabel>
+            <WeatherInfoLabel>Informacion Climatica</WeatherInfoLabel>
             <WeatherInfoContainer>
                 <WeatherInfoComponent name={isDay ? "atardecer" : "amanecer"}
-                                      value={`${getTime(weather?.sys[isDay ? "sunset" : "sunrise"])}`}/>
-                <WeatherInfoComponent name={"humedad"} value={weather?.main?.humidity}/>
-                <WeatherInfoComponent name={"viento"} value={weather?.wind?.speed}/>
-                <WeatherInfoComponent name={"presión"} value={weather?.main?.pressure}/>
+                                      // eslint-disable-next-line no-useless-concat
+                                      value={`${getTime(weather?.sys[isDay ? "sunset" : "sunrise"])}` + ` hrs`}/>
+                <WeatherInfoComponent name={"humedad"} value={weather?.main?.humidity +` %`}/>
+                <WeatherInfoComponent name={"viento"} value={weather?.wind?.speed + ` m/s`}/>
+                <WeatherInfoComponent name={"presión"} value={weather?.main?.pressure  + ` hPa`} />
             </WeatherInfoContainer>
         </>
     );
