@@ -5,7 +5,11 @@ import {
   CloseIcon,
   SidebarMenu,
   SidebarLink,
+  SideBtnWrap,
+  SidebarRoute
 } from './styles';
+import { FaUser } from "react-icons/fa";
+import { IoSettings } from "react-icons/io5";
 
 const Sidebar = ({ isOpen, toggle }) => {
   return (
@@ -14,9 +18,12 @@ const Sidebar = ({ isOpen, toggle }) => {
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/'>Perfil</SidebarLink>
-        <SidebarLink to='/'>Configuraciones</SidebarLink>
+        <SidebarLink to='/'><FaUser />&nbsp;&nbsp;Perfil</SidebarLink>
+        <SidebarLink to='/'><IoSettings />&nbsp;&nbsp;Configuraciones</SidebarLink>
       </SidebarMenu>
+      <SideBtnWrap>
+        <SidebarRoute to='/'>Cerrar Sesion</SidebarRoute>
+      </SideBtnWrap>
     </SidebarContainer>
   );
 };

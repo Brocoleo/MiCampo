@@ -4,7 +4,6 @@ import animationData from '../../assets/mist.json'
 
 const Mist = (icono) => {
 
-    console.log(icono)
     const defaultOptions = {
         loop: true,
         autoplay: true, 

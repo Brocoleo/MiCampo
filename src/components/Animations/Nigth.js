@@ -4,7 +4,6 @@ import animationData from '../../assets/night.json'
 
 const Nigth = (icono) => {
 
-    console.log(icono)
     const defaultOptions = {
         loop: true,
         autoplay: true, 
