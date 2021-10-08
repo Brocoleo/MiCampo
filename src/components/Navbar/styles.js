@@ -57,6 +57,11 @@ export default makeStyles((theme) => ({
   inputRoot: {
     color: 'inherit',
   },
+  menu:{  
+    display: 'table-cell',
+    fontSize: '16px',
+    fontWeight: '100'
+  },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon

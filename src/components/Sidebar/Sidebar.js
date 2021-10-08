@@ -18,11 +18,11 @@ const Sidebar = ({ isOpen, toggle }) => {
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/'><FaUser />&nbsp;&nbsp;Perfil</SidebarLink>
-        <SidebarLink to='/'><IoSettings />&nbsp;&nbsp;Configuraciones</SidebarLink>
+        <SidebarLink to='/'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
+        <SidebarLink to='/'><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/'>Cerrar Sesion</SidebarRoute>
+        <SidebarRoute to='/'>CERRAR SESION</SidebarRoute>
       </SideBtnWrap>
     </SidebarContainer>
   );

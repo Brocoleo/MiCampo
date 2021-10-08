@@ -22,11 +22,11 @@ function App() {
   };
 
   return (
-    <>
+    <div className="code">
       {city && weather ? ( <User weather={weather} city={city} toggle={toggle} isOpen={isOpen}/>  ) 
       : ( <Login isOpen={isOpen} toggle={toggle} updateCity={updateCity} fetchWeather={fetchWeather}/>)}
   
-    </>
+    </div>
 
   );
 }

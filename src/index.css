@@ -1,19 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 body {
     margin-top: 10%;
     background-image: url('./assets/triangles.png');
     display: flex;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: 'Oswald', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: 'Oswald', sans-serif;
 }
 .title{
     display: contents;
+    font-family: 'Oswald', sans-serif;
 }
+
+
+.reactive-btn .content {
+    position: relative;
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+}
+

@@ -18,6 +18,7 @@ const Navbar = ({ toggle }) => {
                     </Typography>
                     <div className={classes.grow} />
                    <NavIcon onClick={toggle}>
+                   <p   className={classes.menu}>MENU</p>
                   <Bars />
                 </NavIcon>
                 </Toolbar>

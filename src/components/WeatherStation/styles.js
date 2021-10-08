@@ -1,28 +1,15 @@
 import styled from "styled-components";
 
-export const Location = styled.span`
-  margin: 15px auto;
-  text-transform: capitalize;
-  font-size: 4vh;
-  color:white;
-  font-weight: bold;
-`;
-export const Condition = styled.span`
-  margin: 20px auto;
-  text-transform: capitalize;
-  font-size: 14px;
-  color: #EEEEEE;
-  & span {
-    font-size: 28px;
-  }
-`;
+
+
 export const WeatherInfoLabel = styled.span`
   margin: 20px 25px 10px;
   text-transform: none;
   text-align: center;
   width: 90%;
-  font-weight: bold;
-  font-size: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 23px;
   color: #fff;
 `;
 export const WeatherIcon = styled.img`
@@ -62,11 +49,12 @@ export const InfoIcon = styled.img`
 `;
 export const InfoLabel = styled.span`
   display: flex;
+  font-family: 'Oswald', sans-serif;
   flex-direction: column;
-  font-size: 14px;
-  margin: 15px;
+  font-size: 15px;
+  margin: 10px;
   & span {
-    font-size: 12px;
+    font-size: 18px;
     text-transform: capitalize;
   }
 `;

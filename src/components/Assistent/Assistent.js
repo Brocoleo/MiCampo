@@ -26,7 +26,7 @@ const WeatherInfoComponent = () => {
                 loadingText={'Cargando'}
                 successText={'Listo'}
                 errorText={'Error'}
-                className={'class1 class2'}
+                className={'class1 class2 '}
                 style={{ borderRadius: '15px' }}
                 outline={false}
                 shadow={false}
