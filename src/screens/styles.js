@@ -47,15 +47,13 @@ font-family: Montserrat;
 export const ChartContainer = styled.div`
 margin-top: 5%;
 display: flex;
-padding: 3%;
-width: 350px;
+padding: 9px;
+width: 380px;
 flex-direction: column;
 align-items: center;
 border-radius: 30px;
 box-shadow: 0 6px 9px 0 #5F7A61;
-background: #ECE9E6;  
-background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
-background: linear-gradient(to right, #FFFFFF, #ECE9E6); 
+background: #fff;  
 font-family: Montserrat;
 @media (max-width: 768px) {
     margin-top: 9%;

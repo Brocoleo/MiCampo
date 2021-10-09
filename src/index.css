@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 body {
     margin-top: 10%;
-    background-image: url('./assets/triangles.png');
+    background: rgb(242,225,203);
+    background: radial-gradient(circle, rgba(242,225,203,1) 67%, rgba(245,241,231,1) 98%);
     display: flex;
     justify-content: center;
     font-family: 'Oswald', sans-serif;
@@ -24,3 +25,6 @@ code {
     font-size: 18px;
 }
 
+.selectChart{
+    font-size: 18px;
+}
