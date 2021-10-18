@@ -9,6 +9,8 @@ import {
   SidebarRoute
 } from './styles';
 import { FaUser } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 
 const Sidebar = ({ isOpen, toggle }) => {
@@ -18,11 +20,13 @@ const Sidebar = ({ isOpen, toggle }) => {
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
-        <SidebarLink to='/'><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
+        <SidebarLink to='/'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
+        <SidebarLink to='/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
+        <SidebarLink to='/notificaciones'><FaBell />&nbsp;&nbsp;NOTIFICACIONES</SidebarLink>
+        <SidebarLink to="/configuraciones" ><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/'>CERRAR SESION</SidebarRoute>
+        <SidebarRoute to='/login' onClick={() => {window.location.href="/login"}}>CERRAR SESION</SidebarRoute>
       </SideBtnWrap>
     </SidebarContainer>
   );

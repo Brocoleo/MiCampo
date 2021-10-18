@@ -22,18 +22,17 @@ const WeatherInfoComponent = (props) => {
         </InfoContainer>
     );
 };
-const WeatherStation = (props) => {
-    const {weather} = props;
-
+const WeatherStation = (prps) => {
+   
     return (
         <>            
 
-            <WeatherInfoLabel>Informacion de mi Campo</WeatherInfoLabel>
+            <WeatherInfoLabel>Informacion de mi Estacion Nº1</WeatherInfoLabel>
             <WeatherInfoContainer>
                 <WeatherInfoComponent name={"temperatura"}value={`25°C`}/>  
-                <WeatherInfoComponent name={"humedad"} value={weather?.main?.humidity +` %`}/>
+                <WeatherInfoComponent name={"humedad"} value={`45%`}/>
                 <WeatherInfoComponent name={"luminosidad"} value={740}/>
-                <WeatherInfoComponent name={"presión"} value={weather?.main?.pressure  + ` hPa`}/>
+                <WeatherInfoComponent name={"presión"} value={`3500hPa`}/>
             </WeatherInfoContainer>
         </>
     );

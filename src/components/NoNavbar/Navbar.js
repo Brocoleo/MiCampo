@@ -1,13 +1,9 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core'
 import logo from './logo.png';
-import { NavIcon, Bars } from './NavbarElements';
-import Badge from '@mui/material/Badge';
-import { Link } from 'react-router-dom';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import useStyles from './styles';
 
-const Navbar = ({ toggle }) => {
+const Navbar = () => {
     const classes = useStyles();
 
 
@@ -20,14 +16,6 @@ const Navbar = ({ toggle }) => {
                         <img src={logo} alt="Commerce.js" height="80px" className={classes.image}/>
                     </Typography>
                     <div className={classes.grow} />
-                   <NavIcon onClick={toggle}>
-                  <Bars />
-                </NavIcon>
-                    <Badge className={classes.notificacion} badgeContent={5} color="warning" >
-                        <Link to='/notificaciones'>
-                            <NotificationsIcon color="action" />
-                        </Link>
-                    </Badge>
                 </Toolbar>
             </AppBar> 
         </>

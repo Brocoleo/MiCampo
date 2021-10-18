@@ -1,6 +1,7 @@
-import React from "react";
-
+import React,{useState} from "react";
+import axios from "axios";
 import Selector from "../Selector";
+import { CommonLoading } from 'react-loadingg';
 import {Condition, WeatherInfoContainer, WeatherInfoLabel, Location, InfoContainer, InfoIcon, InfoLabel, WeatherContainer} from "./styles"
 
 export const WeatherInfoIcons = {
@@ -24,15 +25,23 @@ const WeatherInfoComponent = (props) => {
         </InfoContainer>
     );
 };
-const WeatherComponent = (props) => {
-    const {weather} = props;
-    const isDay = weather?.weather[0].icon?.includes('d')
-    const getTime = (timeStamp) => {
-        return `${new Date(timeStamp * 1000).getHours()} : ${new Date(timeStamp * 1000).getMinutes()}`
-    }
+const WeatherComponent = () => {
+    const [weather, updateWeather] = useState();
+    const fetchWeather =  () => {
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=Curico&appid=fe4feefa8543e06d4f3c66d92c61b69c&lang=es`).then((response) => {
+            updateWeather(response.data);
+        });
+      };
+      fetchWeather()
+      const isDay = weather?.weather[0].icon?.includes('d')
+      const getTime = (timeStamp) => {
+          return `${new Date(timeStamp * 1000).getHours()} : ${new Date(timeStamp * 1000).getMinutes()}`
+      }
+   
     return (
         <>
-        <Location>{`${weather?.name}, ${weather?.sys?.country}`}</Location>
+            {weather ? (<>
+           <Location>{`${weather?.name}, ${weather?.sys?.country}`}</Location>
             <WeatherContainer>
             
                 <Condition>
@@ -52,6 +61,11 @@ const WeatherComponent = (props) => {
                 <WeatherInfoComponent name={"viento"} value={weather?.wind?.speed + ` m/s`}/>
                 <WeatherInfoComponent name={"presión"} value={weather?.main?.pressure  + ` hPa`} />
             </WeatherInfoContainer>
+            </>
+                ) : (
+                    <CommonLoading />
+                )}
+            
         </>
     );
 };

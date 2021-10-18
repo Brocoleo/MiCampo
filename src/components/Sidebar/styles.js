@@ -7,12 +7,12 @@ export const SidebarContainer = styled.aside`
   z-index: 999;
   width: 350px;
   height: 100%;
-  background:  rgba(247,246,242,1) ;
+  background: rgba(255,255,255,1);
   display: grid;
   align-items: center;
   top: 0;
   transition: 0.3s ease-in-out;
-  right: ${({ isOpen }) => (isOpen ? '0' : '-1000px')};
+  left: ${({ isOpen }) => (isOpen ? '0' : '-1000px')};
   @media screen and (max-width: 400px) {
     width: 100%;
   }
@@ -36,10 +36,10 @@ export const Icon = styled.div`
 export const SidebarMenu = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 80px);
+  grid-template-rows: repeat(4, 80px);
   text-align: center;
   @media screen and (max-width: 480px) {
-    grid-template-rows: repeat(3, 60px);
+    grid-template-rows: repeat(4, 60px);
   }
 `;
 

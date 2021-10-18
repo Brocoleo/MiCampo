@@ -19,7 +19,7 @@ const ScatterChart = ({title, icono, data, options}) => (
   width={'100%'}
   height={'100%'}
   chartType="ScatterChart"
-  loader={<div>Loading Chart</div>}
+  loader={<div>Cargando</div>}
   data={data}
   options ={options}
   rootProps={{ 'data-testid': '1' }}

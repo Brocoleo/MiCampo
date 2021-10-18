@@ -1,20 +1,9 @@
-import React, { useState } from "react";
-import Axios from "axios";
+import React, { useState} from "react";
 import User from "./screens/User";
 import Login from "./screens/Login";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 function App() {
-
-  const [city, updateCity] = useState();
-    const [weather, updateWeather] = useState();
-    const fetchWeather = async (e) => {
-    e.preventDefault();
-    const response = await Axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fe4feefa8543e06d4f3c66d92c61b69c&lang=es`,
-    );
-    updateWeather(response.data);
-  };
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -22,12 +11,15 @@ function App() {
   };
 
   return (
+    <Router>
+    <Switch>
     <div className="code">
-      {city && weather ? ( <User weather={weather} city={city} toggle={toggle} isOpen={isOpen}/>  ) 
-      : ( <Login isOpen={isOpen} toggle={toggle} updateCity={updateCity} fetchWeather={fetchWeather}/>)}
-  
-    </div>
+      <Route path="/"><User toggle={toggle} isOpen={isOpen}/> </Route>  
+      <Route path="/login"><Login  /></Route>
 
+    </div>
+    </Switch>
+    </Router>
   );
 }
 
