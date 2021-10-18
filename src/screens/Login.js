@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from "../components/NoNavbar/Navbar";
 import Water from "../components/Animations/Water";
-
+import FadeIn from 'react-fade-in';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -51,8 +51,8 @@ const Login = ({  fetchWeather}) => {
         <>
         
         <Navbar />
-                                                                                            
-        <InfoContainer>
+    <FadeIn>                                                                                     
+    <InfoContainer>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="lg">
         <Box
@@ -75,7 +75,7 @@ const Login = ({  fetchWeather}) => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Correo"
               name="email"
               autoComplete="email"
               autoFocus
@@ -85,7 +85,7 @@ const Login = ({  fetchWeather}) => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contrasena"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -110,10 +110,10 @@ const Login = ({  fetchWeather}) => {
             
           </Box>
         </Box>
-       
       </Container>
     </ThemeProvider>
-    </InfoContainer >
+    </InfoContainer>
+    </FadeIn>
          </>
     )
 }

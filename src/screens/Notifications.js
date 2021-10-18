@@ -5,9 +5,11 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import FadeIn from 'react-fade-in';
 
 export default function AlignItemsList() {
   return (
+    <FadeIn>
     <List sx={{ width: '100%', maxWidth: 550, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
@@ -45,5 +47,6 @@ export default function AlignItemsList() {
         <ListItemText primary="La humedad de la estacion Nº3 esta ALTA" secondary="Marzo 5, 2021" />
       </ListItem>
     </List>
+    </FadeIn>
   );
 }

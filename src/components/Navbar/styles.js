@@ -64,7 +64,7 @@ export default makeStyles((theme) => ({
     fontWeight: '100'
   },
   notificacion:{  
-    marginRight: '8%'
+    marginRight: '5%'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),

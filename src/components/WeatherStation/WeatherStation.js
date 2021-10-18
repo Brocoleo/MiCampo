@@ -1,5 +1,4 @@
 import React from "react";
-
 import { WeatherInfoContainer, WeatherInfoLabel, InfoContainer, InfoIcon, InfoLabel} from "./styles"
 
 export const WeatherInfoIcons = {

@@ -42,6 +42,10 @@ export const MiniContainer = styled.div`
   background: rgb(52,79,161);
   background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
   font-family: Montserrat;
+  @media (max-width: 768px) {
+    margin-top: 9%;
+    margin-left: 10%;
+  }
   `;
 
 export const ChartContainer = styled.div`

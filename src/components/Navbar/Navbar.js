@@ -1,6 +1,7 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core'
 import logo from './logo.png';
+import FadeIn from 'react-fade-in';
 import { NavIcon, Bars } from './NavbarElements';
 import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
@@ -23,11 +24,13 @@ const Navbar = ({ toggle }) => {
                    <NavIcon onClick={toggle}>
                   <Bars />
                 </NavIcon>
-                    <Badge className={classes.notificacion} badgeContent={5} color="warning" >
-                        <Link to='/notificaciones'>
-                            <NotificationsIcon color="action" />
+                <FadeIn  className={classes.notificacion}>
+                    <Badge badgeContent={5} color="warning" >
+                        <Link to='/notificaciones'>                        
+                            <NotificationsIcon color="action" /> 
                         </Link>
                     </Badge>
+                </FadeIn>
                 </Toolbar>
             </AppBar> 
         </>

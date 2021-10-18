@@ -5,6 +5,7 @@ import LineChart from "../components/LineChart/LineChart";
 import WeatherStation from "../components/WeatherStation/WeatherStation";
 import ScatterChart from '../components/ScatterChart/ScatterChart';
 import Select from 'react-select'
+import FadeIn from 'react-fade-in';
 import Grid from '@material-ui/core/Grid';
 import  { MiniContainer, ChartContainer} from './styles'
 
@@ -85,14 +86,18 @@ const temperaturaLine = {
           <WeatherComponent />
           </Container>      
          </Grid> */}
+        <FadeIn>
         <Grid item xs>
           <MiniContainer>
           <WeatherStation />
           <Assistant/>
-          </MiniContainer>      
+          </MiniContainer>  
           </Grid>
+        </FadeIn>
 
+        
           <Grid item xs>
+          <FadeIn>
             <Select 
              value={tipoGrafico.filter(({ value }) => value === (grafico.graficoKey))}
               getOptionValue={({ value }) => value}
@@ -119,7 +124,9 @@ const temperaturaLine = {
                         return null;
                     }
                   })()}
-          </Grid>        
+                   </FadeIn> 
+          </Grid>  
+              
         </Grid>
     )
 }

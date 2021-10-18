@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import  { InfoContainer, TituloInfo} from './styles'
+import FadeIn from 'react-fade-in';
 const theme = createTheme();
 
 export default function Info() {
@@ -43,6 +44,7 @@ export default function Info() {
   });
 
   return (
+    <FadeIn>
     <InfoContainer>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="lg">
@@ -128,5 +130,6 @@ export default function Info() {
       </Container>
     </ThemeProvider>
     </InfoContainer >
+    </FadeIn>
   );
 }
