@@ -14,7 +14,7 @@ function App() {
     <Router>
     <Switch>
     <div className="code">
-      <Route path="/"><User toggle={toggle} isOpen={isOpen}/> </Route>  
+      <Route exact path="/"><User toggle={toggle} isOpen={isOpen}/> </Route>  
       <Route path="/login"><Login  /></Route>
 
     </div>

@@ -1,13 +1,12 @@
 import React, {useState} from 'react'
-//import axios  from "axios";
-//import WeatherComponent from "../components/WheatherInfo/WeatherInfo";
+import WeatherComponent from "../components/WheatherInfo/WeatherInfo";
 import Assistant from '../components/Assistent/Assistent'
 import LineChart from "../components/LineChart/LineChart";
 import WeatherStation from "../components/WeatherStation/WeatherStation";
 import ScatterChart from '../components/ScatterChart/ScatterChart';
 import Select from 'react-select'
 import Grid from '@material-ui/core/Grid';
-import  {  MiniContainer, ChartContainer} from './styles'
+import  {  Container, MiniContainer, ChartContainer} from './styles'
 
 const DashUser = () => {  let initialGrafico = { graficoKey: 'linea'}
   const [grafico, setGrafico] = useState(initialGrafico);
@@ -81,11 +80,11 @@ const temperaturaLine = {
     return (
         <Grid container spacing={6}> 
        
-         {/*<Grid item xs>
+         <Grid item xs>
           <Container>
           <WeatherComponent />
           </Container>      
-          </Grid> */} 
+          </Grid> 
         <Grid item xs>
           <MiniContainer>
           <WeatherStation />
