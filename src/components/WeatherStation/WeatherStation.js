@@ -3,10 +3,10 @@ import React from "react";
 import { WeatherInfoContainer, WeatherInfoLabel, InfoContainer, InfoIcon, InfoLabel} from "./styles"
 
 export const WeatherInfoIcons = {
-    temperatura: "/react-weather-app/icons/termometro.svg",
-    humedad: "/react-weather-app/icons/humidity.svg",
-    luminosidad: "/react-weather-app/icons/sun.svg",
-    presión: "/react-weather-app/icons/pressure.svg",
+    temperatura: "/icons/termometro.svg",
+    humedad: "/icons/humidity.svg",
+    luminosidad: "/icons/sun.svg",
+    presión: "icons/pressure.svg",
 };
 
 

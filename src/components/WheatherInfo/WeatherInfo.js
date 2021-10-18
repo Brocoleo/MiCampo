@@ -5,11 +5,11 @@ import { CommonLoading } from 'react-loadingg';
 import {Condition, WeatherInfoContainer, WeatherInfoLabel, Location, InfoContainer, InfoIcon, InfoLabel, WeatherContainer} from "./styles"
 
 export const WeatherInfoIcons = {
-    atardecer: "/react-weather-app/icons/sunset.svg",
-    amanecer: "/react-weather-app/icons/sunrise.svg",
-    humedad: "/react-weather-app/icons/humidity.svg",
-    viento: "/react-weather-app/icons/wind.svg",
-    presión: "/react-weather-app/icons/pressure.svg",
+    atardecer: "/icons/sunset.svg",
+    amanecer: "icons/sunrise.svg",
+    humedad: "/icons/humidity.svg",
+    viento: "/icons/wind.svg",
+    presión: "/icons/pressure.svg",
 };
 
 
