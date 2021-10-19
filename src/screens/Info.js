@@ -44,6 +44,7 @@ export default function Info() {
   });
 
   return (
+    <div  >
     <FadeIn>
     <InfoContainer>
     <ThemeProvider theme={theme}>
@@ -131,5 +132,6 @@ export default function Info() {
     </ThemeProvider>
     </InfoContainer >
     </FadeIn>
+    </div>
   );
 }

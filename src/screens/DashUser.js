@@ -3,46 +3,15 @@ import React, {useState} from 'react'
 import Assistant from '../components/Assistent/Assistent'
 import LineChart from "../components/LineChart/LineChart";
 import WeatherStation from "../components/WeatherStation/WeatherStation";
-import ScatterChart from '../components/ScatterChart/ScatterChart';
+//import ScatterChart from '../components/ScatterChart/ScatterChart';
+import BarChart from '../components/BarChart/BarChart';
 import Select from 'react-select'
 import FadeIn from 'react-fade-in';
 import Grid from '@material-ui/core/Grid';
 import  { MiniContainer, ChartContainer} from './styles'
 
-const DashUser = () => {  let initialGrafico = { graficoKey: 'linea'}
-  const [grafico, setGrafico] = useState(initialGrafico);
-
-  const tipoGrafico = [
-    { value: 'linea', label: 'Linea' },
-    { value: 'punto', label: 'Puntos' }
-  ]
-
-const temperaturaLine = {
-    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-    datasets: [
-      {
-        label: 'temperatura de la estacion',
-        data: [2, 14, 7, 15, 2, 6],
-        fill: true,
-        backgroundColor: 'rgba(255, 38, 38, 0.2)',
-        borderColor: 'rgb(255, 38, 28)',
-      },
-    ],
-  };
-  const humedadLine = {
-    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-    datasets: [
-      {
-        label: 'humedad de la estacion',
-        data: [12, 19, 3, 5, 2, 3],
-        fill: true,
-        backgroundColor: 'rgba(20, 39, 155,0.2)',
-        borderColor: 'rgb(20, 39, 155)',
-      },
-    ],
-  };
-
- const temperaturaScatter = [
+// eslint-disable-next-line
+{/* const temperaturaScatter = [
     ['Dia','Temperatura'],
     ['Lun', 12],
     ['Mar', 5.5],
@@ -71,6 +40,70 @@ const temperaturaLine = {
     legend: 'none',
     colors: ['rgb(20, 39, 155)'],
   }
+*/}
+
+const DashUser = () => {  let initialGrafico = { graficoKey: 'barra'}
+  const [grafico, setGrafico] = useState(initialGrafico);
+
+  const tipoGrafico = [
+    { value: 'linea', label: 'Linea' },
+   // { value: 'punto', label: 'Puntos' },
+    { value: 'barra', label: 'Barra' }
+  ]
+
+const temperaturaLine = {
+    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+    datasets: [
+      {
+        label: 'temperatura de la estacion',
+        data: [2, 14, 7, 15, 2, 6],
+        fill: true,
+        backgroundColor: 'rgba(255, 38, 38, 0.2)',
+        borderColor: 'rgb(255, 38, 28)',
+      },
+    ],
+  };
+  const humedadLine = {
+    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+    datasets: [
+      {
+        label: 'humedad de la estacion',
+        data: [12, 19, 3, 5, 2, 3],
+        fill: true,
+        backgroundColor: 'rgba(20, 39, 155,0.2)',
+        borderColor: 'rgb(20, 39, 155)',
+      },
+    ],
+  };
+
+  const TemperaturaBar = {
+    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+    datasets: [
+      {
+        label: 'humedad de la estacion',
+        data: [2, 14, 7, 15, 2, 6],
+        fill: true,
+        backgroundColor: 'rgba(255, 38, 38, 0.2)',
+        borderColor: 'rgb(255, 38, 28)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const humedadBar = {
+    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+    datasets: [
+      {
+        label: 'humedad de la estacion',
+        data: [12, 19, 3, 5, 2, 3],
+        fill: true,
+        backgroundColor: 'rgba(20, 39, 155,0.2)',
+        borderColor: 'rgb(20, 39, 155)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
 
  
     
@@ -79,6 +112,7 @@ const temperaturaLine = {
       };  
 
     return (
+      <div >
         <Grid container spacing={6}> 
        
          {/*<Grid item xs>
@@ -112,22 +146,26 @@ const temperaturaLine = {
                 },
               })}/>
 
+              {/*case 'punto':
+                        return <><ChartContainer><ScatterChart title='Temperatura'  icono={true} data={temperaturaScatter} options={optionsTemperatura}/>
+                    </ChartContainer><ChartContainer><ScatterChart title='Humedad'  icono={false} data={humedadScatter} options={optionsHumedad}/> </ChartContainer> </> */}
+
             {(() => {
                     switch (grafico.graficoKey  ) {
                       case 'linea':
                         return <> <ChartContainer><LineChart title='Humedad' data={humedadLine} icono={false}/> 
                             </ChartContainer><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={true}/> </ChartContainer ></> 
-                      case 'punto':
-                        return <><ChartContainer><ScatterChart title='Temperatura'  icono={true} data={temperaturaScatter} options={optionsTemperatura}/>
-                            </ChartContainer><ChartContainer><ScatterChart title='Humedad'  icono={false} data={humedadScatter} options={optionsHumedad}/> </ChartContainer> </>
+                      case 'barra':
+                        return <> <ChartContainer><BarChart title='Humedad' data={humedadBar} icono={false}/> 
+                            </ChartContainer><ChartContainer><BarChart title='Temperatura' data={TemperaturaBar} icono={true}/> </ChartContainer ></>
                       default:
                         return null;
                     }
                   })()}
                    </FadeIn> 
-          </Grid>  
-              
+          </Grid>          
         </Grid>
+        </div>
     )
 }
 export default DashUser

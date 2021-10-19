@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import DashUser from './DashUser';
  import Info from './Info'
+ 
 import Notifications from './Notifications';
 
 
@@ -18,9 +19,9 @@ const User = ({ toggle, isOpen}) => {
         <div className={classes.root}>       
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <Switch>
-          <Route exact path="/"><DashUser  /></Route>
-          <Route path="/informacion"><Info  /></Route>
-          <Route path="/notificaciones"><Notifications  /></Route>
+          <Route exact path="/"><DashUser /></Route>
+          <Route path="/informacion"><Info /></Route>
+          <Route path="/notificaciones"><Notifications /></Route>
         </Switch>
         
       </div>

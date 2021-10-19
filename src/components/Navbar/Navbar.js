@@ -1,17 +1,29 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core'
 import logo from './logo.png';
 import FadeIn from 'react-fade-in';
 import { NavIcon, Bars } from './NavbarElements';
 import Badge from '@mui/material/Badge';
+import Popover from '@mui/material/Popover';
 import { Link } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import Notifications from '../../screens/Notifications'
 import useStyles from './styles';
 
 const Navbar = ({ toggle }) => {
     const classes = useStyles();
+    const [anchorEl, setAnchorEl] = useState(null);
 
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+        };
+    
+    const handleClose = () => {
+        setAnchorEl(null);
+        };
 
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
     return (
         <>
 
@@ -25,10 +37,28 @@ const Navbar = ({ toggle }) => {
                   <Bars />
                 </NavIcon>
                 <FadeIn  className={classes.notificacion}>
+              
                     <Badge badgeContent={5} color="warning" >
-                        <Link to='/notificaciones'>                        
-                            <NotificationsIcon color="action" /> 
-                        </Link>
+                              
+                            <NotificationsIcon color="action" onClick={handleClick}/> 
+                            <Popover 
+                                id={id}
+                                open={open}
+                                anchorEl={anchorEl}
+                                onClose={handleClose}
+
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            >
+                            <Notifications />
+                            </Popover>
+                       
                     </Badge>
                 </FadeIn>
                 </Toolbar>
