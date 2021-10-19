@@ -5,7 +5,6 @@ import FadeIn from 'react-fade-in';
 import { NavIcon, Bars } from './NavbarElements';
 import Badge from '@mui/material/Badge';
 import Popover from '@mui/material/Popover';
-import { Link } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Notifications from '../../screens/Notifications'
 import useStyles from './styles';
