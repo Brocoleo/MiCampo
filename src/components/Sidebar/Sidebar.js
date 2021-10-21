@@ -9,7 +9,6 @@ import {
   SidebarRoute
 } from './styles';
 import { FaUser } from "react-icons/fa";
-import { FaBell } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 
@@ -22,7 +21,6 @@ const Sidebar = ({ isOpen, toggle }) => {
       <SidebarMenu>
         <SidebarLink to='/'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
         <SidebarLink to='/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
-        <SidebarLink to='/notificaciones'><FaBell />&nbsp;&nbsp;NOTIFICACIONES</SidebarLink>
         <SidebarLink to="/configuraciones" ><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>

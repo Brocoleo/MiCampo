@@ -132,7 +132,23 @@ const temperaturaLine = {
         
           <Grid item xs>
           <FadeIn>
-            <Select 
+              {/*case 'punto':
+                        return <><ChartContainer><ScatterChart title='Temperatura'  icono={true} data={temperaturaScatter} options={optionsTemperatura}/>
+                    </ChartContainer><ChartContainer><ScatterChart title='Humedad'  icono={false} data={humedadScatter} options={optionsHumedad}/> </ChartContainer> </> */}
+
+            {(() => {
+                    switch (grafico.graficoKey  ) {
+                      case 'linea':
+                        return <> <ChartContainer><LineChart title='Humedad' data={humedadLine} icono={false}/>  
+                            </ChartContainer><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={true}/> </ChartContainer ></> 
+                      case 'barra':
+                        return <> <ChartContainer><BarChart title='Humedad' data={humedadBar} icono={false}/> 
+                            </ChartContainer><ChartContainer><BarChart title='Temperatura' data={TemperaturaBar} icono={true}/> </ChartContainer ></>
+                      default:
+                        return null;
+                    }
+                  })()}
+                  <Select 
              value={tipoGrafico.filter(({ value }) => value === (grafico.graficoKey))}
               getOptionValue={({ value }) => value}
               onChange={({ value }) => updateGrafico(value)}options={tipoGrafico} className ='selectChart' placeholder='Elige el tipo de grafico'
@@ -145,23 +161,6 @@ const temperaturaLine = {
                   primary: '#134E5E',
                 },
               })}/>
-
-              {/*case 'punto':
-                        return <><ChartContainer><ScatterChart title='Temperatura'  icono={true} data={temperaturaScatter} options={optionsTemperatura}/>
-                    </ChartContainer><ChartContainer><ScatterChart title='Humedad'  icono={false} data={humedadScatter} options={optionsHumedad}/> </ChartContainer> </> */}
-
-            {(() => {
-                    switch (grafico.graficoKey  ) {
-                      case 'linea':
-                        return <> <ChartContainer><LineChart title='Humedad' data={humedadLine} icono={false}/> 
-                            </ChartContainer><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={true}/> </ChartContainer ></> 
-                      case 'barra':
-                        return <> <ChartContainer><BarChart title='Humedad' data={humedadBar} icono={false}/> 
-                            </ChartContainer><ChartContainer><BarChart title='Temperatura' data={TemperaturaBar} icono={true}/> </ChartContainer ></>
-                      default:
-                        return null;
-                    }
-                  })()}
                    </FadeIn> 
           </Grid>          
         </Grid>

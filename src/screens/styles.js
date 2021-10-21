@@ -31,10 +31,10 @@ export default  makeStyles((theme) => ({
 `;
 
 export const MiniContainer = styled.div`
-  margin-top: 2%;
+  margin-top:3%;
   display: flex;
   padding: 2px;
-  width: 380px;
+  width: 70%;
   flex-direction: column;
   align-items: center;
   border-radius: 30px;
@@ -43,29 +43,32 @@ export const MiniContainer = styled.div`
   background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
   font-family: Montserrat;
   @media (max-width: 768px) {
+    width: 80%;
     margin-top: 9%;
-    margin-left: 10%;
+    margin-left: 5%;
   }
   `;
 
 export const ChartContainer = styled.div`
-margin-top: 5%;
 display: flex;
 padding: 9px;
 width: 380px;
+margin-bottom: 5%;
 flex-direction: column;
 align-items: center;
 border-radius: 30px;
 box-shadow: 0 9px 12px 0 #134E5E;
 background: #fff;  
 font-family: Montserrat;
+@media (max-width: 1524px) {
+    width: 300px;
+  }
 @media (max-width: 768px) {
     margin-top: 9%;
   }
 `;
 
 export const InfoContainer = styled.div`
-margin-top: 0%;
 display: flex;
 padding: 10px;
 width: 380px;
