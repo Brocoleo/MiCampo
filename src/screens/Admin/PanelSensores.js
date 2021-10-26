@@ -257,7 +257,7 @@ const useStyles = makeStyles((theme) => ({
         <TextField name="cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange} value={estacion && estacion.cultivo}/>
         <br /><br />
         <div align="right">
-          <Button className={styles.btnAgregar} onClick={()=>peticionPut()}>Editar</Button>
+          <Button className={styles.btnAgregar} onClick={()=>/*peticionPut()*/}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
         </div>
       </div>
