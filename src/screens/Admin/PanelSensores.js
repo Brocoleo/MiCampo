@@ -219,10 +219,11 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const seleccionarConsola=(row, caso)=>{
+      // eslint-disable-next-line
       setEstacion(row);
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
-  
+  // eslint-disable-next-line
     useEffect(async()=>{
       await peticionGet();
     },[])
@@ -257,7 +258,7 @@ const useStyles = makeStyles((theme) => ({
         <TextField name="cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange} value={estacion && estacion.cultivo}/>
         <br /><br />
         <div align="right">
-          <Button className={styles.btnAgregar} onClick={()=>/*peticionPut()*/}>Editar</Button>
+          <Button className={styles.btnAgregar} onClick={()=>console.log('editar')/*peticionPut()*/}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
         </div>
       </div>

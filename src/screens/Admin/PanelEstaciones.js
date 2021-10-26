@@ -179,7 +179,7 @@ const useStyles = makeStyles((theme) => ({
         abrirCerrarModalInsertar()
       })
     }
-  
+  // eslint-disable-next-line
     { /*  const peticionPut=async()=>{
     await axios.put(baseUrl+estacion.id, estacion)
       .then(response=>{
@@ -221,7 +221,7 @@ const useStyles = makeStyles((theme) => ({
       setEstacion(row);
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
-  
+  // eslint-disable-next-line
     useEffect(async()=>{
       await peticionGet();
     },[])

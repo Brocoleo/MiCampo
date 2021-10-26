@@ -182,6 +182,7 @@ const useStyles = makeStyles((theme) => ({
       await axios.put(baseUrl+usuario.id, usuario)
       .then(response=>{
         var dataNueva=data;
+        // eslint-disable-next-line
         dataNueva.map(data=>{
           if(data.id===usuario.id){
             data.email=usuario.email;
@@ -218,6 +219,7 @@ const useStyles = makeStyles((theme) => ({
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   
+    // eslint-disable-next-line
     useEffect(async()=>{
       await peticionGet();
     },[])
