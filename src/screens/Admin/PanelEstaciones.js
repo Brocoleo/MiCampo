@@ -180,8 +180,8 @@ const useStyles = makeStyles((theme) => ({
       })
     }
   
-    const peticionPut=async()=>{
-     { /*await axios.put(baseUrl+estacion.id, estacion)
+    { /*  const peticionPut=async()=>{
+    await axios.put(baseUrl+estacion.id, estacion)
       .then(response=>{
         var dataNueva=data;
         dataNueva.map(data=>{
@@ -192,10 +192,10 @@ const useStyles = makeStyles((theme) => ({
             data.cultivo=estacion.cultivo;
           }
         })
-      setData(dataNueva);*/}
+      setData(dataNueva);
         abrirCerrarModalEditar();
       })
-    }
+    }*/}
   
     const peticionDelete=async()=>{
       await axios.delete(baseUrl+estacion.id)
