@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import Robot from '../Animations/Robot'
+import Robot from '../../Animations/Robot'
 import { WeatherInfoContainer, WeatherInfoLabel,InfoContainer} from "./styles"
 import ReactiveButton from 'reactive-button';
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 export const WeatherInfoLabel = styled.span`
-  margin: 20px 25px 10px;
+  margin: 8px 0px 0px;
   text-transform: none;
   text-align: center;
   width: 90%;

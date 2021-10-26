@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import  { InfoContainer, TituloInfo} from './styles'
+import  { InfoContainer, TituloInfo} from '../styles'
 import FadeIn from 'react-fade-in';
 const theme = createTheme();
 

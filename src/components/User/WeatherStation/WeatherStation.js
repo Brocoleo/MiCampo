@@ -21,7 +21,7 @@ const WeatherInfoComponent = (props) => {
         </InfoContainer>
     );
 };
-const WeatherStation = (prps) => {
+const WeatherStation = () => {
    
     return (
         <>            

@@ -1,19 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 body {
-    margin-top: 12%;
+    margin-top: 10%;
+    margin-bottom: 27%;
+    padding:0px;
     background: #134E5E;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to bottom, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 100vh;
     display: flex;
     justify-content: center;
     font-family: 'Oswald', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
 }
 
 code {
     font-family: 'Oswald', sans-serif;
+    
 }
 .title{
     display: contents;
@@ -32,10 +35,7 @@ code {
     width: 80%;
 }
 
-.MuiToolbar-gutters {
-    padding-left: 16px;
-    padding-right: 0;
-}
+
 
 .MuiList-root {
     color: #000;
@@ -43,3 +43,33 @@ code {
     padding: 80px;
     border-radius: 10px;
   }
+
+  .panelnotificaciones{
+    color: #000;
+    border-radius: 10px;
+  }
+
+  
+    @media (max-width: 768px) {
+    .MuiPopover-paper{
+        margin-top: 10%;
+      }
+  }
+
+  .bienvenida{
+        margin-top: 0;
+        text-align: left;
+        color: #fff;
+        font-weight: 500;
+        margin-bottom: 0;
+        text-shadow: 2px 2px #134E5E;
+        
+  }
+  .subtitulo{
+    text-align: left;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 10%;
+    text-shadow: 1px 1px #134E5E;
+}

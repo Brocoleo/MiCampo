@@ -29,17 +29,19 @@ export const Icon = styled.div`
   background: transparent;
   border: transparent;
   font-size: 2rem;
-  cursor: pointer;
+  cursor: none;
+  pointer-events: none;
   outline: none;
 `;
 
 export const SidebarMenu = styled.div`
+  margin-top: 60px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, 90px);
   text-align: center;
   @media screen and (max-width: 480px) {
-    grid-template-rows: repeat(3, 60px);
+    grid-template-rows: repeat(3, 80px);
   }
 `;
 
@@ -49,12 +51,15 @@ export const SidebarLink = styled(Link)`
   justify-content: center;
   font-size: 1.6rem;
   text-decoration: none;
+  font-weight: 300;
+  font-family: 'Oswald', sans-serif;
   list-style: none;
   transition: 0.2s ease-in-out;
-  color: #000;
+  color: #171717;
   cursor: pointer;
   &:hover {
-    color: rgb(52,79,161);
+    background:#D4ECDD ;
+    color: #171717;
     transition: 0.2s ease-in-out;
   }
 `;

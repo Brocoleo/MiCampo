@@ -8,8 +8,8 @@ export const WeatherInfoLabel = styled.span`
   text-align: center;
   width: 90%;
   font-family: 'Oswald', sans-serif;
-  font-weight: 400;
-  font-size: 23px;
+  font-weight: 300;
+  font-size: 1.6rem;
   color: #fff;
 `;
 export const WeatherIcon = styled.img`
@@ -29,7 +29,7 @@ export const WeatherContainer = styled.div`
 
 export const WeatherInfoContainer = styled.div`
   display: flex;
-  width: 90%;
+  width: 100%;
   color:white;
   flex-direction: row;
   justify-content: space-evenly;

@@ -1,14 +1,15 @@
 import React, {useState} from 'react'
 //import WeatherComponent from "../components/WheatherInfo/WeatherInfo";
-import Assistant from '../components/Assistent/Assistent'
-import LineChart from "../components/LineChart/LineChart";
-import WeatherStation from "../components/WeatherStation/WeatherStation";
+import Assistant from '../../components/User/Assistent/Assistent'
+import LineChart from "../../components/User/LineChart/LineChart";
+import WeatherStation from "../../components/User/WeatherStation/WeatherStation";
 //import ScatterChart from '../components/ScatterChart/ScatterChart';
-import BarChart from '../components/BarChart/BarChart';
+import BarChart from '../../components/User/BarChart/BarChart';
 import Select from 'react-select'
 import FadeIn from 'react-fade-in';
 import Grid from '@material-ui/core/Grid';
-import  { MiniContainer, ChartContainer} from './styles'
+import  { MiniContainer, ChartContainer} from '../styles'
+
 
 // eslint-disable-next-line
 {/* const temperaturaScatter = [
