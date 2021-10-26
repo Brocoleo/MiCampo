@@ -271,7 +271,7 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div >
         <FadeIn>
-          <h3 className="bienvenida">Informacion de Usuarios</h3>
+          <h1 className="bienvenida">Informacion de Usuarios</h1>
           <br />
           <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtoInsertar>
           </FadeIn>

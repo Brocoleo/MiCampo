@@ -10,20 +10,26 @@ import Paper from '@mui/material/Paper';
 
 const baseUrl=''
 
-function createData(id, usuario, sector, nombre, cultivo) {
-    return { id, usuario, sector, nombre, cultivo };
+function createData(id, grafica, maximo, minimo, tipo) {
+    return {id, grafica, maximo, minimo, tipo };
   }
 
 const rows = [
-    createData(1, 'Juan', 'Sector 1', 'Estacion 1', 'uva'),
-    createData(2, 'Juan', 'Sector 1', 'Estacion 1', 'uva'),
-    createData(3, 'Juan', 'Sector 2', 'Estacion 2', 'uva'),
-    createData(4, 'Juan', 'Sector 3', 'Estacion 2', 'uva'),
-    createData(5, 'Juan', 'Sector 3', 'Estacion 3', 'uva'),
+    createData(1, 'Linea', '100', '50', 'Humedad'),
+    createData(2, 'Barra', '200', '0', 'Temperatura'),
+    createData(3, 'Linea', '100', '0', 'Humedad'),
+    createData(4, 'Barra', '300', '60', 'Presion'),
+    createData(5, 'Linea', '100', '0', 'Humedad'),
   ];
 
 
 const useStyles = makeStyles((theme) => ({
+  table: {
+    minWidth: 650
+  },
+  tableContainer: {
+    boxShadow: "  border: '2px solid #134E5E',"
+  },
     modal : {
       position: 'absolute',
       borderRadius: '30px',
@@ -38,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     btnDelete:{
       cursor: 'pointer',
-      color: '#E02401',
+      color: '#E02401'  
     }, 
     btnEditar:{
       cursor: 'pointer',
@@ -149,20 +155,20 @@ const useStyles = makeStyles((theme) => ({
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
   
-    const [estacion, setEstacion]=useState({
-      usuario: '',
-      sector:'',
-      nombre: '',
-      cultivo: ''
+    const [sensor, setSensor]=useState({
+      grafica: '',
+      maxima:'',  
+      minimo: '',
+      tipo: ''
     })
   
     const handleChange=e=>{
       const {name, value}=e.target;
-      setEstacion(prevState=>({
+      setSensor(prevState=>({
         ...prevState,
         [name]: value
       }))
-      console.log(estacion);
+      console.log(sensor);
     }
   
     const peticionGet=async()=>{
@@ -173,35 +179,34 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPost=async()=>{
-      await axios.post(baseUrl, estacion)
+      await axios.post(baseUrl, sensor)
       .then(response=>{
         setData(data.concat(response.data))
         abrirCerrarModalInsertar()
       })
     }
-  
-    { /* const peticionPut=async()=>{
-        await axios.put(baseUrl+estacion.id, estacion)
+  // eslint-disable-next-line
+    { /*  const peticionPut=async()=>{
+    await axios.put(baseUrl+sensor.id, sensor)
       .then(response=>{
         var dataNueva=data;
         dataNueva.map(data=>{
-          if(data.id===estacion.id){
-            data.usuario=estacion.usuario;
-            data.sector=estacion.sector;
-            data.nombre=estacion.nombre;
-            data.cultivo=estacion.cultivo;
+          if(data.id===sensor.id){
+            data.usuario=sensor.usuario;
+            data.sector=sensor.sector;
+            data.nombre=sensor.nombre;
+            data.cultivo=sensor.cultivo;
           }
         })
-        setData(dataNueva);
+      setData(dataNueva);
         abrirCerrarModalEditar();
       })
-    }
-    */}
+    }*/}
   
     const peticionDelete=async()=>{
-      await axios.delete(baseUrl+estacion.id)
+      await axios.delete(baseUrl+sensor.id)
       .then(response=>{
-        setData(data.filter(consola=>consola.id!==estacion.id));
+        setData(data.filter(consola=>consola.id!==sensor.id));
         abrirCerrarModalEliminar();
       })
     }
@@ -219,8 +224,7 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const seleccionarConsola=(row, caso)=>{
-      // eslint-disable-next-line
-      setEstacion(row);
+      setSensor(row);
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   // eslint-disable-next-line
@@ -230,17 +234,17 @@ const useStyles = makeStyles((theme) => ({
   
     const bodyInsertar=(
       <div className={styles.modal}>
-        <h2 className={styles.tituloInsertar}>Agregar Estacion</h2>
-        <TextField name="usuario" className={styles.inputMaterial} label="Usuario" onChange={handleChange}/>
+        <h2 className={styles.tituloInsertar}>Agregar Sensor</h2>
+        <TextField name="grafica" className={styles.inputMaterial} label="Grafica" onChange={handleChange}/>
         <br />
-        <TextField name="sector" className={styles.inputMaterial} label="Sector" onChange={handleChange}/>
+        <TextField name="maximo" className={styles.inputMaterial} label="Maximo" onChange={handleChange}/>
         <br />
-        <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange}/>
+        <TextField name="minimo" className={styles.inputMaterial} label="Minimo" onChange={handleChange}/>
         <br />
-        <TextField name="cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange}/>
+        <TextField name="tipo" className={styles.inputMaterial} label="Tipo" onChange={handleChange}/>
         <br /><br />
         <div align="right">
-          <Button className={styles.btnAgregar}  onClick={()=>peticionPost()}>Insertar</Button>
+          <Button className={styles.btnAgregar}  onClick={()=>peticionPost()}>Guardar</Button>
           <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
         </div>
       </div>
@@ -248,17 +252,17 @@ const useStyles = makeStyles((theme) => ({
   
     const bodyEditar=(
       <div className={styles.modal}>
-        <h2 className={styles.tituloEditar}>Editar Estacion</h2>
-        <TextField name="usuario" className={styles.inputMaterial} label="Usuario" onChange={handleChange} value={estacion && estacion.usuario}/>
+        <h2 className={styles.tituloEditar}>Editar Sensor</h2>
+        <TextField name="grafica" className={styles.inputMaterial} label="Grafica" onChange={handleChange} value={sensor && sensor.grafica}/>
         <br />
-        <TextField name="sector" className={styles.inputMaterial} label="Sector" onChange={handleChange} value={estacion && estacion.sector}/>
+        <TextField name="maximo" className={styles.inputMaterial} label="Maximo" onChange={handleChange} value={sensor && sensor.maximo}/>
         <br />
-        <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange} value={estacion && estacion.nombre}/>
+        <TextField name="minimo" className={styles.inputMaterial} label="Minimo" onChange={handleChange} value={sensor && sensor.minimo}/>
         <br />
-        <TextField name="cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange} value={estacion && estacion.cultivo}/>
+        <TextField name="tipo" className={styles.inputMaterial} label="Tipo" onChange={handleChange} value={sensor && sensor.tipo}/>
         <br /><br />
         <div align="right">
-          <Button className={styles.btnAgregar} onClick={()=>console.log('editar')/*peticionPut()*/}>Editar</Button>
+          <Button className={styles.btnAgregar} onClick={()=>{console.log('editar')/*peticionPut()}*/}}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
         </div>
       </div>
@@ -266,7 +270,7 @@ const useStyles = makeStyles((theme) => ({
   
     const bodyEliminar=(
       <div className={styles.modal}>
-        <p>Estás seguro que deseas eliminar la <b>{estacion && estacion.nombre}</b> ? </p>
+        <p>Estás seguro que deseas eliminar el <b>{sensor && sensor.nombre}</b> ? </p>
         <div align="right">
           <Button color="secondary" onClick={()=>peticionDelete()} >Sí</Button>
           <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
@@ -280,21 +284,21 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div >
         <FadeIn>
-          <h3 className="bienvenida">Informacion de las Estaciones</h3>
+          <h1 className="bienvenida">Informacion de los Sensores</h1>
           <br />
-          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nueva Estacion</ButtoInsertar>
+          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sensor</ButtoInsertar>
           </FadeIn>
         <br />
     <FadeIn>
        <TableContainer component={Paper}>
-         <Table >
+         <Table className={styles.table}>
          <TableHead>
           <TableRow>
             <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell align="right">Usuario</StyledTableCell>
-            <StyledTableCell align="right">Sector</StyledTableCell>
-            <StyledTableCell align="right">Nombre</StyledTableCell>
-            <StyledTableCell align="right">Cultivo</StyledTableCell>
+            <StyledTableCell align="right">Grafica</StyledTableCell>
+            <StyledTableCell align="right">Maximo</StyledTableCell>
+            <StyledTableCell align="right">Minimo</StyledTableCell>
+            <StyledTableCell align="right">Tipo</StyledTableCell>
             <StyledTableCell align="right">Acciones</StyledTableCell>
           </TableRow >
         </TableHead>
@@ -303,10 +307,10 @@ const useStyles = makeStyles((theme) => ({
              {rows.map(row=>(
                <StyledTableRow  key={row.id}>
                      <StyledTableCell component="th" scope="row"> {row.id}  </StyledTableCell>
-                     <StyledTableCell component="th" scope="row"> {row.usuario}  </StyledTableCell>
-                     <StyledTableCell align="right">{row.sector}</StyledTableCell>
-                     <StyledTableCell align="right">{row.nombre}</StyledTableCell>
-                     <StyledTableCell align="right">{row.cultivo}</StyledTableCell>
+                     <StyledTableCell component="th" scope="row"> {row.grafica}  </StyledTableCell>
+                     <StyledTableCell align="right">{row.maximo}</StyledTableCell>
+                     <StyledTableCell align="right">{row.minimo}</StyledTableCell>
+                     <StyledTableCell align="right">{row.tipo}</StyledTableCell>
                      <StyledTableCell>
                       <Edit className={styles.btnEditar} onClick={()=>seleccionarConsola(row, 'Editar')}/>
                       &nbsp;&nbsp;&nbsp;

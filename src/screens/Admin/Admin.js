@@ -6,6 +6,7 @@ import PanelUsuarios from './PanelUsuarios'
 import PanelEstaciones from './PanelEstaciones'
 import Navbar from "../../components/Admin/Navbar/Navbar"
 import Sidebar from "../../components/Admin/Sidebar/Sidebar";
+import PanelSensores from './PanelSensores';
 
 
 const Admin = ({ toggle, isOpen}) => {
@@ -17,9 +18,9 @@ const Admin = ({ toggle, isOpen}) => {
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Switch>
             <Route exact path="/admin"><DashAdmin /></Route>
-            <Route path="/usuarios"><h1><PanelUsuarios /></h1></Route>
-            <Route path="/estaciones"><h1><PanelEstaciones /></h1></Route>
-            <Route path="/sensores"><h1><PanelEstaciones /></h1></Route>
+            <Route path="/usuarios"><PanelUsuarios /></Route>
+            <Route path="/estaciones"><PanelEstaciones /></Route>
+            <Route path="/sensores"><PanelSensores /></Route>
             <Route path="/configuracionadmin"><h1>Configuraciones</h1></Route>
             </Switch>
        

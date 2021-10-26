@@ -238,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
         <TextField name="cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange}/>
         <br /><br />
         <div align="right">
-          <Button className={styles.btnAgregar}  onClick={()=>peticionPost()}>Insertar</Button>
+          <Button className={styles.btnAgregar}  onClick={()=>peticionPost()}>Guardar</Button>
           <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
         </div>
       </div>
@@ -278,7 +278,7 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div >
         <FadeIn>
-          <h3 className="bienvenida">Informacion de las Estaciones</h3>
+          <h1 className="bienvenida">Informacion de las Estaciones</h1>
           <br />
           <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nueva Estacion</ButtoInsertar>
           </FadeIn>
