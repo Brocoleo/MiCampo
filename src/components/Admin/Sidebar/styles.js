@@ -50,10 +50,10 @@ export const SidebarLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   text-decoration: none;
-  font-weight: 300;
-  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  font-family: 'Nunito', sans-serif;
   list-style: none;
   transition: 0.2s ease-in-out;
   color: #171717;

@@ -12,7 +12,7 @@ const Robot = () => {
       };
     return (
         <div>
-        <Lottie options={defaultOptions} height={150} width={150}  speed={2}/>
+        <Lottie options={defaultOptions} height={150} width={150}  speed={0.5}/>
         </div>
     )
 }

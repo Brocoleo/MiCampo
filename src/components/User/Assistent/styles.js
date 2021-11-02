@@ -6,7 +6,7 @@ export const WeatherInfoLabel = styled.span`
   text-transform: none;
   text-align: center;
   width: 90%;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: bold;
   font-size: 16px;
   color: #fff;
@@ -32,7 +32,7 @@ export const WeatherInfoContainer = styled.div`
 `;
 export const InfoContainer = styled.div`
   display: flex;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 5px 10px;
   flex-direction: row;
   justify-content: space-evenly;
@@ -45,7 +45,7 @@ export const InfoIcon = styled.img`
 export const InfoLabel = styled.span`
   display: flex;
   flex-direction: column;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   margin: 15px;
   & span {

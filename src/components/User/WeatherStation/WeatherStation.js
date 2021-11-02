@@ -26,10 +26,10 @@ const WeatherStation = () => {
     return (
         <>            
 
-            <WeatherInfoLabel>Informacion de mi Estacion Nº1</WeatherInfoLabel>
+            <WeatherInfoLabel>Estacion Nº1</WeatherInfoLabel>
             <WeatherInfoContainer>
-                <WeatherInfoComponent name={"temperatura"}value={`25°C`}/>  
-                <WeatherInfoComponent name={"humedad"} value={`45%`}/>
+                <WeatherInfoComponent name={"temperatura"}value={`45°C`}/>  
+                <WeatherInfoComponent name={"humedad"} value={`15%`}/>
                 <WeatherInfoComponent name={"luminosidad"} value={740}/>
                 <WeatherInfoComponent name={"presión"} value={`3500hPa`}/>
             </WeatherInfoContainer>

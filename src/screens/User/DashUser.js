@@ -1,56 +1,45 @@
 import React, {useState} from 'react'
 //import WeatherComponent from "../components/WheatherInfo/WeatherInfo";
-import Assistant from '../../components/User/Assistent/Assistent'
+//import Assistant from '../../components/User/Assistent/Assistent'
 import LineChart from "../../components/User/LineChart/LineChart";
 import WeatherStation from "../../components/User/WeatherStation/WeatherStation";
 //import ScatterChart from '../components/ScatterChart/ScatterChart';
+import Notifications from './Notifications'
+import { IconContext } from "react-icons";
 import BarChart from '../../components/User/BarChart/BarChart';
-import Select from 'react-select'
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { AiOutlineLineChart, AiOutlineBarChart} from "react-icons/ai";
 import FadeIn from 'react-fade-in';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import  { MiniContainer, ChartContainer} from '../styles'
+import { styled } from '@mui/material/styles';
 
 
-// eslint-disable-next-line
-{/* const temperaturaScatter = [
-    ['Dia','Temperatura'],
-    ['Lun', 12],
-    ['Mar', 5.5],
-    ['Mier', 14],
-    ['Jue', 5],
-    ['Vier', 3.5],
-    ['Sab', 7],
-    ['Dom', 7]
-  ]
-  const optionsTemperatura ={
-    legend: 'none',
-    colors: ['rgb(255, 38, 28)'],
-  }
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+  '& .MuiToggleButtonGroup-grouped': {
+    margin: '10px',
+    boxShadow: '2px 2px #134E5E',
+    '&:not(:first-of-type)': {
+      borderRadius: theme.shape.borderRadius,
+    },
+    '&:first-of-type': {
+      borderRadius: theme.shape.borderRadius,
+    },
+    '&:hover, &:focus': {
+      background: '#134E5E',
+    },
+  },
+}));
 
-  const humedadScatter = [
-    ['Dia','Humedad'],
-    ['Lun', 12],
-    ['Mar', 5.5],
-    ['Mier', 14],
-    ['Jue', 5],
-    ['Vier', 3.5],
-    ['Sab', 7],
-    ['Dom', 7]
-  ]
-  const optionsHumedad ={
-    legend: 'none',
-    colors: ['rgb(20, 39, 155)'],
-  }
-*/}
+const DashUser = () => {  
+  const [grafico, setGrafico] = useState('barra');
 
-const DashUser = () => {  let initialGrafico = { graficoKey: 'barra'}
-  const [grafico, setGrafico] = useState(initialGrafico);
+  const handleAlignment = (event, newAlignment) => {
+    setGrafico(newAlignment);
+  };
 
-  const tipoGrafico = [
-    { value: 'linea', label: 'Linea' },
-   // { value: 'punto', label: 'Puntos' },
-    { value: 'barra', label: 'Barra' }
-  ]
+ 
 
 const temperaturaLine = {
     labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
@@ -107,65 +96,65 @@ const temperaturaLine = {
 
 
  
-    
-    const updateGrafico = value => {
-        setGrafico({ ...grafico, graficoKey: value });
-      };  
+
 
     return (
-      <div >
-        <Grid container spacing={6}> 
+      <Grid fluid>
+        <Row around="xs"> 
        
          {/*<Grid item xs>
           <Container>
           <WeatherComponent />
           </Container>      
          </Grid> */}
-        <FadeIn>
-        <Grid item xs>
+
+    
+          <Col xs >
+          <FadeIn >
           <MiniContainer>
           <WeatherStation />
-          <Assistant/>
+          <Notifications />
           </MiniContainer>  
-          </Grid>
-        </FadeIn>
+          </FadeIn> 
+          </Col>
+     
 
         
-          <Grid item xs>
-          <FadeIn>
-              {/*case 'punto':
-                        return <><ChartContainer><ScatterChart title='Temperatura'  icono={true} data={temperaturaScatter} options={optionsTemperatura}/>
-                    </ChartContainer><ChartContainer><ScatterChart title='Humedad'  icono={false} data={humedadScatter} options={optionsHumedad}/> </ChartContainer> </> */}
+          <Col xs >
+       
+          <FadeIn className='tipoGrafica'>
+                    <StyledToggleButtonGroup  aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small"
+ >
+                      <ToggleButton value="barra" aria-label="left aligned" >
+                      <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
+                        <AiOutlineBarChart />
+                        </IconContext.Provider>
+                      </ToggleButton>
+                      <ToggleButton value="linea" aria-label="justified" >
+                      <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
+                        <AiOutlineLineChart />
+                        </IconContext.Provider>
+                      </ToggleButton>
+                    </StyledToggleButtonGroup>
+                   </FadeIn> 
 
             {(() => {
-                    switch (grafico.graficoKey  ) {
+                    switch (grafico) {
                       case 'linea':
-                        return <> <ChartContainer><LineChart title='Humedad' data={humedadLine} icono={false}/>  
-                            </ChartContainer><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={true}/> </ChartContainer ></> 
+                        return <> <FadeIn><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={false}/>  
+                            </ChartContainer><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={true}/> </ChartContainer > </FadeIn> </> 
                       case 'barra':
-                        return <> <ChartContainer><BarChart title='Humedad' data={humedadBar} icono={false}/> 
-                            </ChartContainer><ChartContainer><BarChart title='Temperatura' data={TemperaturaBar} icono={true}/> </ChartContainer ></>
+                        return <> <FadeIn><ChartContainer><BarChart title='Humedad' data={humedadBar} icono={false}/> 
+                            </ChartContainer><ChartContainer><BarChart title='Temperatura' data={TemperaturaBar} icono={true}/> </ChartContainer ></FadeIn></>
                       default:
-                        return null;
+                        return <> <FadeIn><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={false}/>  
+                            </ChartContainer><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={true}/> </ChartContainer > </FadeIn> </> 
                     }
                   })()}
-                  <Select 
-             value={tipoGrafico.filter(({ value }) => value === (grafico.graficoKey))}
-              getOptionValue={({ value }) => value}
-              onChange={({ value }) => updateGrafico(value)}options={tipoGrafico} className ='selectChart' placeholder='Elige el tipo de grafico'
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: '12px',
-                colors: {
-                  ...theme.colors,
-                  primary25: 'primary50',
-                  primary: '#134E5E',
-                },
-              })}/>
-                   </FadeIn> 
-          </Grid>          
+                 
+          </Col>          
+        </Row>
         </Grid>
-        </div>
     )
 }
 export default DashUser

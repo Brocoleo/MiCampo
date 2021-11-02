@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
+
 body {
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 27%;
     padding:0px;
     background: #134E5E;  /* fallback for old browsers */
@@ -8,25 +9,26 @@ body {
     background: linear-gradient(to bottom, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     display: flex;
     justify-content: center;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Nunito', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     
 }
 
 code {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Nunito', sans-serif;
     
 }
 .title{
     display: contents;
-    font-family: 'Oswald', sans-serif;
+    font-weight: 900;
+    font-family: 'Nunito', sans-serif;
 }
 
 
 .reactive-btn .content {
     position: relative;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 18px;
 }
 
@@ -60,7 +62,7 @@ code {
         margin-top: 0;
         text-align: left;
         color: #fff;
-        font-weight: 500;
+        font-weight: bold;
         margin-bottom: 0;
         text-shadow: 2px 2px #134E5E;
         
@@ -69,7 +71,18 @@ code {
     text-align: left;
     color: #fff;
     font-size: 1.5rem;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 10%;
     text-shadow: 1px 1px #134E5E;
+}
+
+
+.MuiAlert-root{
+    max-width: 300px;
+    margin-top: 10px;
+}
+
+.tipoGrafica{
+    margin-top: 6%;
+    margin-bottom: 3%;
 }
