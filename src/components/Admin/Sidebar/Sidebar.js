@@ -23,8 +23,8 @@ const Sidebar = ({ isOpen, toggle }) => {
       <SidebarMenu>
         <SidebarLink to='/admin'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
         <SidebarLink to='/usuarios'><FaUsers />&nbsp;&nbsp;USUARIOS</SidebarLink>
-        <SidebarLink to='/estaciones'><IoPartlySunny />&nbsp;&nbsp;ESTACIONES</SidebarLink>
-        <SidebarLink to='/sensores'><FaMicrochip />&nbsp;&nbsp;SENSORES</SidebarLink>
+        <SidebarLink to='/sectores'><IoPartlySunny />&nbsp;&nbsp;SECTORES</SidebarLink>
+        <SidebarLink to='/estaciones'><FaMicrochip />&nbsp;&nbsp;ESTACIONES</SidebarLink>
         <SidebarLink to="/configuracionadmin" ><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>

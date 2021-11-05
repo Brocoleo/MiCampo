@@ -8,7 +8,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 
-const baseUrl='https://sensoresapi.herokuapp.com/api/v1/users'
+const baseUrl=''
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
   const ButtoInsertar = styled(Button)({
-    marginLeft: '60%',
+    marginLeft: '57%',
     textTransform: 'none',
     fontSize: '1.2rem',
     padding: '6px 15px',
@@ -130,41 +130,42 @@ const useStyles = makeStyles((theme) => ({
     }
   });
   
-  function PanelUsuarios() {
+  function PanelSectores({config}) {
     const styles= useStyles();
-    const [usuarios, setUsuarios] = useState();
+    const [sectores, setSectores] = useState();
     const [data, setData]=useState([]);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MzU5OTA0MTd9.CCuF-FA5EKtO-BmobZ9Ra64ZTAZcSjKAdOdQNy3Ybys"
-    const config = {headers: { Authorization: `Bearer ${token}` }};
-
-    useEffect(() => {
-      axios.get(baseUrl,config).then((response) => {
-      setUsuarios(response.data);
-    });
-    })
   
-    const [usuario, setUsuario]=useState({
+    const [sector, setSector]=useState({
       id: '',
-      email: '',
-      password :'',
-      role: ''
+      nombreSector: ''
     })
-  
+    useEffect(() => {
+      //Obtener Sectores
+      axios.get(`https://sensoresapi.herokuapp.com/api/v1/sector`,config).then((response) => {
+      setSectores(response.data);
+      });       
+    })
     const handleChange=e=>{
       const {name, value}=e.target;
-      setUsuario(prevState=>({
+      setSector(prevState=>({
         ...prevState,
         [name]: value
       }))
-      console.log(usuario);
+      console.log(sector);
     }
   
+    const peticionGet=async()=>{
+      await axios.get(baseUrl)
+      .then(response=>{
+        setData(response.data);
+      })
+    }
   
     const peticionPost=async()=>{
-      await axios.post(baseUrl, usuario)
+      await axios.post(baseUrl, sector)
       .then(response=>{
         setData(data.concat(response.data))
         abrirCerrarModalInsertar()
@@ -172,14 +173,14 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPut=async()=>{
-      await axios.put(baseUrl+usuario.id, usuario)
+      await axios.put(baseUrl+sector.id, sector)
       .then(response=>{
         var dataNueva=data;
         // eslint-disable-next-line
         dataNueva.map(data=>{
-          if(data.id===usuario.id){
-            data.email=usuario.email;
-            data.contrasena=usuario.contrasena;
+          if(data.id===sector.id){
+            data.email=sector.email;
+            data.contrasena=sector.contrasena;
           }
         })
         setData(dataNueva);
@@ -188,9 +189,9 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionDelete=async()=>{
-      await axios.delete(baseUrl+usuario.id)
+      await axios.delete(baseUrl+sector.id)
       .then(response=>{
-        setData(data.filter(consola=>consola.id!==usuario.id));
+        setData(data.filter(consola=>consola.id!==sector.id));
         abrirCerrarModalEliminar();
       })
     }
@@ -207,15 +208,19 @@ const useStyles = makeStyles((theme) => ({
       setModalEliminar(!modalEliminar);
     }
   
-    const seleccionarUsuario=(row, caso)=>{
-      setUsuario(row);
+    const seleccionarsector=(row, caso)=>{
+      setSector(row);
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   
+    // eslint-disable-next-line
+    useEffect(async()=>{
+      await peticionGet();
+    },[])
   
     const bodyInsertar=(
       <div className={styles.modal}>
-        <h2 className={styles.tituloInsertar}>Agregar Usuario</h2>
+        <h2 className={styles.tituloInsertar}>Agregar Sector</h2>
         <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange}/>
         <br />
         <TextField name="rol" className={styles.inputMaterial} label="Rol" onChange={handleChange}/>
@@ -231,10 +236,8 @@ const useStyles = makeStyles((theme) => ({
   
     const bodyEditar=(
       <div className={styles.modal}>
-        <h2 className={styles.tituloEditar}>Editar Usuario</h2>
-        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} value={usuario && usuario.email}/>
-        <br />
-        <TextField name="rol" className={styles.inputMaterial} label="Rol" onChange={handleChange} value={usuario && usuario.role}/>
+        <h2 className={styles.tituloEditar}>Editar sector</h2>
+        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} value={sector && sector.nombreSector}/>
         <br />
         <br /><br />
         <div align="right">
@@ -246,7 +249,7 @@ const useStyles = makeStyles((theme) => ({
   
     const bodyEliminar=(
       <div className={styles.modal}>
-        <p>Estás seguro que deseas eliminar a <b>{usuario && usuario.email}</b> ? </p>
+        <p>Estás seguro que deseas eliminar a <b>{sector && sector.email}</b> ? </p>
         <div align="right">
           <Button color="secondary" onClick={()=>peticionDelete()} >Sí</Button>
           <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
@@ -260,9 +263,9 @@ const useStyles = makeStyles((theme) => ({
     return (
       <div >
         <FadeIn>
-          <h1 className="bienvenida">Informacion de Usuarios</h1>
+          <h1 className="bienvenida">Informacion de Sectores</h1>
           <br />
-          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtoInsertar>
+          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo sector</ButtoInsertar>
           </FadeIn>
 
         <br />
@@ -272,22 +275,20 @@ const useStyles = makeStyles((theme) => ({
          <TableHead>
           <StyledTableRow>
             <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell >Email</StyledTableCell>
-            <StyledTableCell >Rol</StyledTableCell>
+            <StyledTableCell >Nombre</StyledTableCell>
             <StyledTableCell>Acciones</StyledTableCell>
           </StyledTableRow >
         </TableHead>
   
            <TableBody>
-             {usuarios && usuarios.map(row=>(
+             {sectores && sectores.map(row=>(
                <StyledTableRow  key={row.id}>
-                   <StyledTableCell component="th" scope="row">{row.id}</StyledTableCell>
-                    <StyledTableCell component="th" scope="row">{row.email}</StyledTableCell>
-                    <StyledTableCell component="th" scope="row">{row.role}</StyledTableCell>
+                   <StyledTableCell component="th" scope="row"> {row.id}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row"> {row.nombreSector}  </StyledTableCell>
                     <StyledTableCell>
-                    <Edit className={styles.btnEditar} onClick={()=>seleccionarUsuario(row, 'Editar')}/>
+                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row, 'Editar')}/>
                     &nbsp;&nbsp;&nbsp;
-                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarUsuario(row, 'Eliminar')}/>
+                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row, 'Eliminar')}/>
                    </StyledTableCell>
                </StyledTableRow>
              ))}
@@ -316,4 +317,4 @@ const useStyles = makeStyles((theme) => ({
     );
   }
   
-  export default PanelUsuarios;
+  export default PanelSectores;
