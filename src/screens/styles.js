@@ -9,6 +9,14 @@ export default  makeStyles((theme) => ({
         marginTop: '18%',
       }
     },
+    admin: {
+      marginTop: '5%',
+      textAlign: '-webkit-center',
+      boxSizing: 'border-box',
+      ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
+        marginTop: '18%',
+      }
+    },
   
   }));
 

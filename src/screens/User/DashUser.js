@@ -33,7 +33,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 }));
 
 const DashUser = () => {  
-  const [grafico, setGrafico] = useState('barra');
+  const [grafico, setGrafico] = useState('linea');
 
   const handleAlignment = (event, newAlignment) => {
     setGrafico(newAlignment);

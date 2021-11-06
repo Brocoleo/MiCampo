@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import axios from "axios";
-import Selector from "../Selector";
+import Selector from "../../Selector";
 import { CommonLoading } from 'react-loadingg';
 import {Condition, WeatherInfoContainer, WeatherInfoLabel, Location, InfoContainer, InfoIcon, InfoLabel, WeatherContainer} from "./styles"
 

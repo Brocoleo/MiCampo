@@ -8,7 +8,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 
-const baseUrl=''
+const baseUrl='https://sensoresapi.herokuapp.com/api/v1/sector'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -144,7 +144,7 @@ const useStyles = makeStyles((theme) => ({
     })
     useEffect(() => {
       //Obtener Sectores
-      axios.get(`https://sensoresapi.herokuapp.com/api/v1/sector`,config).then((response) => {
+      axios.get(baseUrl,config).then((response) => {
       setSectores(response.data);
       });       
     })
@@ -154,7 +154,6 @@ const useStyles = makeStyles((theme) => ({
         ...prevState,
         [name]: value
       }))
-      console.log(sector);
     }
   
     const peticionGet=async()=>{
@@ -165,7 +164,11 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPost=async()=>{
-      await axios.post(baseUrl, sector)
+      let post = {
+        "nombreSector": sector.nombreSector 
+      }
+      console.log(baseUrl, post, config)
+      await axios.post(baseUrl, post, config)
       .then(response=>{
         setData(data.concat(response.data))
         abrirCerrarModalInsertar()
@@ -173,14 +176,16 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPut=async()=>{
-      await axios.put(baseUrl+sector.id, sector)
+      let edit = {
+        "nombreSector": sector.nombreSector 
+      }
+      await axios.put(baseUrl+`/`+sector.id, edit, config)
       .then(response=>{
         var dataNueva=data;
         // eslint-disable-next-line
         dataNueva.map(data=>{
           if(data.id===sector.id){
-            data.email=sector.email;
-            data.contrasena=sector.contrasena;
+            data.nombreSector=sector.nombreSector;
           }
         })
         setData(dataNueva);
@@ -221,11 +226,7 @@ const useStyles = makeStyles((theme) => ({
     const bodyInsertar=(
       <div className={styles.modal}>
         <h2 className={styles.tituloInsertar}>Agregar Sector</h2>
-        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange}/>
-        <br />
-        <TextField name="rol" className={styles.inputMaterial} label="Rol" onChange={handleChange}/>
-        <br />
-        
+        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange}/> 
         <br /><br />
         <div align="right">
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
@@ -270,22 +271,22 @@ const useStyles = makeStyles((theme) => ({
 
         <br />
     <FadeIn>
-       <TableContainer component={Paper}>
+       <TableContainer style={{ width: 900 }} component={Paper}>
          <Table>
          <TableHead>
           <StyledTableRow>
-            <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell >Nombre</StyledTableCell>
-            <StyledTableCell>Acciones</StyledTableCell>
+            <StyledTableCell align="center">ID</StyledTableCell>
+            <StyledTableCell align="center">Nombre</StyledTableCell>
+            <StyledTableCell align="center">Acciones</StyledTableCell>
           </StyledTableRow >
         </TableHead>
   
            <TableBody>
              {sectores && sectores.map(row=>(
                <StyledTableRow  key={row.id}>
-                   <StyledTableCell component="th" scope="row"> {row.id}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row"> {row.nombreSector}  </StyledTableCell>
-                    <StyledTableCell>
+                   <StyledTableCell component="th" scope="row" align="center"> {row.id}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.nombreSector}  </StyledTableCell>
+                    <StyledTableCell align="center">
                     <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row, 'Editar')}/>
                     &nbsp;&nbsp;&nbsp;
                     <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row, 'Eliminar')}/>

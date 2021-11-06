@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  const ButtoInsertar = styled(Button)({
+  const ButtonInsertar = styled(Button)({
     marginLeft: '60%',
     textTransform: 'none',
     fontSize: '1.2rem',
@@ -130,15 +130,13 @@ const useStyles = makeStyles((theme) => ({
     }
   });
   
-  function PanelUsuarios() {
+  function PanelUsuarios({config}) {
     const styles= useStyles();
     const [usuarios, setUsuarios] = useState();
     const [data, setData]=useState([]);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MzU5OTA0MTd9.CCuF-FA5EKtO-BmobZ9Ra64ZTAZcSjKAdOdQNy3Ybys"
-    const config = {headers: { Authorization: `Bearer ${token}` }};
 
     useEffect(() => {
       axios.get(baseUrl,config).then((response) => {
@@ -159,12 +157,16 @@ const useStyles = makeStyles((theme) => ({
         ...prevState,
         [name]: value
       }))
-      console.log(usuario);
     }
   
   
     const peticionPost=async()=>{
-      await axios.post(baseUrl, usuario)
+      let post = {
+        "email": usuario.email ,
+        "password": usuario.password,
+        "role": usuario.role
+      }
+      await axios.post(baseUrl, post, config)
       .then(response=>{
         setData(data.concat(response.data))
         abrirCerrarModalInsertar()
@@ -172,14 +174,20 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPut=async()=>{
-      await axios.put(baseUrl+usuario.id, usuario)
+      let edit = {
+        "email": usuario.email ,
+        "role": usuario.role
+      }
+      console.log(baseUrl+`/`+usuario.id,edit,config)
+      await axios.put(baseUrl+`/`+usuario.id,edit,config)
       .then(response=>{
         var dataNueva=data;
         // eslint-disable-next-line
         dataNueva.map(data=>{
           if(data.id===usuario.id){
             data.email=usuario.email;
-            data.contrasena=usuario.contrasena;
+            data.password=usuario.password;
+            data.role=usuario.role;
           }
         })
         setData(dataNueva);
@@ -188,7 +196,7 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionDelete=async()=>{
-      await axios.delete(baseUrl+usuario.id)
+      await axios.delete(baseUrl+usuario.id,config)
       .then(response=>{
         setData(data.filter(consola=>consola.id!==usuario.id));
         abrirCerrarModalEliminar();
@@ -218,7 +226,9 @@ const useStyles = makeStyles((theme) => ({
         <h2 className={styles.tituloInsertar}>Agregar Usuario</h2>
         <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange}/>
         <br />
-        <TextField name="rol" className={styles.inputMaterial} label="Rol" onChange={handleChange}/>
+        <TextField name="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange}/>
+        <br />
+        <TextField name="role" className={styles.inputMaterial} label="Rol" onChange={handleChange}/>
         <br />
         
         <br /><br />
@@ -262,19 +272,19 @@ const useStyles = makeStyles((theme) => ({
         <FadeIn>
           <h1 className="bienvenida">Informacion de Usuarios</h1>
           <br />
-          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtoInsertar>
+          <ButtonInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtonInsertar>
           </FadeIn>
 
         <br />
     <FadeIn>
-       <TableContainer component={Paper}>
+       <TableContainer style={{ width: 900 }} component={Paper}>
          <Table>
          <TableHead>
           <StyledTableRow>
             <StyledTableCell>ID</StyledTableCell>
             <StyledTableCell >Email</StyledTableCell>
             <StyledTableCell >Rol</StyledTableCell>
-            <StyledTableCell>Acciones</StyledTableCell>
+            <StyledTableCell >Acciones</StyledTableCell>
           </StyledTableRow >
         </TableHead>
   

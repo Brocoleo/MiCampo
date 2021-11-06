@@ -32,11 +32,11 @@ const Admin = ({ toggle, isOpen}) => {
     return (
         <Router>
             <Navbar toggle={toggle}/>
-            <div className={classes.root}>       
+            <div className={classes.admin}>       
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Switch>
             <Route exact path="/admin"><DashAdmin usuarios={nroUsuarios} sectores={nroSectores}/></Route>
-            <Route path="/usuarios"><PanelUsuarios token={token} config={config}/></Route>
+            <Route path="/usuarios"><PanelUsuarios config={config}/></Route>
             <Route path="/sectores"><PanelSectores config={config}/></Route>
             {/*<Route path="/estaciones"><PanelEstaciones /></Route>*/}
             <Route path="/estaciones"><PanelSensores /></Route>

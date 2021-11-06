@@ -59,6 +59,7 @@ export const InfoLabel = styled.span`
   font-family: 'Nunito', sans-serif;
   flex-direction: column;
   font-size: 18px;
+  padding: 3px;
   font-weight: 500;
   & span {
     font-size: 18px;
