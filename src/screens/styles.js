@@ -17,6 +17,9 @@ export default  makeStyles((theme) => ({
         marginTop: '18%',
       }
     },
+  image: {
+    padding: '4px'
+  },
   
   }));
 
@@ -95,6 +98,11 @@ font-family: 'Nunito', sans-serif;
 export const TituloInfo = styled.h2`
   margin-top: 10%;
   margin-bottom: 10%;
+`;
+
+export const TituloLogin = styled.h2`
+  margin-bottom: 8%;
+  color: #334257;
 `;
 
 export const CardUsers = styled.div`

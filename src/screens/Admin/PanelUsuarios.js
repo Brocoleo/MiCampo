@@ -174,6 +174,7 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPut=async()=>{
+      console.log(usuario.role)
       let edit = {
         "email": usuario.email ,
         "role": usuario.role
@@ -244,7 +245,7 @@ const useStyles = makeStyles((theme) => ({
         <h2 className={styles.tituloEditar}>Editar Usuario</h2>
         <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} value={usuario && usuario.email}/>
         <br />
-        <TextField name="rol" className={styles.inputMaterial} label="Rol" onChange={handleChange} value={usuario && usuario.role}/>
+        <TextField name="role" className={styles.inputMaterial} label="Rol" onChange={handleChange} value={usuario && usuario.role}/>
         <br />
         <br /><br />
         <div align="right">

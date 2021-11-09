@@ -1,6 +1,7 @@
 import React, {useEffect, useState}from 'react'
 import axios from "axios";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useStyles from '../styles'
 import DashAdmin from './DashAdmin'
 import PanelUsuarios from './PanelUsuarios'
@@ -12,8 +13,9 @@ import PanelSensores from './PanelSensores';
 
 
 const Admin = ({ toggle, isOpen}) => {
+    const location = useLocation();
     const classes = useStyles();
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE5LCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MzU5OTA0MTd9.CCuF-FA5EKtO-BmobZ9Ra64ZTAZcSjKAdOdQNy3Ybys"
+    const token = location.state.detail
     const config = {headers: { Authorization: `Bearer ${token}` }};
     const [nroUsuarios, setNroUsuarios] = useState();
     const [nroSectores, setNroSectores] = useState();

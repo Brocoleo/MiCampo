@@ -1,6 +1,4 @@
 import React from 'react'
-import axios from 'axios';
-import { useHistory } from "react-router-dom";
 import logo from '../assets/logo.png';
 import FadeIn from 'react-fade-in';
 import Button from '@mui/material/Button';
@@ -15,63 +13,17 @@ import useStyles from './styles'
 const theme = createTheme();
 
 
-const Login = () => {
-
-  const baseUrl='https://sensoresapi.herokuapp.com/api/v1/auth/login'
+const Register = () => {
   const classes = useStyles();
-  const history = useHistory();
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        let post = {
-          "email": data.get('email'),
-          "password": data.get('password'),
-        }
-        axios.post(baseUrl, post)
-        .then(response=>{
-          if(response.data.user.role === 'admin'){
-            history.push({
-              pathname: '/admin',
-              search: '',
-              state: { detail: response.data.token }
-            })
-          }
-          if(response.data.user.role === 'customer'){
-            history.push({
-              pathname: '/',
-              search: '',
-              state: { detail: response.data.user }
-            })
-          }
-          else{
-            console.log('error')
-          }
-
-
-          
-        })
-        .catch(function (error) {
-          if (error.response) {
-            // Request made and server responded
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
-          }
-      
+        console.log({
+          email: data.get('email'),
+          password: data.get('password'),
         });
       };
-
-
-
-
       const BootstrapButton = styled(Button)({
         boxShadow: 'none',
         textTransform: 'none',
@@ -111,7 +63,7 @@ const Login = () => {
         >
           <img src={logo} alt="citra" height="110px" className={classes.image}/>
           <TituloLogin>
-            BIENVENIDO
+            REGISTRATE
           </TituloLogin>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             
@@ -145,6 +97,7 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => {window.location.href="/"}}
             >
               Ingresar
             </BootstrapButton>
@@ -160,4 +113,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

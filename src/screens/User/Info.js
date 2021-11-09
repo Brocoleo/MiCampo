@@ -10,7 +10,7 @@ import  { InfoContainer, TituloInfo} from '../styles'
 import FadeIn from 'react-fade-in';
 const theme = createTheme();
 
-export default function Info() {
+export default function Info({correo}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -63,31 +63,6 @@ export default function Info() {
           </TituloInfo>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  color="success"
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  defaultValue="Alberto"
-                  label="Nombre"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  color="success"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Apellidos"
-                  defaultValue="Perez Rojas"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   color="success"
@@ -95,7 +70,7 @@ export default function Info() {
                   fullWidth
                   id="email"
                   label="Correo"
-                  defaultValue="alberto@gmail.com"
+                  defaultValue= {correo}
                   name="email"
                   autoComplete="email"
                 />
