@@ -19,12 +19,12 @@ const Sidebar = ({ isOpen, toggle }) => {
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
+        <SidebarLink to='/user'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
         <SidebarLink to='/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
         <SidebarLink to="/configuraciones" ><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/login' onClick={() => {window.location.href="/login"}}>CERRAR SESION</SidebarRoute>
+        <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>
       </SideBtnWrap>
     </SidebarContainer>
   );

@@ -18,12 +18,11 @@ const User = ({ toggle, isOpen}) => {
         <div className={classes.root}>       
         <Sidebar isOpen={isOpen} toggle={toggle} />
         <Switch>
-          <Route exact path="/"><DashUser /></Route>
+          <Route exact path="/user"><DashUser /></Route>
           <Route path="/informacion"><Info correo={correo}/></Route>
           <Route path="/configuraciones"><h1>Configuracion Usuario</h1></Route>
         </Switch>
-       
-        
+         
       </div>
       </Router>
     )

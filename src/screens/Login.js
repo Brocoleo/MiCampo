@@ -40,7 +40,7 @@ const Login = () => {
           }
           if(response.data.user.role === 'customer'){
             history.push({
-              pathname: '/',
+              pathname: '/user',
               search: '',
               state: { detail: response.data.user }
             })
