@@ -7,6 +7,7 @@ import CardAdmin from '../../components/Admin/CardAdmin/CardAdmin';
 import Users from '../../components/Animations/Users';
 import Estaciones from '../../components/Animations/Estaciones';
 import Sensores from '../../components/Animations/Sensores';
+import {CardLink} from '../styles'
 
 const DashAdmin = ({usuarios, sectores}) => {
     return (
@@ -18,6 +19,7 @@ const DashAdmin = ({usuarios, sectores}) => {
         <Grid container spacing={6}> 
         <FadeIn>
         <Grid item xs>
+        <CardLink to="/usuarios">
           <CardUsers>
             <CardAdmin title="USUARIOS"/>
             <Users />
@@ -25,11 +27,14 @@ const DashAdmin = ({usuarios, sectores}) => {
             <CountUp  start={0} end={usuarios} duration={1} />
             </DataUsers>
             <DataLabel> Registrados</DataLabel>
-          </CardUsers>  
+          </CardUsers> 
+        </CardLink> 
         </Grid>
         </FadeIn>
+
         <FadeIn>
           <Grid item xs>
+          <CardLink to="/sectores">
           <CardEstaciones>
             <CardAdmin title="SECTORES"/>
             <Estaciones />
@@ -38,10 +43,13 @@ const DashAdmin = ({usuarios, sectores}) => {
             </DataEstacion>
             <DataLabel> Ingresados</DataLabel>
           </CardEstaciones>
+          </CardLink>   
           </Grid>
           </FadeIn>
+
           <FadeIn>
           <Grid item xs>
+          <CardLink to="/estaciones">
           <CardSensores>
             <CardAdmin title="ESTACIONES"/>
             <Sensores />
@@ -50,6 +58,7 @@ const DashAdmin = ({usuarios, sectores}) => {
             </DataSensores>
             <DataLabel> Desplegadas</DataLabel>
           </CardSensores>
+          </CardLink> 
           </Grid>
           </FadeIn>
 

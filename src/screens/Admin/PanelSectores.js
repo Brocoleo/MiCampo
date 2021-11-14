@@ -24,13 +24,28 @@ const useStyles = makeStyles((theme) => ({
       transform: 'translate(-50%, -50%)'
     },
     btnDelete:{
-        cursor: 'pointer',
-        color: '#E02401',
-      }, 
-      btnEditar:{
-        cursor: 'pointer',
-        color: '#F78812',
-      },  
+      cursor: 'pointer',
+      padding: '2%',
+      width: '18%',
+      color: '#E02401',
+      borderRadius: '30px',
+      backgroundColor: '#EDEDED ',
+      '&:hover': {
+        backgroundColor: '#9c9a9a',
+      }
+      
+    }, 
+    btnEditar:{
+      cursor: 'pointer',
+      width: '18%',
+      padding: '2%',
+      color: '#F78812',
+      borderRadius: '30px',
+      backgroundColor: '#EDEDED',
+      '&:hover': {
+        backgroundColor: '#9c9a9a',
+      }
+    }, 
     inputMaterial:{
       width: '100%',
       fontSize: '1rem',
@@ -117,16 +132,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#134E5E',
     borderColor: '#134E5E',
     '&:hover': {
-      color: '#fff',
-      backgroundColor: '#134E5E',
-      borderColor: '#134E5E',
-      boxShadow: '0 6px 9px 0 #fff',
-    },
-    '&:active': {
-        color: '#fff',
-        backgroundColor: '#134E5E',
-        borderColor: '#134E5E',
-        boxShadow: '0 6px 9px 0 #fff',
+      backgroundColor: '#062f3b',
+      borderColor: '#062f3b',
+      boxShadow: 'none',
     }
   });
   
@@ -137,7 +145,6 @@ const useStyles = makeStyles((theme) => ({
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
-  
     const [sector, setSector]=useState({
       id: '',
       nombreSector: ''
@@ -156,12 +163,7 @@ const useStyles = makeStyles((theme) => ({
       }))
     }
   
-    const peticionGet=async()=>{
-      await axios.get(baseUrl)
-      .then(response=>{
-        setData(response.data);
-      })
-    }
+
   
     const peticionPost=async()=>{
       let post = {
@@ -218,45 +220,45 @@ const useStyles = makeStyles((theme) => ({
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   
-    // eslint-disable-next-line
-    useEffect(async()=>{
-      await peticionGet();
-    },[])
-  
     const bodyInsertar=(
       <div className={styles.modal}>
+        <FadeIn>
         <h2 className={styles.tituloInsertar}>Agregar Sector</h2>
-        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange}/> 
+        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} variant="outlined"/> 
         <br /><br />
         <div align="right">
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
           <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
         </div>
+        </FadeIn>
       </div>
     )
   
     const bodyEditar=(
       <div className={styles.modal}>
-        <h2 className={styles.tituloEditar}>Editar sector</h2>
-        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} value={sector && sector.nombreSector}/>
+      <FadeIn>
+        <h2 className={styles.tituloEditar}>Editar Sector</h2>
+        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} value={sector && sector.nombreSector} variant="outlined"/>
         <br />
         <br /><br />
         <div align="right">
           <Button className={styles.btnAgregar} onClick={()=>peticionPut()}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
         </div>
+        </FadeIn>
       </div>
     )
   
     const bodyEliminar=(
       <div className={styles.modal}>
-        <p>Estás seguro que deseas eliminar a <b>{sector && sector.email}</b> ? </p>
+         <FadeIn>
+        <p>Estás seguro que deseas eliminar a <b>{sector && sector.nombreSector}</b> ? </p>
         <div align="right">
           <Button color="secondary" onClick={()=>peticionDelete()} >Sí</Button>
           <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
   
         </div>
-  
+        </FadeIn>
       </div>
     )
   
@@ -266,12 +268,12 @@ const useStyles = makeStyles((theme) => ({
         <FadeIn>
           <h1 className="bienvenida">Informacion de Sectores</h1>
           <br />
-          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo sector</ButtoInsertar>
+          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sector</ButtoInsertar>
           </FadeIn>
 
         <br />
     <FadeIn>
-       <TableContainer style={{ width: 900 }} component={Paper}>
+       <TableContainer style={{ width: 900 , borderRadius: '10px',}} component={Paper}>
          <Table>
          <TableHead>
           <StyledTableRow>

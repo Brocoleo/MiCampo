@@ -10,6 +10,16 @@ import Paper from '@mui/material/Paper';
 
 const baseUrl='https://sensoresapi.herokuapp.com/api/v1/users'
 
+const currencies = [
+  {
+    value: 'customer',
+    label: 'Usuario',
+  },
+  {
+    value: 'admin',
+    label: 'Administrador',
+  }
+];
 const useStyles = makeStyles((theme) => ({
     modal: {
       position: 'absolute',
@@ -24,13 +34,28 @@ const useStyles = makeStyles((theme) => ({
       transform: 'translate(-50%, -50%)'
     },
     btnDelete:{
-        cursor: 'pointer',
-        color: '#E02401',
-      }, 
-      btnEditar:{
-        cursor: 'pointer',
-        color: '#F78812',
-      },  
+      cursor: 'pointer',
+      padding: '2%',
+      width: '33%',
+      color: '#E02401',
+      borderRadius: '30px',
+      backgroundColor: '#EDEDED ',
+      '&:hover': {
+        backgroundColor: '#9c9a9a',
+      }
+      
+    }, 
+    btnEditar:{
+      cursor: 'pointer',
+      width: '33%',
+      padding: '2%',
+      color: '#F78812',
+      borderRadius: '30px',
+      backgroundColor: '#EDEDED',
+      '&:hover': {
+        backgroundColor: '#9c9a9a',
+      }
+    }, 
     inputMaterial:{
       width: '100%',
       fontSize: '1rem',
@@ -117,16 +142,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#134E5E',
     borderColor: '#134E5E',
     '&:hover': {
-      color: '#fff',
-      backgroundColor: '#134E5E',
-      borderColor: '#134E5E',
-      boxShadow: '0 6px 9px 0 #fff',
-    },
-    '&:active': {
-        color: '#fff',
-        backgroundColor: '#134E5E',
-        borderColor: '#134E5E',
-        boxShadow: '0 6px 9px 0 #fff',
+      backgroundColor: '#062f3b',
+      borderColor: '#062f3b',
+      boxShadow: 'none',
     }
   });
   
@@ -137,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
+    const [rol, setRol] = React.useState('customer');
 
     useEffect(() => {
       axios.get(baseUrl,config).then((response) => {
@@ -152,6 +171,7 @@ const useStyles = makeStyles((theme) => ({
     })
   
     const handleChange=e=>{
+      setRol(e.target.value);
       const {name, value}=e.target;
       setUsuario(prevState=>({
         ...prevState,
@@ -224,12 +244,35 @@ const useStyles = makeStyles((theme) => ({
   
     const bodyInsertar=(
       <div className={styles.modal}>
+        <FadeIn>
         <h2 className={styles.tituloInsertar}>Agregar Usuario</h2>
-        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange}/>
+        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} variant="outlined"/>
         <br />
-        <TextField name="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange}/>
+        <TextField name="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange} variant="outlined"/>
         <br />
-        <TextField name="role" className={styles.inputMaterial} label="Rol" onChange={handleChange}/>
+        <br />
+        <TextField
+         fullWidth 
+         name="role"
+          id="filled-select-currency-native"
+          select
+          label="Rol"
+          value={rol}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+
+   
+       
         <br />
         
         <br /><br />
@@ -237,33 +280,57 @@ const useStyles = makeStyles((theme) => ({
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
           <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
         </div>
+        </FadeIn>
       </div>
     )
   
     const bodyEditar=(
+
       <div className={styles.modal}>
+        <FadeIn>
         <h2 className={styles.tituloEditar}>Editar Usuario</h2>
-        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} value={usuario && usuario.email}/>
+        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} value={usuario && usuario.email} variant="outlined"/>
         <br />
-        <TextField name="role" className={styles.inputMaterial} label="Rol" onChange={handleChange} value={usuario && usuario.role}/>
+        <br />
+        <TextField
+         fullWidth 
+         name="role"
+          id="filled-select-currency-native"
+          select
+          label="Rol"
+          value={usuario.role}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {currencies.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
         <br />
         <br /><br />
         <div align="right">
           <Button className={styles.btnAgregar} onClick={()=>peticionPut()}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
         </div>
+        </FadeIn>
       </div>
     )
   
     const bodyEliminar=(
       <div className={styles.modal}>
+        <FadeIn>
         <p>Estás seguro que deseas eliminar a <b>{usuario && usuario.email}</b> ? </p>
         <div align="right">
           <Button color="secondary" onClick={()=>peticionDelete()} >Sí</Button>
           <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
   
         </div>
-  
+        </FadeIn>
       </div>
     )
   
@@ -278,23 +345,23 @@ const useStyles = makeStyles((theme) => ({
 
         <br />
     <FadeIn>
-       <TableContainer style={{ width: 900 }} component={Paper}>
+       <TableContainer style={{ width: 900,  borderRadius: '10px', }} component={Paper}>
          <Table>
          <TableHead>
           <StyledTableRow>
-            <StyledTableCell>ID</StyledTableCell>
-            <StyledTableCell >Email</StyledTableCell>
-            <StyledTableCell >Rol</StyledTableCell>
-            <StyledTableCell >Acciones</StyledTableCell>
+            <StyledTableCell align="center">ID</StyledTableCell>
+            <StyledTableCell align="center">Email</StyledTableCell>
+            <StyledTableCell align="center">Rol</StyledTableCell>
+            <StyledTableCell align="center">Acciones</StyledTableCell>
           </StyledTableRow >
         </TableHead>
   
            <TableBody>
              {usuarios && usuarios.map(row=>(
                <StyledTableRow  key={row.id}>
-                   <StyledTableCell component="th" scope="row">{row.id}</StyledTableCell>
-                    <StyledTableCell component="th" scope="row">{row.email}</StyledTableCell>
-                    <StyledTableCell component="th" scope="row">{row.role}</StyledTableCell>
+                   <StyledTableCell component="th" scope="row" align="center">{row.id}</StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center">{row.email}</StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center">{row.role}</StyledTableCell>
                     <StyledTableCell>
                     <Edit className={styles.btnEditar} onClick={()=>seleccionarUsuario(row, 'Editar')}/>
                     &nbsp;&nbsp;&nbsp;

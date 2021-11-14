@@ -28,7 +28,7 @@ const Sidebar = ({ isOpen, toggle }) => {
         <SidebarLink to="/configuracionadmin" ><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/login' onClick={() => {window.location.href="/login"}}>CERRAR SESION</SidebarRoute>
+        <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>
       </SideBtnWrap>
     </SidebarContainer>
   );

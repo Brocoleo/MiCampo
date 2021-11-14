@@ -235,13 +235,13 @@ const useStyles = makeStyles((theme) => ({
     const bodyInsertar=(
       <div className={styles.modal}>
         <h2 className={styles.tituloInsertar}>Agregar Sensor</h2>
-        <TextField name="grafica" className={styles.inputMaterial} label="Grafica" onChange={handleChange}/>
+        <TextField name="grafica" className={styles.inputMaterial} label="Grafica" onChange={handleChange} variant="outlined"/>
         <br />
-        <TextField name="maximo" className={styles.inputMaterial} label="Maximo" onChange={handleChange}/>
+        <TextField name="maximo" className={styles.inputMaterial} label="Maximo" onChange={handleChange} variant="outlined"/>
         <br />
-        <TextField name="minimo" className={styles.inputMaterial} label="Minimo" onChange={handleChange}/>
+        <TextField name="minimo" className={styles.inputMaterial} label="Minimo" onChange={handleChange} variant="outlined"/>
         <br />
-        <TextField name="tipo" className={styles.inputMaterial} label="Tipo" onChange={handleChange}/>
+        <TextField name="tipo" className={styles.inputMaterial} label="Tipo" onChange={handleChange} variant="outlined"/>
         <br /><br />
         <div align="right">
           <Button className={styles.btnAgregar}  onClick={()=>peticionPost()}>Guardar</Button>

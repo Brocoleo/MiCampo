@@ -1,4 +1,5 @@
 import React, { useState} from "react";
+import Footer from './Footer'
 import User from "./screens/User/User";
 import Login from "./screens/Login";
 import Admin from './screens/Admin/Admin'
@@ -27,7 +28,9 @@ function App() {
     </div>
     </Switch>
     </Router>
+    <Footer/>
     </div>
+    
     
   );
 }

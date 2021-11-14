@@ -85,3 +85,20 @@ code {
     margin-top: 6%;
     margin-bottom: 3%;
 }
+
+.footer{
+    margin-top: 1rem;
+    padding: 1rem;
+    color: #fff;
+    background-color: #272727;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .imagenFooter {
+    margin-left: 17%;
+    padding: 14px;
+    margin-left:10%;
+  }

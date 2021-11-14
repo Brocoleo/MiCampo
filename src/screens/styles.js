@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 export default  makeStyles((theme) => ({
     root: {
@@ -222,4 +223,9 @@ export const DataLabel = styled.span`
   font-weight: 300;
   font-size: 1.4rem;
   color: #fff;
+`;
+
+export const CardLink = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
 `;

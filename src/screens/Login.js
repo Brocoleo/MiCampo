@@ -32,10 +32,12 @@ const Login = () => {
         axios.post(baseUrl, post)
         .then(response=>{
           if(response.data.user.role === 'admin'){
+            console.log( response.data.token )
             history.push({
               pathname: '/admin',
               search: '',
               state: { detail: response.data.token }
+    
             })
           }
           if(response.data.user.role === 'customer'){
@@ -44,13 +46,7 @@ const Login = () => {
               search: '',
               state: { detail: response.data.user }
             })
-          }
-          else{
-            console.log('error')
-          }
-
-
-          
+          }          
         })
         .catch(function (error) {
           if (error.response) {
@@ -113,9 +109,9 @@ const Login = () => {
           <TituloLogin>
             BIENVENIDO
           </TituloLogin>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
             
-            <Grid container spacing={2}>
+            <Grid container spacing={0}>
             <TextField
               margin="normal"
               required
