@@ -69,24 +69,19 @@ const Login = () => {
 
 
       const BootstrapButton = styled(Button)({
-        boxShadow: 'none',
         textTransform: 'none',
         fontSize: 21,
         padding: '12px 12px',
-        border: '1px solid',
         lineHeight: 1.5,
         backgroundColor: '#134E5E',
         borderColor: '#134E5E',
+        boxShadow: '0 3px 6px 0 #134E5E',
         fontFamily: 'Oswald, sans-serif',
         '&:hover': {
-          backgroundColor: '#71B280',
-          borderColor: '##71B280',
-          boxShadow: 'none',
+          backgroundColor: '#06232b',
         },
         '&:active': {
-          boxShadow: 'none',
-          backgroundColor: '#71B280',
-          borderColor: '#71B280',
+          backgroundColor: '#06232b',
         },
         
       });

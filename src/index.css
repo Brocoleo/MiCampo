@@ -2,7 +2,7 @@
 
 body {
     margin-top: 7%;
-    margin-bottom: 27%;
+    margin-bottom: 67%;
     background: #134E5E;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to bottom, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -11,6 +11,7 @@ body {
     font-family: 'Nunito', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    position: relative;
     
 }
 
@@ -95,10 +96,17 @@ code {
     bottom: 0;
     left: 0;
     width: 100%;
-  }
 
+  }
+  @media(max-width: 768px){
+    .footer {
+        display:none;
+
+    } 
+}
   .imagenFooter {
-    margin-left: 17%;
-    padding: 14px;
-    margin-left:10%;
+    margin-left: 7%;
+  }
+  .editarLayout{
+    text-align-last: right;
   }

@@ -16,7 +16,8 @@ function App() {
   };
 
   return (
-    <div  className="page-container">
+    <>
+    <div  className="body">
     <Router>
     <Switch>
     <div className="code">
@@ -28,8 +29,10 @@ function App() {
     </div>
     </Switch>
     </Router>
-    <Footer/>
+  
     </div>
+      <Footer/>
+      </>
     
     
   );

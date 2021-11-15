@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
+import Grid from '@mui/material/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
 import {Edit, Delete, Flag} from '@material-ui/icons';
@@ -47,6 +48,18 @@ const useStyles = makeStyles((theme) => ({
           backgroundColor: '#9c9a9a',
         }
       },  
+      btnEditarSensor:{
+        cursor: 'pointer',
+        width: '90px',
+        marginTop: '10%',
+        padding: '2%',
+        color: '#F78812',
+        borderRadius: '30px',
+        backgroundColor: '#EDEDED',
+        '&:hover': {
+          backgroundColor: '#9c9a9a',
+        }
+      },
     inputMaterial:{
       width: '100%',
       fontSize: '1rem',
@@ -164,9 +177,13 @@ const useStyles = makeStyles((theme) => ({
     const styles= useStyles();
     const [sectores, setSectores] = useState();
     const [estacion, setEstacion]=useState();
+    const [sensor, setSensor]=useState();
+    const [sensorActual, setSensorActual]=useState();
+    const [cultivo, setCultivo]=useState();
     const [data, setData]=useState([]);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
+    const [modalEditarSensor, setModalEditarSensor]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
     const [modalEstacion, setModalEstacion]=useState(false);
     const [sector, setSector]=useState({
@@ -206,20 +223,14 @@ const useStyles = makeStyles((theme) => ({
   
     const peticionPut=async()=>{
       let edit = {
-        "nombreSector": sector.nombreSector 
+        "tipoCultivo": cultivo ,
+        "nombreComponente": sensor
       }
-      await axios.put(baseUrl+`/`+sector.id, edit, config)
+      await axios.put(estacionUrl+`/sensor%20`+sensorActual, edit, config)
       .then(response=>{
-        var dataNueva=data;
-        // eslint-disable-next-line
-        dataNueva.map(data=>{
-          if(data.id===sector.id){
-            data.nombreSector=sector.nombreSector;
-          }
-        })
-        setData(dataNueva);
-        abrirCerrarModalEditar();
+        console.log(response.data)
       })
+      abrirCerrarModalEditarSensor();
     }
   
     const peticionDelete=async()=>{
@@ -238,6 +249,13 @@ const useStyles = makeStyles((theme) => ({
       setModalEditar(!modalEditar);
     }
 
+    const abrirCerrarModalEditarSensor=(sensor, cultivo)=>{
+      setSensorActual(sensor)
+      setSensor(sensor)
+      setCultivo(cultivo)
+      setModalEditarSensor(!modalEditarSensor);
+    }
+
     const abrirCerrarModalEstacion=()=>{
       setModalEstacion(!modalEstacion);
     }
@@ -246,9 +264,25 @@ const useStyles = makeStyles((theme) => ({
       setModalEliminar(!modalEliminar);
     }
   
-    const seleccionarsector=(row, caso)=>{
+    const seleccionarsector=(number, row, caso)=>{
       setSector(row);
-      (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
+      axios.get(estacionUrl+`/`+ number, config).then((response) => {
+        var count = Object.keys(response.data).length;
+        if(count===0){
+          setEstacion([{
+            nombreComponente: '',
+            tipoCultivo: 'Sin Sensores '
+          }
+
+          ]);
+        }else{
+          setEstacion(response.data);
+        }
+     });    
+      setTimeout(() => {
+        (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
+    }, 1000);
+      
     }
 
     const seleccionarEstacion=(number, row)=>{
@@ -268,27 +302,19 @@ const useStyles = makeStyles((theme) => ({
      });
       setTimeout(() => {
       abrirCerrarModalEstacion()
-    }, 1000);
-     
-     
-    }
+    }, 1000); }
   
     const bodyEstacion=(
       <div className={styles.modal}>
         <FadeIn>
         <h2 className={styles.tituloEstacion}>{sector.nombreSector}</h2>
-
           <ul>
             {estacion && estacion.map((anObjectMapped, index) => {
               return (
               <h3 key={`${anObjectMapped.nombreComponente}_{anObjectMapped.tipoCultivo}`}>
                 {anObjectMapped.nombreComponente} - {anObjectMapped.tipoCultivo}
-                </h3>);
-              
-          })} 
-            
-          </ul>
-
+                </h3>);    })}           
+                </ul>
             <br /><br />
             <div align="right">
               <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalEstacion()}>Cancelar</Button>
@@ -317,18 +343,44 @@ const useStyles = makeStyles((theme) => ({
     const bodyEditar=(
       <div className={styles.modal}>
         <FadeIn>
+        <h2 className={styles.tituloEstacion}>{sector.nombreSector}</h2>
+          <ul>
+            {estacion && estacion.map((anObjectMapped, index) => {
+              return (
+                <Grid container spacing={2}>
+                <Grid item xs="auto">
+                <h3 key={`${anObjectMapped.nombreComponente}_{anObjectMapped.tipoCultivo}`}>
+                {anObjectMapped.nombreComponente} - {anObjectMapped.tipoCultivo}
+                </h3>
+                </Grid>
+                <Grid className="editarLayout" item xs>
+                <Edit className={styles.btnEditarSensor} onClick={()=>abrirCerrarModalEditarSensor(anObjectMapped.nombreComponente, anObjectMapped.tipoCultivo)}/>
+                </Grid>
+              </Grid>); })}    
+          </ul>
+            <br /><br />
+            <div align="right">
+              <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
+            </div>
+        </FadeIn>
+      </div>
+    )
+
+    const bodyEditarSensor=(
+      <div className={styles.modal}>
+      <FadeIn>
         <h2 className={styles.tituloEditar}>Editar Sector</h2>
-        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} value={sector && sector.nombreSector} variant="outlined"/>
+        <TextField name="sensor" className={styles.inputMaterial} label="Sensor" onChange={event => setSensor(event.target.value)} value={sensor} variant="outlined"/>
         <br />
+        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={event => setCultivo(event.target.value)} value={cultivo} variant="outlined"/>
         <br /><br />
         <div align="right">
           <Button className={styles.btnAgregar} onClick={()=>peticionPut()}>Editar</Button>
-          <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
+          <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditarSensor()}>Cancelar</Button>
         </div>
         </FadeIn>
       </div>
     )
-  
     const bodyEliminar=(
       <div className={styles.modal}>
         <FadeIn>
@@ -370,9 +422,9 @@ const useStyles = makeStyles((theme) => ({
                       </VerButton>
                    </StyledTableCell>
                     <StyledTableCell align="center">
-                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row, 'Editar')}/>
+                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row.id, row, 'Editar')}/>
                     &nbsp;&nbsp;&nbsp;
-                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row, 'Eliminar')}/>
+                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row.id, row, 'Eliminar')}/>
                    </StyledTableCell>
                    </StyledTableRow>
                
@@ -394,6 +446,12 @@ const useStyles = makeStyles((theme) => ({
        open={modalEditar}
        onClose={abrirCerrarModalEditar}>
           {bodyEditar}
+       </Modal>
+
+       <Modal
+       open={modalEditarSensor}
+       onClose={abrirCerrarModalEditarSensor}>
+          {bodyEditarSensor}
        </Modal>
   
        <Modal
