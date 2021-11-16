@@ -1,7 +1,6 @@
 import React, {useEffect, useState}from 'react'
 import axios from "axios";
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import useStyles from '../styles'
 import DashAdmin from './DashAdmin'
 import PanelUsuarios from './PanelUsuarios'
@@ -10,12 +9,12 @@ import PanelSectores from './PanelSectores'
 import Navbar from "../../components/Admin/Navbar/Navbar"
 import Sidebar from "../../components/Admin/Sidebar/Sidebar";
 import PanelEstaciones from './PanelEstaciones';
+import Cookies from "js-cookie";
 
 
 const Admin = ({ toggle, isOpen}) => {
-    const location = useLocation();
     const classes = useStyles();
-    const token = location.state.detail
+    const token = Cookies.get("access");
     const config = {headers: { Authorization: `Bearer ${token}` }};
     const [nroUsuarios, setNroUsuarios] = useState();
     const [nroSectores, setNroSectores] = useState();

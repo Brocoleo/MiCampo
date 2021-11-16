@@ -63,6 +63,9 @@ export const SidebarLink = styled(Link)`
     color: #171717;
     transition: 0.2s ease-in-out;
   }
+  @media screen and (max-width: 1400px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const SideBtnWrap = styled.div`

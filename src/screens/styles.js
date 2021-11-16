@@ -21,6 +21,9 @@ export default  makeStyles((theme) => ({
   image: {
     padding: '4px'
   },
+  marginTop: {
+      marginTop: '10px',
+  },
   
   }));
 
@@ -40,6 +43,7 @@ export default  makeStyles((theme) => ({
   @media (max-width: 768px) {
     margin-top: 9%;
   }
+
 `;
 
 export const MiniContainer = styled.div`
@@ -73,11 +77,13 @@ border-radius: 20px;
 box-shadow: 0 9px 12px 0 #134E5E;
 background: #fff;  
 font-family: 'Nunito', sans-serif;
-@media (max-width: 1524px) {
-    width: 300px;
-  }
+
 @media (max-width: 768px) {
     margin-top: 9%;
+  }
+  @media (max-width: 1400px) {
+    margin-top: 1%;
+    width: 290px;
   }
 `;
 

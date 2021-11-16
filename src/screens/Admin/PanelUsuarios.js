@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
       textShadow: '1px 1px #000',
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: '17px',
+        fontSize: '17px',
     },
   }));
 

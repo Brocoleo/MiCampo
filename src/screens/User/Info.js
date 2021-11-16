@@ -10,7 +10,7 @@ import  { InfoContainer, TituloInfo} from '../styles'
 import FadeIn from 'react-fade-in';
 const theme = createTheme();
 
-export default function Info({correo}) {
+export default function Info() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,7 +44,7 @@ export default function Info({correo}) {
   });
 
   return (
-    <div  >
+    <div  className="margenDatos">
     <FadeIn>
     <InfoContainer>
     <ThemeProvider theme={theme}>
@@ -70,7 +70,7 @@ export default function Info({correo}) {
                   fullWidth
                   id="email"
                   label="Correo"
-                  defaultValue= {correo}
+                  defaultValue= "correo"
                   name="email"
                   autoComplete="email"
                 />

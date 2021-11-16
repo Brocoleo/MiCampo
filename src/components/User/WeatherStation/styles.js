@@ -53,16 +53,25 @@ export const InfoContainer = styled.div`
 export const InfoIcon = styled.img`
   width: 36px;
   height: 36px;
+  @media (max-width: 1400px) {
+    width: 26px;
+    height: 26px;
+    padding: 2px;
+  }
 `;
 export const InfoLabel = styled.span`
   display: flex;
   font-family: 'Nunito', sans-serif;
   flex-direction: column;
   font-size: 18px;
-  padding: 9px;
+  padding: 6px;
   font-weight: 500;
   & span {
     font-size: 18px;
     text-transform: capitalize;
+  }
+  @media (max-width: 1400px) {
+    font-size: 16px;
+    padding: 2px;
   }
 `;

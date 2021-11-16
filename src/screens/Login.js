@@ -11,6 +11,7 @@ import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import  { InfoContainer, TituloLogin} from './styles'
+import Cookies from "js-cookie";
 import useStyles from './styles'
 const theme = createTheme();
 
@@ -32,20 +33,13 @@ const Login = () => {
         axios.post(baseUrl, post)
         .then(response=>{
           if(response.data.user.role === 'admin'){
-            console.log( response.data.token )
-            history.push({
-              pathname: '/admin',
-              search: '',
-              state: { detail: response.data.token }
-    
-            })
-          }
+            Cookies.set("access", response.data.token );
+            history.push({ pathname: '/admin'   })}
+
           if(response.data.user.role === 'customer'){
-            history.push({
-              pathname: '/user',
-              search: '',
-              state: { detail: response.data.user }
-            })
+            console.log(response.data)
+            Cookies.set("access", response.data.token );
+            history.push({ pathname: '/user'})
           }          
         })
         .catch(function (error) {

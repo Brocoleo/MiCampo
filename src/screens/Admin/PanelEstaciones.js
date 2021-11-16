@@ -9,6 +9,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 
+
 const baseUrl='https://sensoresapi.herokuapp.com/api/v1/sector'
 const estacionUrl='https://sensoresapi.herokuapp.com/api/v1/component'
 
