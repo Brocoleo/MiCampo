@@ -36,25 +36,35 @@ const useStyles = makeStyles((theme) => ({
     btnDelete:{
       cursor: 'pointer',
       padding: '2%',
-      width: '33%',
+      width: '13%',
       color: '#E02401',
       borderRadius: '30px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
         backgroundColor: '#9c9a9a',
-      }
+      },
+      [theme.breakpoints.up('xl')]: {
+        width: '28%',
+      },
+ 
       
     }, 
     btnEditar:{
       cursor: 'pointer',
-      width: '33%',
+      width: '13%',
       padding: '2%',
+      marginLeft: '34%',
       color: '#F78812',
       borderRadius: '30px',
       backgroundColor: '#EDEDED',
       '&:hover': {
         backgroundColor: '#9c9a9a',
-      }
+      },
+      [theme.breakpoints.up('xl')]: {
+        marginLeft: '24%',
+        width: '28%',
+      },
+      
     }, 
     inputMaterial:{
       width: '100%',
@@ -105,12 +115,15 @@ const useStyles = makeStyles((theme) => ({
             boxShadow: '0 3px 6px 0 #134E5E',
           },
       },
+      tablas: {
+        marginTop: '9%'       
+   }
   }));
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       fontSize: '18px',
-      backgroundColor: '#134E5E',
+      backgroundColor: '#0F044C',
       color: '#fff',
       textShadow: '1px 1px #000',
     },
@@ -139,11 +152,11 @@ const useStyles = makeStyles((theme) => ({
     textShadow: '1px 1px #000',
     boxShadow: '0 6px 9px 0 #134E5E',
     color: '#fff',
-    backgroundColor: '#134E5E',
-    borderColor: '#134E5E',
+    backgroundColor: '#0F044C',
+    borderColor: '#0F044C',
     '&:hover': {
-      backgroundColor: '#062f3b',
-      borderColor: '#062f3b',
+      backgroundColor: '#120b38',
+      borderColor: '#120b38',
       boxShadow: 'none',
     }
   });
@@ -336,8 +349,8 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
-      <div >
-        <FadeIn>
+      <div  className={styles.tablas}>
+        <FadeIn >
           <h1 className="bienvenida">Informacion de Usuarios</h1>
           <br />
           <ButtonInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtonInsertar>

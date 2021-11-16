@@ -11,7 +11,7 @@ import {CardLink} from '../styles'
 
 const DashAdmin = ({usuarios, sectores}) => {
     return (
-        <div >
+        <div className="margenTop">
           <FadeIn>
           <h1 className="bienvenida">Hola, Bienvenido al CITRA</h1>
           <div className="subtitulo">Adminitracion de las estaciones agrometeorologicas</div>

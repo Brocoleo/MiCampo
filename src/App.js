@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-    <div  className="body">
+
     <Router>
     <Switch>
     <div className="code">
@@ -30,7 +30,7 @@ function App() {
     </Switch>
     </Router>
   
-    </div>
+
       <Footer/>
       </>
     

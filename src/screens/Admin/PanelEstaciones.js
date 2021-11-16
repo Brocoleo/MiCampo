@@ -26,28 +26,38 @@ const useStyles = makeStyles((theme) => ({
       transform: 'translate(-50%, -50%)'
     },
     btnDelete:{
-        cursor: 'pointer',
-        padding: '2%',
-        width: '18%',
-        color: '#E02401',
-        borderRadius: '30px',
-        backgroundColor: '#EDEDED ',
-        '&:hover': {
-          backgroundColor: '#9c9a9a',
-        }
-        
-      }, 
-      btnEditar:{
-        cursor: 'pointer',
-        width: '18%',
-        padding: '2%',
-        color: '#F78812',
-        borderRadius: '30px',
-        backgroundColor: '#EDEDED',
-        '&:hover': {
-          backgroundColor: '#9c9a9a',
-        }
-      },  
+      cursor: 'pointer',
+      padding: '1%',
+      width: '13%',
+      color: '#E02401',
+      borderRadius: '30px',
+      backgroundColor: '#EDEDED ',
+      '&:hover': {
+        backgroundColor: '#9c9a9a',
+      },
+      [theme.breakpoints.up('xl')]: {
+        width: '28%',
+      },
+ 
+      
+    }, 
+    btnEditar:{
+      cursor: 'pointer',
+      width: '13%',
+      padding: '1%',
+      marginLeft: '0%',
+      color: '#F78812',
+      borderRadius: '30px',
+      backgroundColor: '#EDEDED',
+      '&:hover': {
+        backgroundColor: '#9c9a9a',
+      },
+      [theme.breakpoints.up('xl')]: {
+        marginLeft: '4%',
+        width: '28%',
+      },
+      
+    },  
       btnEditarSensor:{
         cursor: 'pointer',
         width: '90px',
@@ -119,12 +129,15 @@ const useStyles = makeStyles((theme) => ({
             boxShadow: '0 3px 6px 0 #134E5E',
           },
       },
+      tablas: {
+        marginTop: '9%'       
+   }
   }));
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       fontSize: '18px',
-      backgroundColor: '#134E5E',
+      backgroundColor: '#0F044C',
       color: '#fff',
       textShadow: '1px 1px #000',
     },
@@ -146,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
   const VerButton = styled(Button)(({ theme }) => ({
     color: '#fff',
     borderRadius: '10px',
-    backgroundColor: '#134E5E',
+    backgroundColor: '#0F044C',
     boxShadow: '0 3px 3px 0 #134E5E',
     '&:hover': {
       backgroundColor: '#062f3b',
@@ -156,19 +169,20 @@ const useStyles = makeStyles((theme) => ({
   }));
 
   const ButtoInsertar = styled(Button)({
-    marginLeft: '57%',
+    marginLeft: '60%',
     textTransform: 'none',
     fontSize: '1.2rem',
     padding: '6px 15px',
+    border: '1px solid',
     fontWeight: '300',
     textShadow: '1px 1px #000',
     boxShadow: '0 6px 9px 0 #134E5E',
     color: '#fff',
-    backgroundColor: '#134E5E',
-    borderColor: '#134E5E',
+    backgroundColor: '#0F044C',
+    borderColor: '#0F044C',
     '&:hover': {
-      backgroundColor: '#062f3b',
-      borderColor: '#062f3b',
+      backgroundColor: '#120b38',
+      borderColor: '#120b38',
       boxShadow: 'none',
     }
   });
@@ -411,7 +425,7 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
-      <div >
+      <div className={styles.tablas}>
         <FadeIn>
           <h1 className="bienvenida">Informacion de Estaciones</h1>
           <br />
