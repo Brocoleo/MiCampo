@@ -190,6 +190,12 @@ const useStyles = makeStyles((theme) => ({
       id: '',
       nombreSector: ''
     })
+    const [componente, setComponente]=useState({
+      email: '',
+      sector: '',
+      tipoCultivo: '',
+      nombreComponente: ''
+    })
 
     useEffect(() => {
       //Obtener Sectores
@@ -202,7 +208,7 @@ const useStyles = makeStyles((theme) => ({
 
     const handleChange=e=>{
       const {name, value}=e.target;
-      setSector(prevState=>({
+      setComponente(prevState=>({
         ...prevState,
         [name]: value
       }))
@@ -211,12 +217,16 @@ const useStyles = makeStyles((theme) => ({
   
     const peticionPost=async()=>{
       let post = {
-        "nombreSector": sector.nombreSector 
+        "email": componente.email,
+        "sector": componente.sector,
+        "tipoCultivo": componente.tipoCultivo ,
+        "nombreComponente": componente.nombreComponente
       }
+
+      console.log(post)
       console.log(baseUrl, post, config)
       await axios.post(baseUrl, post, config)
       .then(response=>{
-        setData(data.concat(response.data))
         abrirCerrarModalInsertar()
       })
     }
@@ -329,7 +339,13 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.modal}>
         <FadeIn>
         <h2 className={styles.tituloInsertar}>Agregar Sector</h2>
-        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} variant="outlined"/> 
+        <TextField name="email" className={styles.inputMaterial} label="Correo Usuario" onChange={handleChange} variant="outlined"/> 
+        <br />
+        <TextField name="sector" className={styles.inputMaterial} label="Sector" onChange={handleChange} variant="outlined"/> 
+        <br />
+        <TextField name="tipoCultivo" className={styles.inputMaterial} label="Tipo Cultivo" onChange={handleChange} variant="outlined"/> 
+        <br />
+        <TextField name="nombreComponente" className={styles.inputMaterial} label="Nombre Sensor" onChange={handleChange} variant="outlined"/> 
         <br /><br />
         <div align="right">
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
@@ -370,7 +386,7 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.modal}>
       <FadeIn>
         <h2 className={styles.tituloEditar}>Editar Sector</h2>
-        <TextField name="sensor" className={styles.inputMaterial} label="Sensor" onChange={event => setSensor(event.target.value)} value={sensor} variant="outlined"/>
+        <TextField name="email" className={styles.inputMaterial} label="Correo" onChange={event => setSensor(event.target.value)} value={sensor} variant="outlined"/>
         <br />
         <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={event => setCultivo(event.target.value)} value={cultivo} variant="outlined"/>
         <br /><br />
