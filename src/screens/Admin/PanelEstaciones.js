@@ -224,8 +224,8 @@ const useStyles = makeStyles((theme) => ({
       }
 
       console.log(post)
-      console.log(baseUrl, post, config)
-      await axios.post(baseUrl, post, config)
+      console.log(estacionUrl, post, config)
+      await axios.post(estacionUrl, post, config)
       .then(response=>{
         abrirCerrarModalInsertar()
       })
