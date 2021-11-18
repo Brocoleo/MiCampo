@@ -3,11 +3,11 @@ import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import Grid from '@mui/material/Grid';
 import {makeStyles} from '@material-ui/core/styles';
-import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
+import CardEstaciones from '../../components/Admin/CardEstaciones/CardEstaciones';
+import { Modal, Button, TextField} from '@material-ui/core';
 import {Edit, Delete, Flag} from '@material-ui/icons';
-import { tableCellClasses } from '@mui/material/TableCell';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 
 
 const baseUrl='https://sensoresapi.herokuapp.com/api/v1/sector'
@@ -135,45 +135,13 @@ const useStyles = makeStyles((theme) => ({
    }
   }));
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      fontSize: '18px',
-      backgroundColor: '#0F044C',
-      color: '#fff',
-      textShadow: '1px 1px #000',
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: '17px',
-    },
-  }));
 
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: '#D3E0EA',
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
-  const VerButton = styled(Button)(({ theme }) => ({
-    color: '#fff',
-    borderRadius: '10px',
-    backgroundColor: '#0F044C',
-    boxShadow: '0 3px 3px 0 #134E5E',
-    '&:hover': {
-      backgroundColor: '#062f3b',
-      borderColor: '#062f3b',
-      boxShadow: 'none',
-    }
-  }));
 
   const ButtoInsertar = styled(Button)({
     marginLeft: '60%',
     textTransform: 'none',
     fontSize: '1.2rem',
-    padding: '6px 15px',
+    padding: '-1px 15px',
     border: '1px solid',
     fontWeight: '300',
     textShadow: '1px 1px #000',
@@ -200,7 +168,6 @@ const useStyles = makeStyles((theme) => ({
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEditarSensor, setModalEditarSensor]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
-    const [modalEstacion, setModalEstacion]=useState(false);
     const [sector, setSector]=useState({
       id: '',
       nombreSector: ''
@@ -281,9 +248,6 @@ const useStyles = makeStyles((theme) => ({
       setModalEditarSensor(!modalEditarSensor);
     }
 
-    const abrirCerrarModalEstacion=()=>{
-      setModalEstacion(!modalEstacion);
-    }
   
     const abrirCerrarModalEliminar=()=>{
       setModalEliminar(!modalEliminar);
@@ -310,43 +274,9 @@ const useStyles = makeStyles((theme) => ({
       
     }
 
-    const seleccionarEstacion=(number, row)=>{
-      setSector(row);
-      axios.get(estacionUrl+`/`+ number, config).then((response) => {
-        var count = Object.keys(response.data).length;
-        if(count===0){
-          setEstacion([{
-            nombreComponente: '',
-            tipoCultivo: 'Sin Sensores '
-          }
 
-          ]);
-        }else{
-          setEstacion(response.data);
-        }
-     });
-      setTimeout(() => {
-      abrirCerrarModalEstacion()
-    }, 1000); }
   
-    const bodyEstacion=(
-      <div className={styles.modal}>
-        <FadeIn>
-        <h2 className={styles.tituloEstacion}>{sector.nombreSector}</h2>
-          <ul>
-            {estacion && estacion.map((anObjectMapped, index) => {
-              return (
-              <h3 key={`${anObjectMapped.nombreComponente}_{anObjectMapped.tipoCultivo}`}>
-                {anObjectMapped.nombreComponente} - {anObjectMapped.tipoCultivo}
-                </h3>);    })}           
-                </ul>
-            <br /><br />
-            <div align="right">
-              <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalEstacion()}>Cancelar</Button>
-            </div>
-        </FadeIn>
-      </div>
-    )
+
 
   
     const bodyInsertar=(
@@ -426,7 +356,7 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
-      <div className={styles.tablas}>
+      <div >
         <FadeIn>
           <h1 className="bienvenida">Informacion de Estaciones</h1>
           <br />
@@ -435,36 +365,24 @@ const useStyles = makeStyles((theme) => ({
 
         <br />
     <FadeIn>
-       <TableContainer style={{ width: 900,   borderRadius: '10px' }} component={Paper}>
-         <Table>
-         <TableHead>
-          <StyledTableRow>
-            <StyledTableCell align="center">Estacion</StyledTableCell>
-            <StyledTableCell align="center">Acciones</StyledTableCell>
-          </StyledTableRow >
-        </TableHead>
-  
-           <TableBody>
-             {sectores && sectores.map(row=>(
-               <StyledTableRow  key={row.id}>
-                    <StyledTableCell align="center">
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid   container  spacing={1}>
+            {  sectores && sectores.map(row=>(
+              <CardEstaciones sector={row.nombreSector} />  )) }
+            </Grid>
+        </Box>
+             { /* sectores && sectores.map(row=>(
                     <VerButton variant="outlined" onClick={()=>seleccionarEstacion(row.id, row)} startIcon={<Flag />}>
                     {row.nombreSector}  
                       </VerButton>
-                   </StyledTableCell>
-                    <StyledTableCell align="center">
-                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row.id, row, 'Editar')}/>
-                    &nbsp;&nbsp;&nbsp;
-                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row.id, row, 'Eliminar')}/>
-                   </StyledTableCell>
-                   </StyledTableRow>
-               
-             ))}
 
-           
-           </TableBody>
-         </Table>
-       </TableContainer>
+                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row.id, row, 'Editar')}/>
+
+                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row.id, row, 'Eliminar')}/>
+        
+               
+             )) */}
+
 
     </FadeIn>     
        <Modal
@@ -491,11 +409,6 @@ const useStyles = makeStyles((theme) => ({
           {bodyEliminar}
        </Modal>
 
-       <Modal
-       open={modalEstacion}
-       onClose={abrirCerrarModalEstacion}>
-          {bodyEstacion}
-       </Modal>
 
       </div>
     );
