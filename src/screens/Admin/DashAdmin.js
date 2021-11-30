@@ -2,12 +2,11 @@ import React from 'react'
 import FadeIn from 'react-fade-in';
 import Grid from '@material-ui/core/Grid';
 import CountUp from 'react-countup';
-import  {CardUsers, CardEstaciones, DataUsers, DataEstacion,DataSensores,DataLabel, CardSensores} from '../styles'
+import  {CardUsers, CardEstaciones, DataUsers, DataEstacion,DataSensores,DataLabel, CardSensores,CardLink} from '../styles'
 import CardAdmin from '../../components/Admin/CardAdmin/CardAdmin';
 import Users from '../../components/Animations/Users';
 import Estaciones from '../../components/Animations/Estaciones';
 import Sensores from '../../components/Animations/Sensores';
-import {CardLink} from '../styles'
 
 const DashAdmin = ({usuarios, sectores}) => {
     return (

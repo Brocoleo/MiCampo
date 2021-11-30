@@ -59,8 +59,8 @@ export const SidebarLink = styled(Link)`
   color: #171717;
   cursor: pointer;
   &:hover {
-    background:#D4ECDD ;
-    color: #171717;
+    background:#93B5C6 ;
+    color: #fff;
     transition: 0.2s ease-in-out;
   }
   @media screen and (max-width: 1400px) {

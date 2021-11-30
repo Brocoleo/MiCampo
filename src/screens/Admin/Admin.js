@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import useStyles from '../styles'
 import DashAdmin from './DashAdmin'
 import PanelUsuarios from './PanelUsuarios'
+import PanelSensores from './PanelSensores'
 import PanelSectores from './PanelSectores'
+import Graficos from './Graficos'
 //import PanelEstaciones from './PanelEstaciones'
 import Navbar from "../../components/Admin/Navbar/Navbar"
 import Sidebar from "../../components/Admin/Sidebar/Sidebar";
@@ -39,7 +41,8 @@ const Admin = ({ toggle, isOpen}) => {
             <Route exact path="/admin"><DashAdmin usuarios={nroUsuarios} sectores={nroSectores}/></Route>
             <Route path="/usuarios"><PanelUsuarios config={config}/></Route>
             <Route path="/sectores"><PanelSectores config={config}/></Route>
-            {/*<Route path="/estaciones"><PanelEstaciones /></Route>*/}
+            <Route path="/sensores"><PanelSensores config={config}/></Route>
+            <Route path="/graficos"><Graficos /></Route>
             <Route path="/estaciones"><PanelEstaciones config={config}/></Route>
             <Route path="/configuracionadmin"><h1>Configuraciones</h1></Route>
             </Switch>

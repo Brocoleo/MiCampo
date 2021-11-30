@@ -6,6 +6,7 @@ import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal,
 import {Edit, Delete} from '@material-ui/icons';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import Loading from '../../components/Loading'
 import Paper from '@mui/material/Paper';
 
 const baseUrl='https://sensoresapi.herokuapp.com/api/v1/users'
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '25px',
       width: 400,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #134E5E',
+      border: '2px solid #93B5C6',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       top: '50%',
@@ -73,9 +74,9 @@ const useStyles = makeStyles((theme) => ({
     },
     tituloEditar:{
         width: '48%',
-        color: '#134E5E',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#93B5C6',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -83,9 +84,9 @@ const useStyles = makeStyles((theme) => ({
       ,
     tituloInsertar:{
         width: '55%',
-        color: '#134E5E',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#93B5C6',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -165,6 +166,7 @@ const useStyles = makeStyles((theme) => ({
     const styles= useStyles();
     const [usuarios, setUsuarios] = useState();
     const [data, setData]=useState([]);
+    const [loading, setLoading] = useState(false);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
@@ -228,6 +230,10 @@ const useStyles = makeStyles((theme) => ({
         abrirCerrarModalEditar();
       })
     }
+
+    setTimeout(() => {
+      setLoading(true)
+    }, 1000);
   
     const peticionDelete=async()=>{
       await axios.delete(baseUrl+usuario.id,config)
@@ -349,7 +355,7 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
-      <div  className={styles.tablas}>
+      <>{ loading ? (       <div  className={styles.tablas}>
         <FadeIn >
           <h1 className="bienvenida">Informacion de Usuarios</h1>
           <br />
@@ -386,7 +392,9 @@ const useStyles = makeStyles((theme) => ({
          </Table>
        </TableContainer>
     </FadeIn>     
-       <Modal
+
+      </div>):(<div className="loading"><Loading /> </div>)}
+      <Modal
        open={modalInsertar}
        onClose={abrirCerrarModalInsertar}>
           {bodyInsertar}
@@ -403,7 +411,8 @@ const useStyles = makeStyles((theme) => ({
        onClose={abrirCerrarModalEliminar}>
           {bodyEliminar}
        </Modal>
-      </div>
+       </>
+
     );
   }
   

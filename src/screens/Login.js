@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import logo from '../assets/logo.png';
@@ -11,19 +11,23 @@ import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import  { InfoContainer, TituloLogin} from './styles'
+import Loading from '../components/Loading';
 import Cookies from "js-cookie";
 import useStyles from './styles'
 const theme = createTheme();
 
 
 const Login = () => {
-
+  const [loading, setLoading] = useState(false);
   const baseUrl='https://sensoresapi.herokuapp.com/api/v1/auth/login'
   const classes = useStyles();
   const history = useHistory();
 
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        setLoading(true)
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
         let post = {
@@ -67,22 +71,21 @@ const Login = () => {
         fontSize: 21,
         padding: '12px 12px',
         lineHeight: 1.5,
-        backgroundColor: '#134E5E',
-        borderColor: '#134E5E',
+        backgroundColor: '#0F044C',
+        borderColor: '#0F044C',
         boxShadow: '0 3px 6px 0 #134E5E',
         fontFamily: 'Oswald, sans-serif',
         '&:hover': {
-          backgroundColor: '#06232b',
+          backgroundColor: '#190680',
         },
         '&:active': {
-          backgroundColor: '#06232b',
+          backgroundColor: '#190680',
         },
         
       });
     return (
         <>
-        
-    <FadeIn>                                                                                     
+         { loading ? ( <div className="loading"><Loading /> </div>) : (<FadeIn>          
     <InfoContainer>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="lg">
@@ -116,7 +119,7 @@ const Login = () => {
               required
               fullWidth
               name="password"
-              label="Contrasena"
+              label="Contraseña "
               type="password"
               id="password"
               autoComplete="current-password"
@@ -140,7 +143,8 @@ const Login = () => {
       </Container>
     </ThemeProvider>
     </InfoContainer>
-    </FadeIn>
+    </FadeIn>) }
+
          </>
     )
 }

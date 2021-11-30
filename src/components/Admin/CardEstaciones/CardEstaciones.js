@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import Box from '@mui/material/Box';
+import React from 'react';
+import { useHistory } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,18 +7,16 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Cookies from "js-cookie";
+import {makeStyles} from '@material-ui/core/styles';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+
+
 const VerButton = styled(Button)(({ theme }) => ({
     color: '#fff',
     borderRadius: '10px',
+    marginLeft: '30%',
+    marginBottom: '3%',
     backgroundColor: '#0F044C',
     boxShadow: '0 3px 3px 0 #134E5E',
     '&:hover': {
@@ -28,18 +26,38 @@ const VerButton = styled(Button)(({ theme }) => ({
     }
   }));
 
- 
+  const useStyles = makeStyles((theme) => ({
+    card: {
+      margin: "auto",
+      borderRadius: 30,
+      transition: "0.3s",
+      boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+      border: '6px solid #E1E5EA',
+      "&:hover": {
+        boxShadow: "0 16px 60px -12.125px rgba(0,0,0,0.3)"
+      }
+    },
+    actions: {
+      backgroundColor: '#E1E5EA',
+    }, 
+    tituloEstacion:{
+      textTransform: 'uppercase',
+      fontFamily: 'Nunito'
+    }
+  }));
 
 
 
 
+export default function CardEstaciones({ data, config, estacionUrl, estacion}) {
+  const history = useHistory();
+  const styles= useStyles();
+  const verSensores = () =>{
+    Cookies.set("estacion", data.id );
+    history.push({ pathname: '/sensores'   })
+  }
 
-
-export default function CardEstaciones({sector, seleccionarEstacion, id, data}) {
-
-    seleccionarEstacion(id, data)
-
-    const seleccionarEstacion=(number, row)=>{
+ /*  const seleccionarEstacion=(number, row)=>{
         setSector(row);
         axios.get(estacionUrl+`/`+ number, config).then((response) => {
           var count = Object.keys(response.data).length;
@@ -53,39 +71,23 @@ export default function CardEstaciones({sector, seleccionarEstacion, id, data}) 
           }else{
             setEstacion(response.data);
           }
-          return estacion;
+          return <h3>{estacion}</h3>
        });
-      }
+      } */
 
-    const bodyEstacion=(
-        <>
-        <h2 >{sector.nombreSector}</h2>
-          <ul>
-            {estacion && estacion.map((anObjectMapped, index) => {
-              return (
-              <h3 key={`${anObjectMapped.nombreComponente}_{anObjectMapped.tipoCultivo}`}>
-                {anObjectMapped.nombreComponente} - {anObjectMapped.tipoCultivo}
-                </h3>);    })}           
-                </ul>
-            <br /><br />
-            </>
-    )
+
     return (
 
         <Grid  item xs={3}>
-            <Card sx={{ minWidth: 385 }}>
+            <Card sx={{ maxWidth: 345,  borderRadius: 6 } } className={styles.card}>
                 <CardContent>
-                    <Typography variant="h5" component="div">
-                        {sector}
+                    <Typography variant="h5" component="div" className={styles.tituloEstacion}>
+                        {data.nombreSector}
                     </Typography>
-                    <Typography variant="body2">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
-                    </Typography>
+  
                 </CardContent>
-                <CardActions>
-                <VerButton variant="outlined" >
+                <CardActions  className={styles.actions} disableSpacing={true}>
+                <VerButton variant="outlined"  onClick={()=>verSensores()}>
                                 Ver Estacion
                                 </VerButton>
                 </CardActions>

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
+import Loading from '../../components/Loading'
 import Grid from '@mui/material/Grid';
 import {makeStyles} from '@material-ui/core/styles';
 import CardEstaciones from '../../components/Admin/CardEstaciones/CardEstaciones';
 import { Modal, Button, TextField} from '@material-ui/core';
-import {Edit, Delete, Flag} from '@material-ui/icons';
+import {Edit} from '@material-ui/icons';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '25px',
       width: 400,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #134E5E',
+      border: '2px solid #93B5C6',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       top: '50%',
@@ -78,9 +79,9 @@ const useStyles = makeStyles((theme) => ({
     },
     tituloEditar:{
         width: '48%',
-        color: '#134E5E',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#93B5C6',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -88,9 +89,9 @@ const useStyles = makeStyles((theme) => ({
       ,
     tituloInsertar:{
         width: '55%',
-        color: '#134E5E',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#93B5C6',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -98,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
       tituloEstacion:{
         textTransform: 'uppercase',
         width: '75%',
-        color: '#134E5E',
+        color: '#93B5C6',
         borderRadius: '30px',
         backgroundColor: '#D3E0EA',
         paddingLeft: '30px',
@@ -131,14 +132,14 @@ const useStyles = makeStyles((theme) => ({
           },
       },
       tablas: {
-        marginTop: '9%'       
+        marginTop: '3%'       
    }
   }));
 
 
 
   const ButtoInsertar = styled(Button)({
-    marginLeft: '60%',
+    marginLeft: '40%',
     textTransform: 'none',
     fontSize: '1.2rem',
     padding: '-1px 15px',
@@ -159,6 +160,7 @@ const useStyles = makeStyles((theme) => ({
   function PanelEstaciones({config}) {
     const styles= useStyles();
     const [sectores, setSectores] = useState();
+    const [loading, setLoading] = useState(false);
     const [estacion, setEstacion]=useState();
     const [sensor, setSensor]=useState();
     const [sensorActual, setSensorActual]=useState();
@@ -253,7 +255,7 @@ const useStyles = makeStyles((theme) => ({
       setModalEliminar(!modalEliminar);
     }
   
-    const seleccionarsector=(number, row, caso)=>{
+   /* const seleccionarsector=(number, row, caso)=>{
       setSector(row);
       axios.get(estacionUrl+`/`+ number, config).then((response) => {
         var count = Object.keys(response.data).length;
@@ -272,10 +274,12 @@ const useStyles = makeStyles((theme) => ({
         (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }, 1000);
       
-    }
+    } */
 
 
-  
+    setTimeout(() => {
+      setLoading(true)
+    }, 1000);
 
 
   
@@ -283,7 +287,7 @@ const useStyles = makeStyles((theme) => ({
 
       <div className={styles.modal}>
         <FadeIn>
-        <h2 className={styles.tituloInsertar}>Agregar Sector</h2>
+        <h2 className={styles.tituloInsertar}>Agregar Estacion</h2>
         <TextField name="email" className={styles.inputMaterial} label="Correo Usuario" onChange={handleChange} variant="outlined"/> 
         <br />
         <TextField name="sector" className={styles.inputMaterial} label="Sector" onChange={handleChange} variant="outlined"/> 
@@ -356,19 +360,19 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
-      <div >
+      <>
+       { loading ? (      <div className={styles.tablas}>
         <FadeIn>
-          <h1 className="bienvenida">Informacion de Estaciones</h1>
+          <h1 className="bienvenidaEstaciones">Informacion de Estaciones</h1>
           <br />
-          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nueva Estacion</ButtoInsertar>
-          </FadeIn>
+          <ButtoInsertar  onClick={()=>abrirCerrarModalInsertar()}>Nueva Estacion</ButtoInsertar>
 
         <br />
-    <FadeIn>
+
         <Box sx={{ flexGrow: 1 }}>
             <Grid   container  spacing={1}>
             {  sectores && sectores.map(row=>(
-              <CardEstaciones sector={row.nombreSector} />  )) }
+              <CardEstaciones data={row}  config={config} estacionUrl={estacionUrl} estacion={estacion} />  )) }
             </Grid>
         </Box>
              { /* sectores && sectores.map(row=>(
@@ -410,7 +414,9 @@ const useStyles = makeStyles((theme) => ({
        </Modal>
 
 
-      </div>
+      </div>) : (<div className="loading"><Loading /> </div>) }
+      </>
+
     );
   }
   

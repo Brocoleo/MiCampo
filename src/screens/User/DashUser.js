@@ -3,7 +3,6 @@ import React, {useState} from 'react'
 //import Assistant from '../../components/User/Assistent/Assistent'
 import LineChart from "../../components/User/LineChart/LineChart";
 import WeatherStation from "../../components/User/WeatherStation/WeatherStation";
-//import ScatterChart from '../components/ScatterChart/ScatterChart';
 import Notifications from './Notifications'
 import { IconContext } from "react-icons";
 import BarChart from '../../components/User/BarChart/BarChart';

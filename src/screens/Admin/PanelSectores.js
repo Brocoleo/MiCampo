@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
+import Loading from '../../components/Loading'
 import {makeStyles} from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
 import {Edit, Delete} from '@material-ui/icons';
@@ -62,9 +63,9 @@ const useStyles = makeStyles((theme) => ({
     },
     tituloEditar:{
         width: '48%',
-        color: '#134E5E',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#93B5C6',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -72,9 +73,9 @@ const useStyles = makeStyles((theme) => ({
       ,
     tituloInsertar:{
         width: '55%',
-        color: '#134E5E',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#93B5C6',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -153,6 +154,7 @@ const useStyles = makeStyles((theme) => ({
   function PanelSectores({config}) {
     const styles= useStyles();
     const [sectores, setSectores] = useState();
+    const [loading, setLoading] = useState(false);
     const [data, setData]=useState([]);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
@@ -175,7 +177,9 @@ const useStyles = makeStyles((theme) => ({
       }))
     }
   
-
+    setTimeout(() => {
+      setLoading(true)
+    }, 1000);
   
     const peticionPost=async()=>{
       let post = {
@@ -276,11 +280,12 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
+      <>{ loading ? ( 
       <div className={styles.tablas}>
         <FadeIn>
           <h1 className="bienvenida">Informacion de Sectores</h1>
           <br />
-          <ButtoInsertar ButtoInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sector</ButtoInsertar>
+          <ButtoInsertar  onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sector</ButtoInsertar>
           </FadeIn>
 
         <br />
@@ -310,7 +315,9 @@ const useStyles = makeStyles((theme) => ({
            </TableBody>
          </Table>
        </TableContainer>
-    </FadeIn>     
+    </FadeIn> 
+    </div>
+    ):(<div className="loading"><Loading /> </div>)}   
        <Modal
        open={modalInsertar}
        onClose={abrirCerrarModalInsertar}>
@@ -328,7 +335,8 @@ const useStyles = makeStyles((theme) => ({
        onClose={abrirCerrarModalEliminar}>
           {bodyEliminar}
        </Modal>
-      </div>
+      
+      </> 
     );
   }
   

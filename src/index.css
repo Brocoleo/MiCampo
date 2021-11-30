@@ -3,9 +3,7 @@
 body {
     margin-top: 3%;
     margin-bottom: 67%;
-    background: #134E5E;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #71B280, #134E5E);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #71B280, #134E5E); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(0deg, rgba(0,30,108,1) 0%, rgba(147,181,198,1) 100%);
     display: flex;
     justify-content: center;
     font-family: 'Nunito', sans-serif;
@@ -60,19 +58,33 @@ code {
 
   .bienvenida{
         text-align: left;
-        color: #fff;
+        color: #F7F6F2;
         font-weight: bold;
-        margin-bottom: 0;
-        text-shadow: 2px 2px #134E5E;
-        
+        margin-bottom: 0; 
   }
+
+  .bienvenidaEstaciones{
+    text-align: left;
+    margin-left: 20%;
+    color: #F7F6F2;
+    font-weight: bold;
+    margin-bottom: 0;  
+}
+
+.bienvenidaSensores{
+  margin-top: 30px;
+  text-align: center;
+  color: #F7F6F2;
+  font-weight: bold;
+  margin-bottom: 0;  
+}
   .subtitulo{
     text-align: left;
-    color: #fff;
+    color: #F7F6F2;
     font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 10%;
-    text-shadow: 1px 1px #134E5E;
+
 }
 
 
@@ -119,3 +131,15 @@ code {
   .margenDatos {
     margin-top: 17%;
   }
+  .loading {
+    margin-top: 20vh;
+  }
+
+  .wrapper {
+    display: grid;
+    /* grid-gap: 10px; */
+    grid-template-rows: minmax(300px, 500px) 1fr;
+    grid-template-columns: 1fr;
+    width: 400px; 
+    margin: auto; 
+}
