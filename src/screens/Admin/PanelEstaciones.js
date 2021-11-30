@@ -161,6 +161,7 @@ const useStyles = makeStyles((theme) => ({
     const styles= useStyles();
     const [sectores, setSectores] = useState();
     const [loading, setLoading] = useState(false);
+    // eslint-disable-next-line
     const [estacion, setEstacion]=useState();
     const [sensor, setSensor]=useState();
     const [sensorActual, setSensorActual]=useState();
@@ -170,6 +171,7 @@ const useStyles = makeStyles((theme) => ({
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEditarSensor, setModalEditarSensor]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
+    // eslint-disable-next-line
     const [sector, setSector]=useState({
       id: '',
       nombreSector: ''

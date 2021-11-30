@@ -9,7 +9,7 @@ import FadeIn from 'react-fade-in';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
 import { useHistory } from "react-router-dom";
-
+import Loading from '../../components/Loading'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const PanelSensores = ({config}) => {
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const estacion = Cookies.get("estacion");
   const styles= useStyles();
@@ -74,17 +75,18 @@ const PanelSensores = ({config}) => {
     fetchMyAPI()
   }, [fetchMyAPI])
 
+  setTimeout(() => {
+    setLoading(true)
+  }, 1000);
   const VerGraficas = (sensor, tipo) =>{
     Cookies.set("sensor", sensor );
-    console.log(tipo)
-    { tipo ==='Sin Sensores'? (console.log('sin sensores')) : ( history.push({ pathname: '/graficos'   }))}
- 
-   
+    // eslint-disable-next-line
+    { tipo ==='Sin Sensores'? (console.log('sin sensores')) : ( history.push({ pathname: '/graficos'   }))} 
   }
 
   return (
   <>
-  <FadeIn>
+  { loading ? (  <><FadeIn>
     <h1 className="bienvenidaSensores">Informacion Sensores</h1>
     </FadeIn>
     <br />
@@ -110,11 +112,14 @@ const PanelSensores = ({config}) => {
               </Card>
               </FadeIn>
               </Grid>
+              
             );    })}           
 
             <br /><br />
    
-      </Grid>
+      </Grid> </>):(<div className="loading"><Loading /> </div>)}
+      
+
     </>
   )
 }
