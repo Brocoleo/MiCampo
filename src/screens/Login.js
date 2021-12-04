@@ -19,7 +19,7 @@ const theme = createTheme();
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const baseUrl='https://sensoresapi.herokuapp.com/api/v1/auth/login'
+  const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/auth/login'
   const classes = useStyles();
   const history = useHistory();
 

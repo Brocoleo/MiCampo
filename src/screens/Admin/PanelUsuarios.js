@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import Loading from '../../components/Loading'
 import Paper from '@mui/material/Paper';
 
-const baseUrl='https://sensoresapi.herokuapp.com/api/v1/users'
+const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/users'
 
 const currencies = [
   {

@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 
 
-const baseUrl='https://sensoresapi.herokuapp.com/api/v1/sector'
-const estacionUrl='https://sensoresapi.herokuapp.com/api/v1/component'
+const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/sector'
+const estacionUrl='https://sensores-api-citra.herokuapp.com/api/v1/component'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '25px',
       width: 400,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #93B5C6',
+      border: '2px solid #0F044C',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       top: '50%',
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
         width: '48%',
         color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#93B5C6',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
         width: '55%',
         color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#93B5C6',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -99,9 +99,9 @@ const useStyles = makeStyles((theme) => ({
       tituloEstacion:{
         textTransform: 'uppercase',
         width: '75%',
-        color: '#93B5C6',
+        color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#D3E0EA',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -257,7 +257,7 @@ const useStyles = makeStyles((theme) => ({
       setModalEliminar(!modalEliminar);
     }
   
-   /* const seleccionarsector=(number, row, caso)=>{
+    const seleccionarsector=(number, row, caso)=>{
       setSector(row);
       axios.get(estacionUrl+`/`+ number, config).then((response) => {
         var count = Object.keys(response.data).length;
@@ -276,7 +276,7 @@ const useStyles = makeStyles((theme) => ({
         (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }, 1000);
       
-    } */
+    } 
 
 
     setTimeout(() => {
@@ -336,7 +336,7 @@ const useStyles = makeStyles((theme) => ({
     const bodyEditarSensor=(
       <div className={styles.modal}>
       <FadeIn>
-        <h2 className={styles.tituloEditar}>Editar Sector</h2>
+        <h2 className={styles.tituloEditar}>Editar {sensor}</h2>
         <TextField name="email" className={styles.inputMaterial} label="Correo" onChange={event => setSensor(event.target.value)} value={sensor} variant="outlined"/>
         <br />
         <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={event => setCultivo(event.target.value)} value={cultivo} variant="outlined"/>
@@ -374,21 +374,9 @@ const useStyles = makeStyles((theme) => ({
         <Box sx={{ flexGrow: 1 }}>
             <Grid   container  spacing={1}>
             {  sectores && sectores.map(row=>(
-              <CardEstaciones data={row}  config={config} estacionUrl={estacionUrl} estacion={estacion} />  )) }
+              <CardEstaciones data={row}  config={config} estacionUrl={estacionUrl} estacion={estacion} seleccionarsector={seleccionarsector}/>  )) }
             </Grid>
         </Box>
-             { /* sectores && sectores.map(row=>(
-                    <VerButton variant="outlined" onClick={()=>seleccionarEstacion(row.id, row)} startIcon={<Flag />}>
-                    {row.nombreSector}  
-                      </VerButton>
-
-                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row.id, row, 'Editar')}/>
-
-                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row.id, row, 'Eliminar')}/>
-        
-               
-             )) */}
-
 
     </FadeIn>     
        <Modal

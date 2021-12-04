@@ -65,6 +65,24 @@ export const MiniContainer = styled.div`
   }
   `;
 
+export const WeatherAdminContainer = styled.div`
+margin-top:70px;
+display: flex;
+width: 70%;
+flex-direction: column;
+align-items: center;
+border-radius: 20px;
+box-shadow: 0 3px 6px 0 #134E5E;
+background: rgb(52,79,161);
+background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
+font-family: 'Nunito', sans-serif;
+@media (max-width: 768px) {
+  width: 77%;
+  margin-top: 22%;
+  margin-left: 5%;
+}
+`;
+
 export const ChartContainer = styled.div`
 display: flex;
 padding: 9px;

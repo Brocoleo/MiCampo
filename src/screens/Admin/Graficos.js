@@ -16,6 +16,8 @@ import infraIcon from '../../assets/infrarrojo.png'
 import chipIcon from '../../assets/chip.svg'
 import { Container, Row, Col } from 'react-grid-system';
 import Loading from '../../components/Loading'
+import {WeatherAdminContainer} from '../styles'
+import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation";
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     '& .MuiToggleButtonGroup-grouped': {
@@ -33,7 +35,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     },
   }));
 
-  const historialUrl='https://sensoresapi.herokuapp.com/api/v1/profile/my-historial/'
+  const historialUrl='https://sensores-api-citra.herokuapp.com/api/v1/profile/my-historial/'
 const Graficos = () => {
     const sensor = Cookies.get("sensor");
     const token = Cookies.get("access");
@@ -194,9 +196,13 @@ const Graficos = () => {
   
     return (<>
     { verGraficas ? (
-         loading ? (  <div>
-        <FadeIn className='tipoGrafica'>
-      <StyledToggleButtonGroup  aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small">
+         loading && temperatura && humedad && humedadRelativa? (  <div>
+      <FadeIn className='tipoGrafica'>
+          <WeatherAdminContainer >
+          <WeatherStation title={sensor} temperatura={temperatura[temperatura.length - 1]} humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]} humedadRelativa={humedadRelativa[humedadRelativa.length -1]}/>
+          </WeatherAdminContainer>  
+       
+      <StyledToggleButtonGroup  className="btnGraficas" aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small">
         <ToggleButton value="barra" aria-label="left aligned" >
         <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
           <AiOutlineBarChart />

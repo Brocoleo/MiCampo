@@ -24,11 +24,11 @@ const Admin = ({ toggle, isOpen}) => {
 
     useEffect(() => {
         //Obtener Usuarios
-        axios.get(`https://sensoresapi.herokuapp.com/api/v1/users`,config).then((response) => {
+        axios.get(`https://sensores-api-citra.herokuapp.com/api/v1/users`,config).then((response) => {
         setNroUsuarios(Object.keys(response.data).length)
         });
         //Obtener Sectores
-        axios.get(`https://sensoresapi.herokuapp.com/api/v1/sector`,config).then((response) => {
+        axios.get(`https://sensores-api-citra.herokuapp.com/api/v1/sector`,config).then((response) => {
         setNroSectores(Object.keys(response.data).length)
         });       
       })
@@ -39,12 +39,12 @@ const Admin = ({ toggle, isOpen}) => {
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Switch>
             <Route exact path="/admin"><DashAdmin usuarios={nroUsuarios} sectores={nroSectores}/></Route>
-            <Route path="/usuarios"><PanelUsuarios config={config}/></Route>
-            <Route path="/sectores"><PanelSectores config={config}/></Route>
-            <Route path="/sensores"><PanelSensores config={config}/></Route>
-            <Route path="/graficos"><Graficos /></Route>
-            <Route path="/estaciones"><PanelEstaciones config={config}/></Route>
-            <Route path="/configuracionadmin"><h1>Configuraciones</h1></Route>
+            <Route  path="/usuarios"><PanelUsuarios config={config}/></Route>
+            <Route  path="/sectores"><PanelSectores config={config}/></Route>
+            <Route  path="/sensores"><PanelSensores config={config}/></Route>
+            <Route  path="/graficos"><Graficos /></Route>
+            <Route  path="/estaciones"><PanelEstaciones config={config}/></Route>
+            <Route  path="/configuracionadmin"><h1>Configuraciones</h1></Route>
             </Switch>
        
         

@@ -120,7 +120,9 @@ const temperaturaLine = {
 
         
           <Col xs >
-       
+       <br/>
+       <br/>
+    
           <FadeIn className='tipoGrafica'>
                     <StyledToggleButtonGroup  aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small"
  >

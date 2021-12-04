@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useCallback } from 'react';
-import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea } from '@mui/material';
 import Cookies from "js-cookie";
+import { Container, Row, Col } from 'react-grid-system';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import {makeStyles} from '@material-ui/core/styles';
@@ -53,7 +53,7 @@ const PanelSensores = ({config}) => {
   const history = useHistory();
   const estacion = Cookies.get("estacion");
   const styles= useStyles();
-  const estacionUrl='https://sensoresapi.herokuapp.com/api/v1/component'
+  const estacionUrl='https://sensores-api-citra.herokuapp.com/api/v1/component'
   const [sensores, setSensores] =useState([]);
   const fetchMyAPI = useCallback(async () => {
     axios.get(estacionUrl+`/`+ estacion, config).then((response) => {
@@ -91,13 +91,13 @@ const PanelSensores = ({config}) => {
     </FadeIn>
     <br />
     <br />
-      <Grid container spacing={1}>
-
+      <Container>
+        <Row>
             {sensores && sensores.map((anObjectMapped, index) => {
               return (
-              <Grid  item xs>
+              <Col>
                     <FadeIn>
-              <Card sx={{ width: 250 ,  borderRadius: 6}} className={styles.card}>
+              <Card sx={{ width: 250 ,  borderRadius: 6, margin: 1}} className={styles.card}>
                 <CardActionArea onClick={()=>VerGraficas(anObjectMapped.nombreComponente, anObjectMapped.tipoCultivo)}>
                 <img className={styles.image} src={require(`../../assets/${anObjectMapped.tipoCultivo}.jpg`).default} alt="" width="240" height="200"/>
                   <CardContent className={styles.info}>
@@ -111,13 +111,13 @@ const PanelSensores = ({config}) => {
                 </CardActionArea>
               </Card>
               </FadeIn>
-              </Grid>
+              </Col>
               
             );    })}           
 
             <br /><br />
-   
-      </Grid> </>):(<div className="loading"><Loading /> </div>)}
+            </Row>
+      </Container> </>):(<div className="loading"><Loading /> </div>)}
       
 
     </>

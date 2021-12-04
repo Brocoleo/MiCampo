@@ -9,8 +9,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Cookies from "js-cookie";
 import {makeStyles} from '@material-ui/core/styles';
-
-
+import CardHeader from '@mui/material/CardHeader';
+import IconButton from '@mui/material/IconButton';
+import {Edit, Delete} from '@material-ui/icons';
 
 const VerButton = styled(Button)(({ theme }) => ({
     color: '#fff',
@@ -25,6 +26,15 @@ const VerButton = styled(Button)(({ theme }) => ({
       boxShadow: 'none',
     }
   }));
+
+  const StyledHeader = styled(CardHeader) `
+  padding: 5px !important;
+  height: 0px !important;
+  > div {
+    display: inherit !important;
+    padding-right: 5px !important;
+  }
+`;
 
   const useStyles = makeStyles((theme) => ({
     card: {
@@ -49,7 +59,7 @@ const VerButton = styled(Button)(({ theme }) => ({
 
 
 
-export default function CardEstaciones({ data, config, estacionUrl, estacion}) {
+export default function CardEstaciones({ data, config, estacionUrl, estacion , seleccionarsector}) {
   const history = useHistory();
   const styles= useStyles();
   const verSensores = () =>{
@@ -57,29 +67,22 @@ export default function CardEstaciones({ data, config, estacionUrl, estacion}) {
     history.push({ pathname: '/sensores'   })
   }
 
- /*  const seleccionarEstacion=(number, row)=>{
-        setSector(row);
-        axios.get(estacionUrl+`/`+ number, config).then((response) => {
-          var count = Object.keys(response.data).length;
-          if(count===0){
-            setEstacion([{
-              nombreComponente: '',
-              tipoCultivo: 'Sin Sensores '
-            }
-    
-            ]);
-          }else{
-            setEstacion(response.data);
-          }
-          return <h3>{estacion}</h3>
-       });
-      } */
-
 
     return (
 
         <Grid  item xs={3}>
             <Card sx={{ maxWidth: 345,  borderRadius: 6 } } className={styles.card}>
+            <StyledHeader 
+              action={<>
+                <IconButton aria-label="edit">
+                  <Edit onClick={()=>seleccionarsector(data.id, data, 'Editar')}/>
+                </IconButton>
+                <IconButton aria-label="delete">
+                  <Delete onClick={()=>seleccionarsector(data.id, data, 'Eliminar')} />
+                </IconButton>
+                </>
+              }
+            />
                 <CardContent>
                     <Typography variant="h5" component="div" className={styles.tituloEstacion}>
                         {data.nombreSector}
