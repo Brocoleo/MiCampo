@@ -6,6 +6,7 @@ export const WeatherInfoIcons = {
     humedad: "/icons/humidity.svg",
     luminosidad: "/icons/sun.svg",
     presión: "icons/pressure.svg",
+    peso: "icons/peso.svg"
 };
 
 
@@ -21,17 +22,19 @@ const WeatherInfoComponent = (props) => {
         </InfoContainer>
     );
 };
-const WeatherStation = () => {
+
+
+const WeatherStation = ({title, temperatura, humedad, peso, humedadRelativa}) => {
    
     return (
         <>            
 
-            <WeatherInfoLabel>Estacion Nº1</WeatherInfoLabel>
+            <WeatherInfoLabel>{title}</WeatherInfoLabel>
             <WeatherInfoContainer>
-                <WeatherInfoComponent name={"temperatura"}value={`45°C`}/>  
-                <WeatherInfoComponent name={"humedad"} value={`15%`}/>
-                <WeatherInfoComponent name={"luminosidad"} value={740}/>
-                <WeatherInfoComponent name={"presión"} value={`3500hPa`}/>
+                {humedad ? (<WeatherInfoComponent name={"humedad"} value={humedad+`%`}/>) : (<></>)}
+                {temperatura ? (<WeatherInfoComponent name={"temperatura"}value={temperatura+`°C`}/> ) : (<></>)}
+                {peso ? (<WeatherInfoComponent name={"peso"} value={peso +`gr`}/>) : (<></>)}
+                {humedadRelativa ? (<WeatherInfoComponent name={"humedad relativa"} value={humedadRelativa +`%`}/>) : (<></>)}
             </WeatherInfoContainer>
         </>
     );

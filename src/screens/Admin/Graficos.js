@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import FadeIn from 'react-fade-in';
 import axios from 'axios';
-import LineChart from "../../components/User/LineChart/LineChart";
+import LineChart from "../../components/LineChart/LineChart";
 import { IconContext } from "react-icons";
-import BarChart from '../../components/User/BarChart/BarChart';
+import BarChart from '../../components/BarChart/BarChart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { AiOutlineLineChart, AiOutlineBarChart} from "react-icons/ai";

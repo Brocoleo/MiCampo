@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 
 export const WeatherInfoLabel = styled.span`
-  margin-top: 25px;
-  text-transform: none;
+  margin-top: 15px;
+  text-transform: uppercase;
   text-align: center;
-  width: 90%;
   color: #ffff;
   font-family: 'Nunito', sans-serif;
   font-weight: 300;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   @media (max-width: 768px) {
     width: 77%;
     margin-top: 15px;
@@ -51,11 +50,12 @@ export const InfoContainer = styled.div`
   align-items: center;
 `;
 export const InfoIcon = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 41px;
+  height: 31px;
+  margin-right: 15px;
   @media (max-width: 1400px) {
-    width: 26px;
-    height: 26px;
+    width: 46px;
+    height: 36px;
     padding: 2px;
   }
 `;
@@ -63,7 +63,7 @@ export const InfoLabel = styled.span`
   display: flex;
   font-family: 'Nunito', sans-serif;
   flex-direction: column;
-  font-size: 18px;
+  font-size: 16px;
   padding: 6px;
   font-weight: 500;
   & span {

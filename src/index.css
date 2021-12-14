@@ -129,8 +129,8 @@ code {
   }
 
   .btnGraficas {
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 1%;
+    margin-bottom: 0%;
   }
 
   .margenDatos {
@@ -151,4 +151,10 @@ code {
 
 .MuiTableSortLabel-icon{
   color:#fff
+}
+
+.notiLabel{
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  font-size: 1.6rem;
 }

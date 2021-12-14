@@ -36,7 +36,7 @@ export default  makeStyles((theme) => ({
   width: 380px;
   border-radius: 30px;
   padding: 2px;
-  box-shadow: 0 9px 12px 0 #134E5E;
+  box-shadow: 0 9px 12px 0 #031648;
   background: rgb(52,79,161);
   background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
   font-family: 'Nunito', sans-serif;
@@ -47,16 +47,15 @@ export default  makeStyles((theme) => ({
 `;
 
 export const MiniContainer = styled.div`
-  margin-top:20%;
-  padding-bottom:3%;
   display: flex;
   width: 70%;
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
-  box-shadow: 0 9px 12px 0 #134E5E;
-  background: rgb(52,79,161);
-  background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
+  box-shadow: 0 9px 12px 0 #031648;
+  border: 3px solid #464b50;
+box-shadow: 0 9px 12px 0 #031648;
+background: #30363d;
   font-family: 'Nunito', sans-serif;
   @media (max-width: 768px) {
     width: 77%;
@@ -65,6 +64,48 @@ export const MiniContainer = styled.div`
   }
   `;
 
+export const NotificationsContainer = styled.div`
+margin-bottom:18px;
+display: flex;
+width: 50%;
+padding: 18px;
+flex-direction: column;
+align-items: center;
+border-radius: 20px;
+box-shadow: 0 9px 12px 0 #031648;
+color: #fff;
+background: #30363d;
+border: 3px solid #464b50;
+
+font-family: 'Nunito', sans-serif;
+@media (max-width: 768px) {
+  width: 77%;
+  margin-top: 9%;
+  margin-left: 5%;
+}
+`;
+
+export const AsistenteContainer = styled.div`
+padding-bottom:1%;
+display: flex;
+width: 55%;
+padding: 13px;
+flex-direction: column;
+align-items: center;
+border-radius: 20px;
+color: #fff;
+border: 3px solid #464b50;
+box-shadow: 0 9px 12px 0 #031648;
+background: #30363d;
+
+font-family: 'Nunito', sans-serif;
+@media (max-width: 768px) {
+  width: 77%;
+  margin-top: 9%;
+  margin-left: 5%;
+}
+`;
+
 export const WeatherAdminContainer = styled.div`
 margin-top:70px;
 display: flex;
@@ -72,7 +113,7 @@ width: 70%;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
-box-shadow: 0 3px 6px 0 #134E5E;
+box-shadow: 0 3px 6px 0 #031648;
 background: rgb(52,79,161);
 background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
 font-family: 'Nunito', sans-serif;
@@ -92,7 +133,8 @@ margin-left: 5%;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
-box-shadow: 0 9px 12px 0 #134E5E;
+box-shadow: 0 9px 12px 0 #031648;
+border: 3px solid #F3F1F5;
 background: #fff;  
 font-family: 'Nunito', sans-serif;
 
@@ -112,7 +154,7 @@ width: 380px;
 flex-direction: column;
 align-items: center;
 border-radius: 30px;
-box-shadow: 0 9px 12px 0 #134E5E;
+box-shadow: 0 9px 12px 0 #031648;
 background: #fff;  
 font-family: 'Nunito', sans-serif;
 @media (max-width: 768px) {
@@ -139,7 +181,7 @@ export const CardUsers = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 20px;
-  box-shadow: 0 9px 12px 0 #134E5E;
+  box-shadow: 0 9px 12px 0 #031648;
   background: #00c6ff;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -161,7 +203,7 @@ margin-left: 10%;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
-box-shadow: 0 9px 12px 0 #134E5E;
+box-shadow: 0 9px 12px 0 #031648;
 background: rgb(217,140,0);
 background: linear-gradient(90deg, rgba(217,140,0,1) 47%, rgba(255,164,0,1) 79%);
 font-family: 'Nunito', sans-serif;
@@ -182,7 +224,7 @@ margin-left: 20%;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
-box-shadow: 0 9px 12px 0 #134E5E;
+box-shadow: 0 9px 12px 0 #031648;
 background: #8E2DE2;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */

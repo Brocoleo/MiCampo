@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import logo from '../assets/logo.png';
@@ -19,6 +19,7 @@ const theme = createTheme();
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const [text, setText] = useState();
   const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/auth/login'
   const classes = useStyles();
   const history = useHistory();
@@ -47,11 +48,14 @@ const Login = () => {
           }          
         })
         .catch(function (error) {
-          if (error.response) {
+          if (error.response.data) {
+            setLoading(false)
+            setText(error.response.status) 
             // Request made and server responded
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
+            console.log(text)
           } else if (error.request) {
             // The request was made but no response was received
             console.log(error.request);
@@ -63,6 +67,11 @@ const Login = () => {
         });
       };
 
+
+      useEffect(() => {
+
+        console.log(text);
+      }, [text])
 
 
 
@@ -113,6 +122,8 @@ const Login = () => {
               name="email"
               autoComplete="email"
               autoFocus
+              error={text === ""}
+              helperText={text === "" ? 'Empty field!' : ' '}
             />
             <TextField
               margin="normal"
@@ -123,6 +134,8 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              error={text === ""}
+              helperText={text === "" ? 'Empty field!' : ' '}
             />
             
              
