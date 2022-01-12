@@ -19,19 +19,18 @@ function App() {
     <>
 
     <Router>
+    
     <Switch>
-    <div className="code">
       <Route  path="/user"><User toggle={toggle} isOpen={isOpen}/> </Route> 
       <Route  path="/admin"><Admin toggle={toggle} isOpen={isOpen}/> </Route>  
       <Route exact path="/"><Login  /></Route>
       <Route exact path="/register"><Register  /></Route>
       
-    </div>
     </Switch>
     </Router>
   
 
-      <Footer/>
+
       </>
     
     

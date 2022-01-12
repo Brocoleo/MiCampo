@@ -95,7 +95,7 @@ const PanelSensores = ({config}) => {
         <Row>
             {sensores && sensores.map((anObjectMapped, index) => {
               return (
-              <Col>
+              <Col key={index}>
                     <FadeIn>
               <Card sx={{ width: 250 ,  borderRadius: 6, margin: 1}} className={styles.card}>
                 <CardActionArea onClick={()=>VerGraficas(anObjectMapped.nombreComponente, anObjectMapped.tipoCultivo)}>

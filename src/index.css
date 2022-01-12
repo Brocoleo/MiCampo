@@ -158,3 +158,20 @@ code {
   font-weight: 300;
   font-size: 1.6rem;
 }
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #fff;
+}
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(45deg, #141e30, #243b55);
+  border-radius: 3px;
+
+}
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 3px;
+}

@@ -373,8 +373,8 @@ const useStyles = makeStyles((theme) => ({
 
         <Box sx={{ flexGrow: 1 }}>
             <Grid   container  spacing={1}>
-            {  sectores && sectores.map(row=>(
-              <CardEstaciones data={row}  config={config} estacionUrl={estacionUrl} estacion={estacion} seleccionarsector={seleccionarsector}/>  )) }
+            {  sectores && sectores.map((row, index)=>(
+              <CardEstaciones data={row}  config={config} estacionUrl={estacionUrl} estacion={estacion} seleccionarsector={seleccionarsector} key={index}/>  )) }
             </Grid>
         </Box>
 
