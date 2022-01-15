@@ -94,12 +94,13 @@ const PanelSensores = ({config}) => {
       <Container>
         <Row>
             {sensores && sensores.map((anObjectMapped, index) => {
+              console.log(anObjectMapped)
               return (
               <Col key={index}>
                     <FadeIn>
               <Card sx={{ width: 250 ,  borderRadius: 6, margin: 1}} className={styles.card}>
                 <CardActionArea onClick={()=>VerGraficas(anObjectMapped.nombreComponente, anObjectMapped.tipoCultivo)}>
-                <img className={styles.image} src={require(`../../assets/${anObjectMapped.tipoCultivo}.jpg`).default} alt="" width="240" height="200"/>
+                <img className={styles.image} src={require(`../../assets/${anObjectMapped.tipoCultivo}.jpg`)} alt="" width="240" height="200"/>
                   <CardContent className={styles.info}>
                   <Typography gutterBottom variant="h6" className={styles.cultivo} component="div">
                   {anObjectMapped.tipoCultivo}
