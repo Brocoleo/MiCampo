@@ -159,6 +159,15 @@ code {
   font-size: 1.6rem;
 }
 
+@media(max-width: 1424px){
+  .notiLabel {
+    font-size: 1rem;
+  } 
+  .texto {
+    font-size: 0.9rem;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 15px;
   height: 15px;

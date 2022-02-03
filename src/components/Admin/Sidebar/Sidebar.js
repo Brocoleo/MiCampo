@@ -25,7 +25,6 @@ const Sidebar = ({ isOpen, toggle }) => {
         <SidebarLink to='/usuarios'><FaUsers />&nbsp;&nbsp;USUARIOS</SidebarLink>
         <SidebarLink to='/sectores'><IoPartlySunny />&nbsp;&nbsp;SECTORES</SidebarLink>
         <SidebarLink to='/estaciones'><FaMicrochip />&nbsp;&nbsp;ESTACIONES</SidebarLink>
-        <SidebarLink to="/configuracionadmin" ><IoSettings />&nbsp;&nbsp;CONFIGURACION</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
         <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>

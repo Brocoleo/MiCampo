@@ -1,7 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import axios from 'axios';
-//import WeatherComponent from "../components/WheatherInfo/WeatherInfo";
-//import Assistant from '../../components/User/Assistent/Assistent'
 import LineChart from "../../components/LineChart/LineChart";
 import WeatherStation from "../../components/User/WeatherStation/WeatherStation";
 import Notifications from './Notifications'
@@ -235,32 +233,16 @@ const DashUser = () => {
               <AsistenteContainer>
               <span className="notiLabel">Asistente Riego </span>
   
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indus</p>
+              <p className="texto">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indus</p>
               <Robot />
               </AsistenteContainer>
               </Col2>
               </Row2>
-            <FadeIn className='tipoGrafica'>
-            
-            <StyledToggleButtonGroup  className="btnGraficas" aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small">
-              <ToggleButton value="barra" aria-label="left aligned" >
-              <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
-                <AiOutlineBarChart />
-                </IconContext.Provider>
-              </ToggleButton>
-              <ToggleButton value="linea" aria-label="justified" >
-              <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
-                <AiOutlineLineChart />
-                </IconContext.Provider>
-              </ToggleButton>
-            </StyledToggleButtonGroup>
-          </FadeIn> 
-          
-
-      {(() => {
+           
+            {(() => {
             switch (grafico) {
               case 'linea':
-                return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
+                return  <Container  className="btnGraficas"> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
                 { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
                 { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
                 { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
@@ -269,7 +251,7 @@ const DashUser = () => {
                 { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
                 { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)} </Row> </FadeIn> </Container>
               case 'barra':
-                return <Container> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
+                return <Container  className="btnGraficas"> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
                 { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
                 { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
                 { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
@@ -278,7 +260,7 @@ const DashUser = () => {
                 { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
                 { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)} </Row> </FadeIn> </Container>
               default:
-                return <Container> <FadeIn>  <Row>{ humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
+                return <Container  className="btnGraficas"> <FadeIn>  <Row>{ humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
                 { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
                 { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
                 { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
@@ -295,6 +277,23 @@ const DashUser = () => {
                 <br />
                 <h1 className="bienvenidaSensores">Sensor sin Historial</h1>
                 </FadeIn>)}
+                <FadeIn >
+            <StyledToggleButtonGroup  className="btnGraficas" aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small">
+              <ToggleButton value="barra" aria-label="left aligned" >
+              <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
+                <AiOutlineBarChart />
+                </IconContext.Provider>
+              </ToggleButton>
+              <ToggleButton value="linea" aria-label="justified" >
+              <IconContext.Provider value={{ color: "#fff", size: "2em" }}>
+                <AiOutlineLineChart />
+                </IconContext.Provider>
+              </ToggleButton>
+            </StyledToggleButtonGroup>
+          </FadeIn> 
+          
+
+    
 
           </>   
                  

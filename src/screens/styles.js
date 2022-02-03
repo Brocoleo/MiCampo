@@ -54,14 +54,21 @@ export const MiniContainer = styled.div`
   border-radius: 20px;
   box-shadow: 0 9px 12px 0 #031648;
   border: 3px solid #464b50;
-box-shadow: 0 9px 12px 0 #031648;
-background: #30363d;
+  box-shadow: 0 9px 12px 0 #031648;
+  background: #30363d;
   font-family: 'Nunito', sans-serif;
   @media (max-width: 768px) {
     width: 77%;
     margin-top: 9%;
     margin-left: 5%;
   }
+
+  @media only screen and (min-width: 768px) and (max-width: 1424px) {
+  width: 100%;
+  margin-top: 3%;
+  margin-left: 5%;
+}
+
   `;
 
 export const NotificationsContainer = styled.div`
@@ -76,11 +83,17 @@ box-shadow: 0 9px 12px 0 #031648;
 color: #fff;
 background: #30363d;
 border: 3px solid #464b50;
-
 font-family: 'Nunito', sans-serif;
+
 @media (max-width: 768px) {
   width: 77%;
   margin-top: 9%;
+  margin-left: 5%;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1424px) {
+  width: 60%;
+  margin-top: 3%;
   margin-left: 5%;
 }
 `;
@@ -89,7 +102,9 @@ export const AsistenteContainer = styled.div`
 padding-bottom:1%;
 display: flex;
 width: 55%;
-padding: 13px;
+padding: 10px;
+padding-left: 15px;
+padding-right: 15px;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
@@ -97,11 +112,17 @@ color: #fff;
 border: 3px solid #464b50;
 box-shadow: 0 9px 12px 0 #031648;
 background: #30363d;
-
 font-family: 'Nunito', sans-serif;
-@media (max-width: 768px) {
+
+@media only screen and (max-width: 768px) {
   width: 77%;
   margin-top: 9%;
+  margin-left: 5%;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1424px) {
+  width: 77%;
+  margin-top: 3%;
   margin-left: 5%;
 }
 `;

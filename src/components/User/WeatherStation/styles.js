@@ -14,6 +14,10 @@ export const WeatherInfoLabel = styled.span`
     width: 77%;
     margin-top: 15px;
   }
+
+  @media only screen and (min-width: 768px) and (max-width: 1424px) {
+    font-size: 1rem;
+}
 `;
 export const WeatherIcon = styled.img`
   width: 100px;
@@ -39,6 +43,7 @@ export const WeatherInfoContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+
 `;
 export const InfoContainer = styled.div`
   display: flex;
@@ -54,8 +59,8 @@ export const InfoIcon = styled.img`
   height: 31px;
   margin-right: 15px;
   @media (max-width: 1400px) {
-    width: 46px;
-    height: 36px;
+    width: 36px;
+    height: 26px;
     padding: 2px;
   }
 `;
@@ -71,7 +76,10 @@ export const InfoLabel = styled.span`
     text-transform: capitalize;
   }
   @media (max-width: 1400px) {
-    font-size: 16px;
+    font-size: 1rem;
     padding: 2px;
+    & span {
+    font-size: 1rem;
+  }
   }
 `;
