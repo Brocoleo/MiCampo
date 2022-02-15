@@ -8,7 +8,7 @@ import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from '../../components/Loading'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,10 +47,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-const PanelSensores = ({config}) => {
+const token = Cookies.get("access"); 
+const config = {headers: { Authorization: `Bearer ${token}` }}; 
+const PanelSensores = () => {
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const estacion = Cookies.get("estacion");
   const styles= useStyles();
   const estacionUrl='https://sensores-api-citra.herokuapp.com/api/v1/component'
@@ -69,7 +70,7 @@ const PanelSensores = ({config}) => {
         setSensores(response.data)
       }
    });
-  }, [config, estacion])
+  }, [estacion])
 
   useEffect(() => {
     fetchMyAPI()
@@ -81,7 +82,7 @@ const PanelSensores = ({config}) => {
   const VerGraficas = (sensor, tipo) =>{
     Cookies.set("sensor", sensor );
     // eslint-disable-next-line
-    { tipo ==='Sin Sensores'? (console.log('sin sensores')) : ( history.push({ pathname: '/graficos'   }))} 
+    { tipo ==='Sin Sensores'? (console.log('sin sensores')) : ( navigate('/admin/graficos'))} 
   }
 
   return (

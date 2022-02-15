@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useEffect, useState}from 'react'
+import axios from "axios";
+import Cookies from "js-cookie";
 import FadeIn from 'react-fade-in';
 import Grid from '@material-ui/core/Grid';
 import CountUp from 'react-countup';
@@ -8,7 +10,23 @@ import Users from '../../components/Animations/Users';
 import Estaciones from '../../components/Animations/Estaciones';
 import Sensores from '../../components/Animations/Sensores';
 
-const DashAdmin = ({usuarios, sectores}) => {
+const DashAdmin = () => {
+  const [nroUsuarios, setNroUsuarios] = useState();
+  const [nroSectores, setNroSectores] = useState();
+  const token = Cookies.get("access");
+  const config = {headers: { Authorization: `Bearer ${token}` }};
+
+
+  useEffect(() => {
+      //Obtener Usuarios
+      axios.get(`https://sensores-api-citra.herokuapp.com/api/v1/users`,config).then((response) => {
+      setNroUsuarios(Object.keys(response.data).length)
+      });
+      //Obtener Sectores
+      axios.get(`https://sensores-api-citra.herokuapp.com/api/v1/sector`,config).then((response) => {
+      setNroSectores(Object.keys(response.data).length)
+      });       
+    })
     return (
         <div className="margenTop">
           <FadeIn>
@@ -23,7 +41,7 @@ const DashAdmin = ({usuarios, sectores}) => {
             <CardAdmin title="USUARIOS"/>
             <Users />
             <DataUsers>
-            <CountUp  start={0} end={usuarios} duration={1} />
+            <CountUp  start={0} end={nroUsuarios} duration={1} />
             </DataUsers>
             <DataLabel> Registrados</DataLabel>
           </CardUsers> 
@@ -38,7 +56,7 @@ const DashAdmin = ({usuarios, sectores}) => {
             <CardAdmin title="SECTORES"/>
             <Estaciones />
             <DataEstacion>
-            <CountUp  start={0} end={sectores} duration={1} />
+            <CountUp  start={0} end={nroSectores} duration={1} />
             </DataEstacion>
             <DataLabel> Ingresados</DataLabel>
           </CardEstaciones>

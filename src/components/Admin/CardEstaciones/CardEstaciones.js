@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -60,11 +60,11 @@ const VerButton = styled(Button)(({ theme }) => ({
 
 
 export default function CardEstaciones({ data, config, estacionUrl, estacion , seleccionarsector}) {
-  const history = useHistory();
+  const navigate = useNavigate ();
   const styles= useStyles();
   const verSensores = () =>{
     Cookies.set("estacion", data.id );
-    history.push({ pathname: '/sensores'   })
+    navigate('/admin/sensores')
   }
 
 

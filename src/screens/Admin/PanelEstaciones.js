@@ -9,6 +9,7 @@ import { Modal, Button, TextField} from '@material-ui/core';
 import {Edit} from '@material-ui/icons';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
+import Cookies from "js-cookie";  
 
 
 const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/sector'
@@ -157,7 +158,9 @@ const useStyles = makeStyles((theme) => ({
     }
   });
   
-  function PanelEstaciones({config}) {
+  function PanelEstaciones() {
+    const token = Cookies.get("access"); 
+    const config = {headers: { Authorization: `Bearer ${token}` }}; 
     const styles= useStyles();
     const [sectores, setSectores] = useState();
     const [loading, setLoading] = useState(false);

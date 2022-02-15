@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import useStyles from '../styles'
 import Navbar from "../../components/User/Navbar/Navbar";
 import Sidebar from "../../components/User/Sidebar/Sidebar";
@@ -16,11 +16,11 @@ const User = ({ toggle, isOpen}) => {
          <Navbar  toggle={toggle}/>
         <div className={classes.root}>       
         <Sidebar isOpen={isOpen} toggle={toggle} />
-        <Switch>
-          <Route exact path="/user"><DashUser /></Route>
+        <Routes>
+          <Route  path="/user"><DashUser /></Route>
           <Route path="/informacion"><Info /></Route>
           <Route path="/configuraciones"><h1>Configuracion Usuario</h1></Route>
-        </Switch>
+        </Routes>
          
       </div>
       </Router>

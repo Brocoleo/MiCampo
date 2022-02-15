@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo.png';
 import FadeIn from 'react-fade-in';
 import Button from '@mui/material/Button';
@@ -27,7 +27,7 @@ const Login = () => {
   const [mensajePass, setMensajePass] = useState("");
   const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/auth/login'
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
 
   const handleChange = (event) => {
@@ -54,13 +54,12 @@ const Login = () => {
           .then(response=>{
             if(response.data.user.role === 'admin'){
               Cookies.set("access", response.data.token );
-              history.push({ pathname: '/admin'   })}
+              navigate( '/admin/dash')}
   
             if(response.data.user.role === 'customer'){
               console.log(response.data)
               Cookies.set("access", response.data.token );
-              history.push({ pathname: '/user'})
-            }          
+              navigate('/user')}          
           })
           .catch(function (error) {
             if (error.response.data) {

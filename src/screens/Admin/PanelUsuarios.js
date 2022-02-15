@@ -8,6 +8,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Loading from '../../components/Loading'
 import Paper from '@mui/material/Paper';
+import Cookies from "js-cookie";  
 
 const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/users'
 
@@ -162,7 +163,7 @@ const useStyles = makeStyles((theme) => ({
     }
   });
   
-  function PanelUsuarios({config}) {
+  function PanelUsuarios() {
     const styles= useStyles();
     const [usuarios, setUsuarios] = useState();
     const [data, setData]=useState([]);
@@ -171,6 +172,8 @@ const useStyles = makeStyles((theme) => ({
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
     const [rol, setRol] = React.useState('customer');
+    const token = Cookies.get("access"); 
+    const config = {headers: { Authorization: `Bearer ${token}` }}; 
 
     useEffect(() => {
       axios.get(baseUrl,config).then((response) => {

@@ -8,6 +8,7 @@ import {Edit, Delete} from '@material-ui/icons';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import Cookies from "js-cookie"; 
 
 const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/sector'
 
@@ -151,7 +152,9 @@ const useStyles = makeStyles((theme) => ({
     }
   });
   
-  function PanelSectores({config}) {
+  function PanelSectores() {
+    const token = Cookies.get("access"); 
+    const config = {headers: { Authorization: `Bearer ${token}` }}; 
     const styles= useStyles();
     const [sectores, setSectores] = useState();
     const [loading, setLoading] = useState(false);
