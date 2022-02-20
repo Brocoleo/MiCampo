@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: 250,
-    height: 180,
+    height: 160,
     overflow: "hidden",
     borderWidth: 3,
   }

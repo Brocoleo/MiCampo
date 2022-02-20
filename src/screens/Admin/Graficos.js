@@ -62,6 +62,7 @@ const Graficos = () => {
     const getHistorial = useCallback(async () => {
       const config = {headers: { Authorization: `Bearer ${token}` }};
       axios.get(historialUrl+ sensor, config).then((response) => {
+        console.log(response.data)
         const largo = response.data.length
         const inicio = response.data.length-30
         const datos = response.data.slice(inicio, largo);
@@ -198,10 +199,14 @@ const Graficos = () => {
   
     return (<>
     { verGraficas ? (
-         loading && temperatura && humedad && humedadRelativa? (  <div>
+         loading && temperatura && humedad && humedadRelativa && direccionViento? (  <div>
       <FadeIn className='tipoGrafica'>
           <WeatherAdminContainer >
-          <WeatherStation title={sensor} temperatura={temperatura[temperatura.length - 1]} humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]} humedadRelativa={humedadRelativa[humedadRelativa.length -1]}/>
+          <WeatherStation title={sensor} temperatura={temperatura[temperatura.length - 1]} 
+          humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]}
+          humedadRelativa={humedadRelativa[humedadRelativa.length -1]}
+          direccionViento={direccionViento[direccionViento.length -1]} 
+          luminosidad={luminosidad[luminosidad.length - 1]}/>
           </WeatherAdminContainer>  
        
       <StyledToggleButtonGroup  className="btnGraficas" aria-label="tipo grafica" value={grafico} exclusive onChange={handleAlignment}  size="small">
@@ -220,34 +225,35 @@ const Graficos = () => {
     
 
 {(() => {
+  
       switch (grafico) {
         case 'linea':
-                return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
-                { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
-                { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
-                { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { direccionViento && direccionViento[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Direccion Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { luminosidad && luminosidad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)} </Row> </FadeIn> </Container>
+                return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<div></div>)}
+                { temperatura && temperatura[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<div></div>)}
+                { peso && peso[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<div></div>)} 
+                { humedadRelativa && humedadRelativa[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { direccionViento && direccionViento[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { luminosidad && luminosidad[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { valorOtroSensor && valorOtroSensor[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<div></div>)} </Row> </FadeIn> </Container>
               case 'barra':
-                return <Container> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
-                { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
-                { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
-                { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { direccionViento && direccionViento[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Direccion Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { luminosidad && luminosidad[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)} </Row> </FadeIn> </Container>
+                return <Container> <FadeIn> <Row> { humedad && humedad[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<div></div>)}
+                { temperatura && temperatura[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<div></div>)}
+                { peso && peso[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
+                { humedadRelativa && humedadRelativa[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { direccionViento && direccionViento[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { luminosidad && luminosidad[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { valorOtroSensor && valorOtroSensor[0]!==null? (<Col sm={4}><ChartContainer><BarChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<div></div>)} </Row> </FadeIn> </Container>
               default:
-                return <Container> <FadeIn>  <Row>{ humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
-                { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
-                { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
-                { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { direccionViento && direccionViento[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Direccion Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { luminosidad && luminosidad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)}</Row>  </FadeIn> </Container>
+                return <Container> <FadeIn>  <Row>{ humedad && humedad[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<div></div>)}
+                { temperatura && temperatura[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<div></div>)}
+                { peso && peso[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
+                { humedadRelativa && humedadRelativa[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { direccionViento && direccionViento[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { luminosidad && luminosidad[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<div></div>)}
+                { valorOtroSensor && valorOtroSensor[0]!==null? (<Col sm={4}><ChartContainer><LineChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<div></div>)} </Row>  </FadeIn> </Container>
             }
           })()}
     </div>):( <div className="loading"><Loading /> </div>)

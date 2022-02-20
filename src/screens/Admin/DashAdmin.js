@@ -36,7 +36,7 @@ const DashAdmin = () => {
         <Grid container spacing={6}> 
         <FadeIn>
         <Grid item xs>
-        <CardLink to="/usuarios">
+        <CardLink to="/admin/usuarios">
           <CardUsers>
             <CardAdmin title="USUARIOS"/>
             <Users />
@@ -51,7 +51,7 @@ const DashAdmin = () => {
 
         <FadeIn>
           <Grid item xs>
-          <CardLink to="/sectores">
+          <CardLink to="/admin/sectores">
           <CardEstaciones>
             <CardAdmin title="SECTORES"/>
             <Estaciones />
@@ -66,7 +66,7 @@ const DashAdmin = () => {
 
           <FadeIn>
           <Grid item xs>
-          <CardLink to="/estaciones">
+          <CardLink to="/admin/estaciones">
           <CardSensores>
             <CardAdmin title="ESTACIONES"/>
             <Sensores />
