@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 
 const token = Cookies.get("access"); 
 const config = {headers: { Authorization: `Bearer ${token}` }}; 
-console.log(token)
 const PanelSensores = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
