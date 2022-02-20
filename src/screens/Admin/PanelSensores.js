@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const token = Cookies.get("access"); 
 const config = {headers: { Authorization: `Bearer ${token}` }}; 
+console.log(token)
 const PanelSensores = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ const PanelSensores = () => {
   const [sensores, setSensores] =useState([]);
   const fetchMyAPI = useCallback(async () => {
     axios.get(estacionUrl+`/`+ estacion, config).then((response) => {
+      console.log(response);
       var count = Object.keys(response.data).length;
       if(count===0){
         setSensores([{
