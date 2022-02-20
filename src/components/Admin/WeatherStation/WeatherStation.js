@@ -8,7 +8,6 @@ export const WeatherInfoIcons = {
     presión: "/icons/pressure.svg",
     peso: "/icons/peso.svg",
     viento: "/icons/direccionViento.svg",
-    luminosidad : "/icons/sun.svg",
 };
 
 
