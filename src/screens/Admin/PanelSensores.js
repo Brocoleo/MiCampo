@@ -82,6 +82,7 @@ const PanelSensores = () => {
   }, 1000);
   const VerGraficas = (sensor, tipo) =>{
     Cookies.set("sensor", sensor );
+    Cookies.set("tipo", tipo );
     // eslint-disable-next-line
     { tipo ==='Sin Sensores'? (console.log('sin sensores')) : ( navigate('/admin/graficos'))} 
   }

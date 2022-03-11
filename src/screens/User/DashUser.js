@@ -216,8 +216,8 @@ const DashUser = () => {
 
               <Col2 xs>
               <NotificationsContainer>
-              <span className="notiLabel">Notificaciones </span>
-              <Notifications />
+              <span className="notiLabel">Estado del Cultivo </span>
+              <Notifications temperatura={temperatura} humedad={humedad} humedadRelativa={humedadRelativa}/>
               </NotificationsContainer>
               </Col2>
 

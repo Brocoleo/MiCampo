@@ -9,21 +9,25 @@ import PanelSensores from './screens/Admin/PanelSensores'
 import Graficos from './screens/Admin/Graficos'
 import PanelEstaciones from './screens/Admin/PanelEstaciones'
 import PanelUsuarios from './screens/Admin/PanelUsuarios'
+import Notifications from './screens/User/Notifications'
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const temperatura = 20
+  const humedadRelativa= 5
+  const humedad = 14
   const toggle = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <>
+    <Notifications temperatura={temperatura} humedad={humedad} humedadRelativa={humedadRelativa}/>
 
-    <Router>
+   { /*<Router>
     
     <Routes>
       <Route  path="/user" element={<User toggle={toggle} isOpen={isOpen}/> }/> 
@@ -41,7 +45,7 @@ function App() {
       
     </Routes>
     </Router>
-  
+  */}
 
 
       </>
