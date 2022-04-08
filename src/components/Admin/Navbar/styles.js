@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
   image: {
-    marginLeft: '15%',
+    marginLeft: '20%',
     padding: '4px'
   },
   menuButton: {

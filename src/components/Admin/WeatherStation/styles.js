@@ -15,6 +15,21 @@ export const WeatherInfoLabel = styled.span`
     margin-top: 15px;
   }
 `;
+
+export const WeatherInfoSub = styled.span`
+  margin-top: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  @media (max-width: 768px) {
+    width: 77%;
+    margin-top: 10px;
+  }
+`;
+
 export const WeatherIcon = styled.img`
   width: 100px;
   height: 100px;
@@ -42,10 +57,14 @@ export const WeatherInfoContainer = styled.div`
 `;
 export const InfoContainer = styled.div`
   display: flex;
-  margin: 3px 0px;
-  padding: 7px;
+  margin: 0px 0px;
+  padding: 2px;
+  padding-right: 35px;
   flex-direction: row;
   margin: 15px;
+  border-radius: 10px;
+  color: #000;
+  background-color: #fff;
   justify-content: space-evenly;
   align-items: center;
 `;
@@ -64,7 +83,7 @@ export const InfoLabel = styled.span`
   font-family: 'Nunito', sans-serif;
   flex-direction: column;
   font-size: 18px;
-  padding: 6px;
+  padding: 3px;
   font-weight: 500;
   & span {
     font-size: 18px;

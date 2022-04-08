@@ -1,11 +1,12 @@
 import React from 'react';
 import {AppBar, Toolbar, Typography} from '@material-ui/core'
 import logo from './logo.png';
-import { NavIcon, Bars } from './NavbarElements';
+import { NavIcon } from './NavbarElements';
 import useStyles from './styles';
+import Hamburger from 'hamburger-react'
 
 
-const Navbar = ({ toggle }) => {
+const Navbar = ({ toggle, isOpen}) => {
     const classes = useStyles();
 
 
@@ -15,11 +16,11 @@ const Navbar = ({ toggle }) => {
             <AppBar position="fixed" className={classes.appBar} color="inherit">
                 <Toolbar>
                     <Typography to="/" variant="h6" className={classes.title} color="inherit">
-                        <img src={logo} alt="citra" height="80px" className={classes.image}/>
+                        <img src={logo} alt="citra" height="50px" className={classes.image}/>
                     </Typography>
                     <div className={classes.grow} />
                    <NavIcon onClick={toggle}>
-                  <Bars />
+                   <Hamburger toggled={isOpen}/>
                 </NavIcon>
                 
                 </Toolbar>

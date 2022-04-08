@@ -52,12 +52,11 @@ const config = {headers: { Authorization: `Bearer ${token}` }};
 const PanelSensores = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const estacion = Cookies.get("estacion");
   const styles= useStyles();
-  const estacionUrl='https://sensores-api-citra.herokuapp.com/api/v1/component'
+  const estacionUrl='http://localhost:3000/api/component/paginacion'
   const [sensores, setSensores] =useState([]);
   const fetchMyAPI = useCallback(async () => {
-    axios.get(estacionUrl+`/`+ estacion, config).then((response) => {
+    axios.get(estacionUrl, config).then((response) => {
       console.log(response);
       var count = Object.keys(response.data).length;
       if(count===0){
@@ -68,10 +67,11 @@ const PanelSensores = () => {
 
         ]);
       }else{
-        setSensores(response.data)
+        setSensores(response.data.componentes)
+        console.log(sensores)
       }
    });
-  }, [estacion])
+  }, [ sensores])
 
   useEffect(() => {
     fetchMyAPI()
@@ -90,7 +90,7 @@ const PanelSensores = () => {
   return (
   <>
   { loading ? (  <><FadeIn>
-    <h1 className="bienvenidaSensores">Informacion Sensores</h1>
+    <h1 className="bienvenidaSensores">Selecciona un sensor para monitorear</h1>
     </FadeIn>
     <br />
     <br />
@@ -102,14 +102,14 @@ const PanelSensores = () => {
               <Col key={index}>
                     <FadeIn>
               <Card sx={{ width: 250 ,  borderRadius: 6, margin: 1}} className={styles.card}>
-                <CardActionArea onClick={()=>VerGraficas(anObjectMapped.nombreComponente, anObjectMapped.tipoCultivo)}>
-                <img className={styles.image} src={require(`../../assets/${anObjectMapped.tipoCultivo}.jpg`)} alt="" width="240" height="200"/>
+                <CardActionArea onClick={()=>VerGraficas(anObjectMapped.nombre_sensor, anObjectMapped.nombre_cultivo)}>
+                <img className={styles.image} src={require(`../../assets/${anObjectMapped.nombre_cultivo}.jpg`)} alt="" width="240" height="200"/>
                   <CardContent className={styles.info}>
                   <Typography gutterBottom variant="h6" className={styles.cultivo} component="div">
-                  {anObjectMapped.tipoCultivo}
+                  {anObjectMapped.nombre_cultivo}
                   </Typography>
                   <Typography variant="body1" className={styles.sensor} color="#272727">
-                  {anObjectMapped.nombreComponente} 
+                  {'Sensor ' + anObjectMapped.nombre_sensor} 
                   </Typography>
                   </CardContent>
                 </CardActionArea>

@@ -9,14 +9,12 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Cookies from "js-cookie";
 import {makeStyles} from '@material-ui/core/styles';
-import CardHeader from '@mui/material/CardHeader';
-import IconButton from '@mui/material/IconButton';
-import {Edit, Delete} from '@material-ui/icons';
+
 
 const VerButton = styled(Button)(({ theme }) => ({
     color: '#fff',
     borderRadius: '10px',
-    marginLeft: '30%',
+    marginLeft: '19%',
     marginBottom: '3%',
     backgroundColor: '#0F044C',
     boxShadow: '0 3px 3px 0 #134E5E',
@@ -27,18 +25,9 @@ const VerButton = styled(Button)(({ theme }) => ({
     }
   }));
 
-  const StyledHeader = styled(CardHeader) `
-  padding: 5px !important;
-  height: 0px !important;
-  > div {
-    display: inherit !important;
-    padding-right: 5px !important;
-  }
-`;
-
   const useStyles = makeStyles((theme) => ({
     card: {
-      margin: "auto",
+      width: '250px',
       borderRadius: 30,
       transition: "0.3s",
       boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
@@ -48,6 +37,7 @@ const VerButton = styled(Button)(({ theme }) => ({
       }
     },
     actions: {
+      alignItems: 'center',
       backgroundColor: '#E1E5EA',
     }, 
     tituloEstacion:{
@@ -63,35 +53,24 @@ export default function CardEstaciones({ data, config, estacionUrl, estacion , s
   const navigate = useNavigate ();
   const styles= useStyles();
   const verSensores = () =>{
-    Cookies.set("estacion", data.id );
+    Cookies.set("estacion", data );
     navigate('/admin/sensores')
   }
 
 
     return (
-
-        <Grid  item xs={3}>
+        <Grid  item xs={5}>
             <Card sx={{ maxWidth: 345,  borderRadius: 6 } } className={styles.card}>
-            <StyledHeader 
-              action={<>
-                <IconButton aria-label="edit">
-                  <Edit onClick={()=>seleccionarsector(data.id, data, 'Editar')}/>
-                </IconButton>
-                <IconButton aria-label="delete">
-                  <Delete onClick={()=>seleccionarsector(data.id, data, 'Eliminar')} />
-                </IconButton>
-                </>
-              }
-            />
+     
                 <CardContent>
                     <Typography variant="h5" component="div" className={styles.tituloEstacion}>
-                        {data.nombreSector}
+                        {data}
                     </Typography>
   
                 </CardContent>
                 <CardActions  className={styles.actions} disableSpacing={true}>
                 <VerButton variant="outlined"  onClick={()=>verSensores()}>
-                                Ver Estacion
+                                Ver Sensores
                                 </VerButton>
                 </CardActions>
             </Card>

@@ -1,5 +1,5 @@
 import React from "react";
-import { WeatherInfoContainer, WeatherInfoLabel, InfoContainer, InfoIcon, InfoLabel} from "./styles"
+import { WeatherInfoContainer, WeatherInfoSub, WeatherInfoLabel, InfoContainer, InfoIcon, InfoLabel} from "./styles"
 
 export const WeatherInfoIcons = {
     temperatura: "/icons/termometro.svg",
@@ -25,19 +25,18 @@ const WeatherInfoComponent = (props) => {
 };
 
 
-const WeatherStation = ({title, temperatura, humedad, peso, humedadRelativa, direccionViento, luminosidad}) => {
+const WeatherStation = ({title, tipo, temperatura, humedad, peso}) => {
    
     return (
         <>            
 
             <WeatherInfoLabel>{title}</WeatherInfoLabel>
+            <WeatherInfoSub>Tipo de Cultivo : {tipo}</WeatherInfoSub>
             <WeatherInfoContainer>
-                {humedad ? (<WeatherInfoComponent name={"humedad"} value={humedad+` %`}/>) : (<div> </div>)}
-                {temperatura ? (<WeatherInfoComponent name={"temperatura"}value={temperatura+` °C`}/> ) : (<div></div>)}
+                {humedad ? (<WeatherInfoComponent name={"humedad"} value={humedad.toFixed(1)+` %`}/>) : (<div> </div>)}
+                {temperatura ? (<WeatherInfoComponent name={"temperatura"}value={temperatura.toFixed(1)+` °C`}/> ) : (<div></div>)}
                 {peso ? (<WeatherInfoComponent name={"peso"} value={peso +` gr`}/>) : (<div></div>)}
-                {humedadRelativa ? (<WeatherInfoComponent name={"humedad relativa"} value={humedadRelativa +` %`}/>) : (<div></div>)}
-                {direccionViento ? (<WeatherInfoComponent name={"viento"} value={direccionViento +` (m/s)`}/>) : (<div></div>)}
-                {luminosidad ? (<WeatherInfoComponent name={"luminosidad"} value={luminosidad }/>) : (<div></div>)}
+               
             </WeatherInfoContainer>
         </>
     );

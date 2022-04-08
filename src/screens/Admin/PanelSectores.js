@@ -9,8 +9,32 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Cookies from "js-cookie"; 
+import Grid from '@mui/material/Grid';
 
-const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/sector'
+const baseUrl='http://localhost:3000/api/component/paginacion'
+
+const opcionesCultivo = [
+  {
+    value: 'Lechuga',
+    label: 'Lechuga',
+  },
+  {
+    value: 'Pepino',
+    label: 'Pepino',
+  },
+  {
+    value: 'Berenjena',
+    label: 'Berenjena',
+  },
+  {
+    value: 'Tomate',
+    label: 'Tomate',
+  },
+  {
+    value: 'Repollo',
+    label: 'Repollo',
+  }
+];
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -18,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '25px',
       width: 400,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #134E5E',
+      border: '2px solid #0F044C',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       top: '50%',
@@ -27,10 +51,10 @@ const useStyles = makeStyles((theme) => ({
     },
     btnDelete:{
       cursor: 'pointer',
-      padding: '1%',
-      width: '8%',
+      padding: '10px',
+      width: '23px',
       color: '#E02401',
-      borderRadius: '30px',
+      borderRadius: '20px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
         backgroundColor: '#9c9a9a',
@@ -38,21 +62,20 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.up('xl')]: {
         width: '28%',
       },
- 
-      
     }, 
     btnEditar:{
       cursor: 'pointer',
-      width: '8%',
-      padding: '1%',
+      width: '23px',
+      padding: '10px',
+      marginLeft: '34%',
       color: '#F78812',
-      borderRadius: '30px',
+      borderRadius: '20px',
       backgroundColor: '#EDEDED',
       '&:hover': {
         backgroundColor: '#9c9a9a',
       },
       [theme.breakpoints.up('xl')]: {
-
+        marginLeft: '24%',
         width: '28%',
       },
       
@@ -66,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
         width: '48%',
         color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#93B5C6',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -76,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
         width: '55%',
         color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#93B5C6',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -162,14 +185,24 @@ const useStyles = makeStyles((theme) => ({
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
+    const nombre_cultivo = "" ;
+    const nombre_sensor = "" ;
     const [sector, setSector]=useState({
-      id: '',
-      nombreSector: ''
+      nombre_cultivo: '',
+      nombre_sensor: '',
+      valor_maximo: '',
+      valor_minimo: '',
+      nombre_nave: '',
+      responsable: ''
     })
     useEffect(() => {
       //Obtener Sectores
       axios.get(baseUrl,config).then((response) => {
-      setSectores(response.data);
+      setSectores(response.data.componentes);
+      if(sectores){
+        setLoading(true)
+      }
+      console.log(sectores)
       });       
     })
     const handleChange=e=>{
@@ -180,13 +213,16 @@ const useStyles = makeStyles((theme) => ({
       }))
     }
   
-    setTimeout(() => {
-      setLoading(true)
-    }, 1000);
+ 
   
     const peticionPost=async()=>{
       let post = {
-        "nombreSector": sector.nombreSector 
+        "nombre_cultivo": sector.nombre_cultivo,
+        "nombre_sensor": sector.nombre_sensor,
+        "valor_maximo": sector.valor_maximo,
+        "valor_minimo": sector.valor_minimo,
+        "nombre_nave": sector.nombre_nave,
+        "responsable": sector.responsable
       }
       console.log(baseUrl, post, config)
       await axios.post(baseUrl, post, config)
@@ -198,15 +234,20 @@ const useStyles = makeStyles((theme) => ({
   
     const peticionPut=async()=>{
       let edit = {
-        "nombreSector": sector.nombreSector 
+        "nombre_cultivo": sector.nombre_cultivo,
+        "nombre_sensor": sector.nombre_sensor,
+        "valor_maximo": sector.valor_maximo,
+        "valor_minimo": sector.valor_minimo,
+        "nombre_nave": sector.nombre_nave,
+        "responsable": sector.responsable
       }
-      await axios.put(baseUrl+`/`+sector.id, edit, config)
+      await axios.patch(baseUrl+`/`+sector.nombre_sensor, edit, config)
       .then(response=>{
         var dataNueva=data;
         // eslint-disable-next-line
         dataNueva.map(data=>{
-          if(data.id===sector.id){
-            data.nombreSector=sector.nombreSector;
+          if(data.nombre_sensor===sector.nombre_sensor){
+            data.nombre_cultivo=sector.nombre_cultivo;
           }
         })
         setData(dataNueva);
@@ -242,8 +283,64 @@ const useStyles = makeStyles((theme) => ({
     const bodyInsertar=(
       <div className={styles.modal}>
         <FadeIn>
-        <h2 className={styles.tituloInsertar}>Agregar Sector</h2>
-        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} variant="outlined"/> 
+        <h2 className={styles.tituloInsertar}>Agregar Nave</h2>
+        <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <TextField
+         fullWidth 
+         name="nombre_cultivo"
+          id="filled-select-currency-native"
+          select
+          label="Nombre Cultivo"
+          value={nombre_cultivo}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {opcionesCultivo.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+        </Grid>
+        <Grid item xs={6}>
+        <TextField
+         fullWidth 
+         name="nombre_sensor"
+          id="filled-select-currency-native"
+          select
+          label=" Sensor"
+          value={nombre_sensor}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {opcionesCultivo.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+        </Grid>
+        </Grid>
+        <br />
+        <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_maximo" className={styles.inputMaterial} label="Valor Maximo" onChange={handleChange} variant="outlined"/> 
+        </Grid>
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_minimo" className={styles.inputMaterial} label="Valor Minimo" onChange={handleChange} variant="outlined"/> 
+        </Grid>
+        </Grid>
+        <br />
+        <TextField name="nombre_nave" className={styles.inputMaterial} label="Nave" onChange={handleChange} variant="outlined"/> 
+        <br />
+        <TextField name="responsable" className={styles.inputMaterial} label="Usuario" onChange={handleChange} variant="outlined"/> 
         <br /><br />
         <div align="right">
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
@@ -257,9 +354,38 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.modal}>
       <FadeIn>
         <h2 className={styles.tituloEditar}>Editar Sector</h2>
-        <TextField name="nombreSector" className={styles.inputMaterial} label="Nombre Sector" onChange={handleChange} value={sector && sector.nombreSector} variant="outlined"/>
         <br />
-        <br /><br />
+        <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <TextField name="nombre_cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange} value={sector && sector.nombre_cultivo} variant="outlined"/>
+        </Grid>
+        <Grid item xs={6}>
+        <TextField name="nombre_sensor" className={styles.inputMaterial} label="Sensor" onChange={handleChange} value={sector && sector.nombre_sensor} variant="outlined"/>
+        </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+      
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_maximo" className={styles.inputMaterial} label="Valor Maximo" onChange={handleChange} value={sector && sector.valor_maximo} variant="outlined"/>
+        </Grid>
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_minimo" className={styles.inputMaterial} label="Valor Minimo" onChange={handleChange} value={sector && sector.valor_minimo} variant="outlined"/>
+        </Grid>
+     
+      </Grid>
+
+
+
+
+        
+        
+ 
+        
+        <TextField name="nombre_nave" className={styles.inputMaterial} label="Nave" onChange={handleChange} value={sector && sector.nombre_nave} variant="outlined"/>
+        
+        <TextField name="responsable" className={styles.inputMaterial} label="Usuario" onChange={handleChange} value={sector && sector.responsable} variant="outlined"/>
+        <br />
+    
         <div align="right">
           <Button className={styles.btnAgregar} onClick={()=>peticionPut()}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
@@ -286,9 +412,8 @@ const useStyles = makeStyles((theme) => ({
       <>{ loading ? ( 
       <div className={styles.tablas}>
         <FadeIn>
-          <h1 className="bienvenida">Informacion de Sectores</h1>
-          <br />
-          <ButtoInsertar  onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sector</ButtoInsertar>
+          <h1 className="bienvenida">Informacion de los Sensores</h1>
+          <ButtoInsertar  onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sensor</ButtoInsertar>
           </FadeIn>
 
         <br />
@@ -297,20 +422,31 @@ const useStyles = makeStyles((theme) => ({
          <Table>
          <TableHead>
           <StyledTableRow>
-            <StyledTableCell align="center">ID</StyledTableCell>
-            <StyledTableCell align="center">Nombre</StyledTableCell>
-            <StyledTableCell align="center">Acciones</StyledTableCell>
+            <StyledTableCell align="center">Cultivo</StyledTableCell>
+            <StyledTableCell align="center">Sensor</StyledTableCell>
+            <StyledTableCell align="center">Valor Maximo</StyledTableCell>
+            <StyledTableCell align="center">Valor Minimo</StyledTableCell>
+            <StyledTableCell align="center">Nave</StyledTableCell>
+            <StyledTableCell align="center">Usuario</StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell>
+                       
           </StyledTableRow >
         </TableHead>
   
            <TableBody>
              {sectores && sectores.map(row=>(
-               <StyledTableRow  key={row.id}>
-                   <StyledTableCell component="th" scope="row" align="center"> {row.id}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.nombreSector}  </StyledTableCell>
+               <StyledTableRow  key={row.nombre_cultivo}>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.nombre_cultivo}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.nombre_sensor}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_maximo}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.nombre_nave}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.responsable}  </StyledTableCell>
                     <StyledTableCell align="center">
                     <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row, 'Editar')}/>
-                    &nbsp;&nbsp;&nbsp;
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
                     <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row, 'Eliminar')}/>
                    </StyledTableCell>
                </StyledTableRow>

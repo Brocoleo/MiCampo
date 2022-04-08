@@ -11,21 +11,31 @@ import Estaciones from '../../components/Animations/Estaciones';
 import Sensores from '../../components/Animations/Sensores';
 
 const DashAdmin = () => {
+  const usuariosURL= 'http://localhost:3000/api/users/'
+  const sensoresURL= 'http://localhost:3000/api/component/paginacion'
+  const historialURL= 'http://localhost:3000/api/historial/all'
   const [nroUsuarios, setNroUsuarios] = useState();
   const [nroSectores, setNroSectores] = useState();
+  const [nroDatos, setNroDatos] = useState();
   const token = Cookies.get("access");
+  console.log(token)
   const config = {headers: { Authorization: `Bearer ${token}` }};
 
 
   useEffect(() => {
       //Obtener Usuarios
-      axios.get(`https://sensores-api-citra.herokuapp.com/api/v1/users`,config).then((response) => {
-      setNroUsuarios(Object.keys(response.data).length)
+      axios.get(usuariosURL,config).then((response) => {
+       setNroUsuarios(Object.keys(response.data).length)
       });
       //Obtener Sectores
-      axios.get(`https://sensores-api-citra.herokuapp.com/api/v1/sector`,config).then((response) => {
-      setNroSectores(Object.keys(response.data).length)
-      });       
+      axios.get(sensoresURL,config).then((response) => {
+      setNroSectores((response.data.total))
+      });  
+      //Obtener Historial
+      axios.get(historialURL,config).then((response) => {
+        setNroDatos(Object.keys(response.data).length)
+        }); 
+      
     })
     return (
         <div className="margenTop">
@@ -51,14 +61,14 @@ const DashAdmin = () => {
 
         <FadeIn>
           <Grid item xs>
-          <CardLink to="/admin/sectores">
+          <CardLink to="/admin/sensores">
           <CardEstaciones>
-            <CardAdmin title="SECTORES"/>
+            <CardAdmin title="DATOS"/>
             <Estaciones />
             <DataEstacion>
-            <CountUp  start={0} end={nroSectores} duration={1} />
+            <CountUp  start={0} end={nroDatos} duration={1} />
             </DataEstacion>
-            <DataLabel> Ingresados</DataLabel>
+            <DataLabel> Almacenados</DataLabel>
           </CardEstaciones>
           </CardLink>   
           </Grid>
@@ -66,14 +76,14 @@ const DashAdmin = () => {
 
           <FadeIn>
           <Grid item xs>
-          <CardLink to="/admin/estaciones">
+          <CardLink to="/admin/sectores">
           <CardSensores>
-            <CardAdmin title="ESTACIONES"/>
+            <CardAdmin title="SENSORES"/>
             <Sensores />
             <DataSensores>
-            <CountUp  start={0} end={30} duration={1} />
+            <CountUp  start={0} end={nroSectores} duration={1} />
             </DataSensores>
-            <DataLabel> Desplegadas</DataLabel>
+            <DataLabel> Desplegados</DataLabel>
           </CardSensores>
           </CardLink> 
           </Grid>

@@ -22,8 +22,8 @@ const Sidebar = ({ isOpen, toggle }) => {
       <SidebarMenu>
         <SidebarLink to='/admin/dash'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
         <SidebarLink to='/admin/usuarios'><FaUsers />&nbsp;&nbsp;USUARIOS</SidebarLink>
-        <SidebarLink to='/admin/sectores'><IoPartlySunny />&nbsp;&nbsp;SECTORES</SidebarLink>
-        <SidebarLink to='/admin/estaciones'><FaMicrochip />&nbsp;&nbsp;ESTACIONES</SidebarLink>
+        <SidebarLink to='/admin/sectores'>< FaMicrochip/>&nbsp;&nbsp;SENSORES</SidebarLink>
+        <SidebarLink to='/admin/sensores'><IoPartlySunny />&nbsp;&nbsp;ESTACIONES </SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
         <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>

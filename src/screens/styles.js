@@ -74,15 +74,15 @@ export const MiniContainer = styled.div`
 export const NotificationsContainer = styled.div`
 margin-bottom:18px;
 display: flex;
+margin-top: 5%;
 width: 50%;
 padding: 18px;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
-box-shadow: 0 9px 12px 0 #031648;
 color: #fff;
-background: #30363d;
-border: 3px solid #464b50;
+box-shadow: 0 3px 6px 0 #031648;
+background-color: #031648;
 font-family: 'Nunito', sans-serif;
 
 @media (max-width: 768px) {
@@ -128,15 +128,15 @@ font-family: 'Nunito', sans-serif;
 `;
 
 export const WeatherAdminContainer = styled.div`
-margin-top:70px;
+margin-top:10px;
+margin-bottom:10px;
 display: flex;
-width: 70%;
+width: 60%;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
 box-shadow: 0 3px 6px 0 #031648;
-background: rgb(52,79,161);
-background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
+background-color: #031648;
 font-family: 'Nunito', sans-serif;
 @media (max-width: 768px) {
   width: 77%;
@@ -146,11 +146,13 @@ font-family: 'Nunito', sans-serif;
 `;
 
 export const ChartContainer = styled.div`
-display: flex;
-padding: 9px;
-width: 380px;
-margin-bottom: 5%;
-margin-left: 5%;
+margin-top:10px;
+margin-bottom:10px;
+padding: 6px;
+display: blocks;
+font-size: 0.5rem;
+margin-left: 50px;
+width: 70%;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;
@@ -159,13 +161,7 @@ border: 3px solid #F3F1F5;
 background: #fff;  
 font-family: 'Nunito', sans-serif;
 
-@media (max-width: 768px) {
-    margin-top: 9%;
-  }
-  @media (max-width: 1400px) {
-    margin-top: 1%;
-    width: 290px;
-  }
+
 `;
 
 export const InfoContainer = styled.div`

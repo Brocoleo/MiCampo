@@ -25,7 +25,8 @@ const Login = () => {
   const [errorPass, setErrorPass] = useState(false);
   const [mensajeCorreo, setMensajeCorreo] = useState("");
   const [mensajePass, setMensajePass] = useState("");
-  const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/auth/login'
+  const baseUrl='http://localhost:3000/api/auth/login'
+  const profileURL='http://localhost:3000/api/auth/profile'
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -52,14 +53,19 @@ const Login = () => {
           }
           axios.post(baseUrl, post)
           .then(response=>{
-            if(response.data.user.role === 'admin'){
-              Cookies.set("access", response.data.token );
-              navigate( '/admin/dash')}
-  
-            if(response.data.user.role === 'customer'){
-              console.log(response.data)
-              Cookies.set("access", response.data.token );
-              navigate('/user')}          
+            Cookies.set("access", response.data.token );
+            const token = Cookies.get("access");
+            const config = {headers: { Authorization: `Bearer ${token}` }}; 
+            axios.get(profileURL, config, post)
+            .then(response=>{
+              console.log(response)
+              if(response.data.role === 'ADMIN_ROLE'){
+                navigate( '/admin/dash')}
+    
+              if(response.data.role === 'USER_ROLE'){
+                navigate('/user')}   
+            })
+                 
           })
           .catch(function (error) {
             if (error.response.data) {

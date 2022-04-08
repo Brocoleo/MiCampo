@@ -14,7 +14,7 @@ const Admin = ({ toggle, isOpen}) => {
 
     return (
         <>
-            <Navbar toggle={toggle}/>
+            <Navbar toggle={toggle} isOpen={isOpen}/>
             <div className={classes.admin}>       
             <Sidebar isOpen={isOpen} toggle={toggle} />
             <Outlet/>

@@ -1,12 +1,12 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../assets/partlyCloudy.json'
+import animationData from '../../assets/charts.json'
 
 const Estaciones = () => {
 
     const defaultOptions = {
-        loop: 1,
-        autoplay: true, 
+        loop: false,
+        autoplay: false, 
         animationData: animationData,
         rendererSettings: {
           preserveAspectRatio: 'xMidYMid slice'
@@ -14,7 +14,7 @@ const Estaciones = () => {
       };
     return (
         <div>
-        <Lottie options={defaultOptions} height={120} width={120}  speed={0.3}/>
+        <Lottie options={defaultOptions} height={120} width={120}  speed={1}/>
         </div>
     )
 }

@@ -10,15 +10,15 @@ import Loading from '../../components/Loading'
 import Paper from '@mui/material/Paper';
 import Cookies from "js-cookie";  
 
-const baseUrl='https://sensores-api-citra.herokuapp.com/api/v1/users'
+const baseUrl='http://localhost:3000/api/users'
 
 const currencies = [
   {
-    value: 'customer',
+    value: 'USER_ROLE',
     label: 'Usuario',
   },
   {
-    value: 'admin',
+    value: 'ADMIN_ROLE',
     label: 'Administrador',
   }
 ];
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '25px',
       width: 400,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #93B5C6',
+      border: '2px solid #0F044C',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
       top: '50%',
@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
     },
     btnDelete:{
       cursor: 'pointer',
-      padding: '2%',
-      width: '13%',
+      padding: '10px',
+      width: '23px',
       color: '#E02401',
-      borderRadius: '30px',
+      borderRadius: '20px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
         backgroundColor: '#9c9a9a',
@@ -48,16 +48,14 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.up('xl')]: {
         width: '28%',
       },
- 
-      
     }, 
     btnEditar:{
       cursor: 'pointer',
-      width: '13%',
-      padding: '2%',
+      width: '23px',
+      padding: '10px',
       marginLeft: '34%',
       color: '#F78812',
-      borderRadius: '30px',
+      borderRadius: '20px',
       backgroundColor: '#EDEDED',
       '&:hover': {
         backgroundColor: '#9c9a9a',
@@ -77,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
         width: '48%',
         color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#93B5C6',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -87,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
         width: '55%',
         color: '#fff',
         borderRadius: '30px',
-        backgroundColor: '#93B5C6',
+        backgroundColor: '#0F044C',
         paddingLeft: '30px',
         paddingTop: '10px',
         paddingBottom: '10px'
@@ -171,18 +169,23 @@ const useStyles = makeStyles((theme) => ({
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
-    const [rol, setRol] = React.useState('customer');
+    const [rol, setRol] = React.useState('USER_ROLE');
     const token = Cookies.get("access"); 
     const config = {headers: { Authorization: `Bearer ${token}` }}; 
 
     useEffect(() => {
       axios.get(baseUrl,config).then((response) => {
       setUsuarios(response.data);
+        if(usuarios){
+          setLoading(true)
+        }
+         
     });
     })
   
     const [usuario, setUsuario]=useState({
       id: '',
+      nombre: '',
       email: '',
       password :'',
       role: ''
@@ -200,6 +203,7 @@ const useStyles = makeStyles((theme) => ({
   
     const peticionPost=async()=>{
       let post = {
+        "nombre": usuario.nombre,
         "email": usuario.email ,
         "password": usuario.password,
         "role": usuario.role
@@ -212,18 +216,19 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const peticionPut=async()=>{
-      console.log(usuario.role)
       let edit = {
+        "nombre": usuario.nombre ,
         "email": usuario.email ,
         "role": usuario.role
       }
       console.log(baseUrl+`/`+usuario.id,edit,config)
-      await axios.put(baseUrl+`/`+usuario.id,edit,config)
+      await axios.patch(baseUrl+`/`+usuario.id,edit,config)
       .then(response=>{
         var dataNueva=data;
         // eslint-disable-next-line
         dataNueva.map(data=>{
           if(data.id===usuario.id){
+            data.nombre=usuario.nombre;
             data.email=usuario.email;
             data.password=usuario.password;
             data.role=usuario.role;
@@ -234,12 +239,9 @@ const useStyles = makeStyles((theme) => ({
       })
     }
 
-    setTimeout(() => {
-      setLoading(true)
-    }, 1000);
   
     const peticionDelete=async()=>{
-      await axios.delete(baseUrl+usuario.id,config)
+      await axios.delete(baseUrl+`/`+usuario.id,config)
       .then(response=>{
         setData(data.filter(consola=>consola.id!==usuario.id));
         abrirCerrarModalEliminar();
@@ -268,6 +270,8 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.modal}>
         <FadeIn>
         <h2 className={styles.tituloInsertar}>Agregar Usuario</h2>
+        <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange} variant="outlined"/>
+        <br />
         <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} variant="outlined"/>
         <br />
         <TextField name="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange} variant="outlined"/>
@@ -311,8 +315,10 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.modal}>
         <FadeIn>
         <h2 className={styles.tituloEditar}>Editar Usuario</h2>
-        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} value={usuario && usuario.email} variant="outlined"/>
+        <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange} value={usuario && usuario.nombre} variant="outlined"/>
         <br />
+        <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} value={usuario && usuario.email} variant="outlined"/>
+
         <br />
         <TextField
          fullWidth 
@@ -361,7 +367,6 @@ const useStyles = makeStyles((theme) => ({
       <>{ loading ? (       <div  className={styles.tablas}>
         <FadeIn >
           <h1 className="bienvenida">Informacion de Usuarios</h1>
-          <br />
           <ButtonInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtonInsertar>
           </FadeIn>
 
@@ -371,23 +376,23 @@ const useStyles = makeStyles((theme) => ({
          <Table>
          <TableHead>
           <StyledTableRow>
-            <StyledTableCell align="center">ID</StyledTableCell>
+            <StyledTableCell align="center">Nombre</StyledTableCell>
             <StyledTableCell align="center">Email</StyledTableCell>
-            <StyledTableCell align="center">Rol</StyledTableCell>
-            <StyledTableCell align="center">Acciones</StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell> 
           </StyledTableRow >
         </TableHead>
   
            <TableBody>
              {usuarios && usuarios.map(row=>(
                <StyledTableRow  key={row.id}>
-                   <StyledTableCell component="th" scope="row" align="center">{row.id}</StyledTableCell>
+                   <StyledTableCell component="th" scope="row" align="center">{row.nombre}</StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center">{row.email}</StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center">{row.role}</StyledTableCell>
                     <StyledTableCell>
                     <Edit className={styles.btnEditar} onClick={()=>seleccionarUsuario(row, 'Editar')}/>
-                    &nbsp;&nbsp;&nbsp;
-                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarUsuario(row, 'Eliminar')}/>
+                   </StyledTableCell>
+                   <StyledTableCell>
+                   <Delete  className={styles.btnDelete} onClick={()=>seleccionarUsuario(row, 'Eliminar')}/>
                    </StyledTableCell>
                </StyledTableRow>
              ))}

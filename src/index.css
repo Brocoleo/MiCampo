@@ -3,7 +3,7 @@
 body {
     margin-top: 3%;
     margin-bottom: 67%;
-    background: linear-gradient(0deg, rgba(0,30,108,1) 0%, rgba(147,181,198,1) 100%);
+    background: linear-gradient(0deg, #001e6c 0%, rgba(147,181,198,1) 100%);
     display: flex;
     justify-content: center;
     font-family: 'Nunito', sans-serif;
@@ -70,8 +70,7 @@ code {
     margin-bottom: 0; 
 }
   .bienvenidaEstaciones{
-    text-align: left;
-    margin-left: 20%;
+    text-align: center;
     color: #F7F6F2;
     font-weight: bold;
     margin-bottom: 0;  
@@ -130,6 +129,7 @@ code {
 
   .btnGraficas {
     margin-top: 1%;
+    margin-right: 4%;
     margin-bottom: 0%;
   }
 
@@ -156,7 +156,8 @@ code {
 .notiLabel{
   font-family: 'Nunito', sans-serif;
   font-weight: 300;
-  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-size: 1.1rem;
 }
 
 @media(max-width: 1424px){

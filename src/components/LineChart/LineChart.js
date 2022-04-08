@@ -15,12 +15,11 @@ const options = {
   },
 };
 
-const LineChart = ({title, data, icono}) => (
+const LineChart = ({title, data}) => (
   <>
     <div className='header'>
       
       <h1 className='title'>{title+``}
-      {icono}
        
        </h1>
       

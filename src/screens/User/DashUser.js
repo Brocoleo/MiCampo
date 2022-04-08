@@ -2,9 +2,8 @@ import React, {useState, useEffect, useCallback} from 'react'
 import axios from 'axios';
 import LineChart from "../../components/LineChart/LineChart";
 import WeatherStation from "../../components/User/WeatherStation/WeatherStation";
-import Notifications from './Notifications'
+import Notifications from '../Notifications'
 import { IconContext } from "react-icons";
-import BarChart from '../../components/BarChart/BarChart';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { AiOutlineLineChart, AiOutlineBarChart} from "react-icons/ai";
@@ -22,6 +21,7 @@ import Loading from '../../components/Loading'
 import Robot from '../../components/Animations/Robot';
 
 const historialUrl='https://sensores-api-citra.herokuapp.com/api/v1/profile/my-historial/'
+const estacionUrl='https://sensores-api-citra.herokuapp.com/api/v1/component'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -40,8 +40,11 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 }));
 
 const DashUser = () => {  
-  const token = Cookies.get("access");
+  const token = Cookies.get("access"); 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const config = {headers: { Authorization: `Bearer ${token}` }}; 
   const sensor = "sensor 1";
+  const [sensores, setSensores] =useState([]);
   const [indices, setIndices] = useState();
   const [loading, setLoading] = useState(false);
   const [verGraficas, setVerGraficas] = useState(true);
@@ -66,6 +69,22 @@ const DashUser = () => {
     setGrafico(newAlignment);
   };
 
+  const getTipo = useCallback(async () => {
+    axios.get(estacionUrl+`/`+ sensor, config).then((response) => {
+      console.log(response);
+      var count = Object.keys(response.data).length;
+      if(count===0){
+        setSensores([{
+          nombreComponente: '',
+          tipoCultivo: 'Sin Sensores'
+        }
+
+        ]);
+      }else{
+        setSensores(response.data)
+      }
+   });
+  }, [sensor, config])
  
   const getHistorial = useCallback(async () => {
     const config = {headers: { Authorization: `Bearer ${token}` }};
@@ -86,14 +105,16 @@ const DashUser = () => {
         setTemperaturaInfrarroja(datos.map(item => item.temperaturaInfrarroja))
         setValorOtroSensor(datos.map(item => item.valorOtroSensor))
       }else{
-        setVerGraficas(false)
+        setVerGraficas(true)
+        setTemperatura(35)
       }
    });
   }, [ sensor, token])
 
   useEffect(() => {
+    getTipo()
     getHistorial()
-  }, [getHistorial, sensor])
+  }, [getHistorial, getTipo, sensor])
 
   setTimeout(() => {
     setLoading(true)
@@ -211,13 +232,13 @@ const DashUser = () => {
  
        <>
           { verGraficas ? (
-              loading && temperatura && humedad && humedadRelativa? (  <div>
+              loading && temperatura && humedad && humedadRelativa && sensores? (  <div>
               <Row2 middle="xs"> 
 
               <Col2 xs>
               <NotificationsContainer>
               <span className="notiLabel">Estado del Cultivo </span>
-              <Notifications temperatura={temperatura} humedad={humedad} humedadRelativa={humedadRelativa}/>
+              <Notifications tipo={sensores.tipoCultivo} temperatura={temperatura} humedad={humedad} humedadRelativa={humedadRelativa} />
               </NotificationsContainer>
               </Col2>
 
@@ -250,15 +271,6 @@ const DashUser = () => {
                 { luminosidad && luminosidad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<></>)}
                 { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
                 { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)} </Row> </FadeIn> </Container>
-              case 'barra':
-                return <Container  className="btnGraficas"> <FadeIn> <Row> { humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
-                { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
-                { peso && peso[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Peso' data={pesoLine} icono={pesoIcon}/> </ChartContainer ></Col>) : (<></>)} 
-                { humedadRelativa && humedadRelativa[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Humedad Relativa' data={humedadRelativaLine} icono={humedadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { direccionViento && direccionViento[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Direccion Viento' data={direccionVientoLine} icono={vientoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { luminosidad && luminosidad[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Luminosidad' data={luminosidadLine} icono={luminosidadIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { temperaturaInfrarroja && temperaturaInfrarroja[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Temperatura Infrarroja' data={infrarrojaLine} icono={infrarrojoIcon}/> </ChartContainer ></Col>) : (<></>)}
-                { valorOtroSensor && valorOtroSensor[0]!==0? (<Col sm={4}><ChartContainer><BarChart title='Otro Sensor' data={sensorOtroLine} icono={sensorIcon}/> </ChartContainer ></Col>) : (<></>)} </Row> </FadeIn> </Container>
               default:
                 return <Container  className="btnGraficas"> <FadeIn>  <Row>{ humedad && humedad[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Humedad' data={humedadLine} icono={humedadIcon}/></ChartContainer></Col>) : (<></>)}
                 { temperatura && temperatura[0]!==0? (<Col sm={4}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} icono={temperaturaIcon}/> </ChartContainer></Col>) : (<></>)}
