@@ -11,9 +11,9 @@ import Estaciones from '../../components/Animations/Estaciones';
 import Sensores from '../../components/Animations/Sensores';
 
 const DashAdmin = () => {
-  const usuariosURL= 'http://localhost:3000/api/users/'
-  const sensoresURL= 'http://localhost:3000/api/component/paginacion'
-  const historialURL= 'http://localhost:3000/api/historial/all'
+  const usuariosURL= 'https://sensores-citra.herokuapp.com/api/users/'
+  const sensoresURL= 'https://sensores-citra.herokuapp.com/api/component/paginacion'
+  const historialURL= 'https://sensores-citra.herokuapp.com/api/historial/all'
   const [nroUsuarios, setNroUsuarios] = useState();
   const [nroSectores, setNroSectores] = useState();
   const [nroDatos, setNroDatos] = useState();

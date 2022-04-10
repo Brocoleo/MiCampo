@@ -54,7 +54,7 @@ const PanelSensores = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const styles= useStyles();
-  const estacionUrl='http://localhost:3000/api/component/paginacion'
+  const estacionUrl='https://sensores-citra.herokuapp.com/api/component/paginacion'
   const [sensores, setSensores] =useState([]);
 
   const fetchSensores = useCallback(async () => {
