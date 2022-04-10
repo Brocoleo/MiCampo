@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const token = Cookies.get("access"); 
 const config = {headers: { Authorization: `Bearer ${token}` }}; 
 const PanelSensores = () => {
@@ -55,7 +56,8 @@ const PanelSensores = () => {
   const styles= useStyles();
   const estacionUrl='http://localhost:3000/api/component/paginacion'
   const [sensores, setSensores] =useState([]);
-  const fetchMyAPI = useCallback(async () => {
+
+  const fetchSensores = useCallback(async () => {
     axios.get(estacionUrl, config).then((response) => {
       console.log(response);
       var count = Object.keys(response.data).length;
@@ -63,19 +65,17 @@ const PanelSensores = () => {
         setSensores([{
           nombreComponente: '',
           tipoCultivo: 'Sin Sensores'
-        }
-
-        ]);
+        }]);
       }else{
         setSensores(response.data.componentes)
         console.log(sensores)
-      }
-   });
+      }}
+      );
   }, [ sensores])
 
   useEffect(() => {
-    fetchMyAPI()
-  }, [fetchMyAPI])
+    fetchSensores()
+  }, [fetchSensores])
 
   setTimeout(() => {
     setLoading(true)

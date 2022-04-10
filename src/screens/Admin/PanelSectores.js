@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import Grid from '@mui/material/Grid';
 
 const baseUrl='http://localhost:3000/api/component/paginacion'
+const usersUrl='http://localhost:3000/api/users'
 
 const opcionesCultivo = [
   {
@@ -180,13 +181,13 @@ const useStyles = makeStyles((theme) => ({
     const config = {headers: { Authorization: `Bearer ${token}` }}; 
     const styles= useStyles();
     const [sectores, setSectores] = useState();
+    const [correos, setCorreos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [data, setData]=useState([]);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
-    const nombre_cultivo = "" ;
-    const nombre_sensor = "" ;
+
     const [sector, setSector]=useState({
       nombre_cultivo: '',
       nombre_sensor: '',
@@ -202,8 +203,13 @@ const useStyles = makeStyles((theme) => ({
       if(sectores){
         setLoading(true)
       }
-      console.log(sectores)
-      });       
+      });    
+      
+      //Obtener Usuarios
+      axios.get(usersUrl,config).then((response) => {
+        setCorreos(response.data);
+       
+        }); 
     })
     const handleChange=e=>{
       const {name, value}=e.target;
@@ -224,7 +230,6 @@ const useStyles = makeStyles((theme) => ({
         "nombre_nave": sector.nombre_nave,
         "responsable": sector.responsable
       }
-      console.log(baseUrl, post, config)
       await axios.post(baseUrl, post, config)
       .then(response=>{
         setData(data.concat(response.data))
@@ -283,16 +288,16 @@ const useStyles = makeStyles((theme) => ({
     const bodyInsertar=(
       <div className={styles.modal}>
         <FadeIn>
-        <h2 className={styles.tituloInsertar}>Agregar Nave</h2>
+        <h2 className={styles.tituloInsertar}>Agregar Sensor</h2>
         <Grid container spacing={2}>
         <Grid item xs={6}>
         <TextField
          fullWidth 
+         label="Cultivo"
          name="nombre_cultivo"
           id="filled-select-currency-native"
           select
-          label="Nombre Cultivo"
-          value={nombre_cultivo}
+          value={sector.nombre_cultivo}
           onChange={handleChange}
           SelectProps={{
             native: true,
@@ -313,7 +318,7 @@ const useStyles = makeStyles((theme) => ({
           id="filled-select-currency-native"
           select
           label=" Sensor"
-          value={nombre_sensor}
+          value={sector.nombre_sensor}
           onChange={handleChange}
           SelectProps={{
             native: true,
@@ -328,7 +333,6 @@ const useStyles = makeStyles((theme) => ({
         </TextField>
         </Grid>
         </Grid>
-        <br />
         <Grid container spacing={2}>
         <Grid item xs={6}>
         <TextField type="number" name="valor_maximo" className={styles.inputMaterial} label="Valor Maximo" onChange={handleChange} variant="outlined"/> 
@@ -337,10 +341,28 @@ const useStyles = makeStyles((theme) => ({
         <TextField type="number" name="valor_minimo" className={styles.inputMaterial} label="Valor Minimo" onChange={handleChange} variant="outlined"/> 
         </Grid>
         </Grid>
-        <br />
         <TextField name="nombre_nave" className={styles.inputMaterial} label="Nave" onChange={handleChange} variant="outlined"/> 
         <br />
-        <TextField name="responsable" className={styles.inputMaterial} label="Usuario" onChange={handleChange} variant="outlined"/> 
+        <TextField
+         fullWidth 
+         name="responsable"
+          id="filled-select-currency-native"
+          select
+          label="Usuario"
+          value={sector.responsable}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {correos.map((option) => (
+            <option key={option.id} value={option.email}>
+              {option.email}
+            </option>
+            
+          ))}
+        </TextField>
         <br /><br />
         <div align="right">
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
@@ -353,14 +375,51 @@ const useStyles = makeStyles((theme) => ({
     const bodyEditar=(
       <div className={styles.modal}>
       <FadeIn>
-        <h2 className={styles.tituloEditar}>Editar Sector</h2>
+        <h2 className={styles.tituloEditar}>Editar Sensor</h2>
         <br />
         <Grid container spacing={2}>
         <Grid item xs={6}>
-        <TextField name="nombre_cultivo" className={styles.inputMaterial} label="Cultivo" onChange={handleChange} value={sector && sector.nombre_cultivo} variant="outlined"/>
+        <TextField
+         fullWidth 
+         label="Cultivo"
+         name="nombre_cultivo"
+          id="filled-select-currency-native"
+          select
+          value={sector && sector.nombre_cultivo}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {opcionesCultivo.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
+       
         </Grid>
         <Grid item xs={6}>
-        <TextField name="nombre_sensor" className={styles.inputMaterial} label="Sensor" onChange={handleChange} value={sector && sector.nombre_sensor} variant="outlined"/>
+        <TextField
+         fullWidth 
+         name="nombre_sensor"
+          id="filled-select-currency-native"
+          select
+          label=" Sensor"
+          value={sector && sector.nombre_sensor}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {opcionesCultivo.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </TextField>
         </Grid>
         </Grid>
         <Grid container spacing={2}>
@@ -374,16 +433,28 @@ const useStyles = makeStyles((theme) => ({
      
       </Grid>
 
-
-
-
-        
-        
- 
-        
         <TextField name="nombre_nave" className={styles.inputMaterial} label="Nave" onChange={handleChange} value={sector && sector.nombre_nave} variant="outlined"/>
-        
-        <TextField name="responsable" className={styles.inputMaterial} label="Usuario" onChange={handleChange} value={sector && sector.responsable} variant="outlined"/>
+        <br />
+        <TextField
+         fullWidth 
+         name="responsable"
+          id="filled-select-currency-native"
+          select
+          label="Usuario"
+          value={sector && sector.responsable}
+          onChange={handleChange}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+          {correos.map((option) => (
+            <option key={option.id} value={option.email}>
+              {option.email}
+            </option>
+            
+          ))}
+        </TextField>
         <br />
     
         <div align="right">
@@ -409,7 +480,7 @@ const useStyles = makeStyles((theme) => ({
   
   
     return (
-      <>{ loading ? ( 
+      <>{ loading && correos? ( 
       <div className={styles.tablas}>
         <FadeIn>
           <h1 className="bienvenida">Informacion de los Sensores</h1>
