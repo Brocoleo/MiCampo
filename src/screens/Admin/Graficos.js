@@ -12,7 +12,7 @@ import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation
 
 
 
-  const historialUrl='http://localhost:3000/api/historial/all'
+  const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
 const Graficos = () => {
     const sensor = Cookies.get("sensor");
     const token = Cookies.get("access");
