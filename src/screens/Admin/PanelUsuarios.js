@@ -38,12 +38,14 @@ const useStyles = makeStyles((theme) => ({
     btnDelete:{
       cursor: 'pointer',
       padding: '10px',
+      paddingLeft: '15px',
+      paddingRight: '15px',
       width: '23px',
       color: '#E02401',
       borderRadius: '20px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
-        backgroundColor: '#9c9a9a',
+        backgroundColor: '#0F044C',
       },
       [theme.breakpoints.up('xl')]: {
         width: '28%',
@@ -53,12 +55,14 @@ const useStyles = makeStyles((theme) => ({
       cursor: 'pointer',
       width: '23px',
       padding: '10px',
+      paddingLeft: '15px',
+      paddingRight: '15px',
       marginLeft: '34%',
       color: '#F78812',
       borderRadius: '20px',
       backgroundColor: '#EDEDED',
       '&:hover': {
-        backgroundColor: '#9c9a9a',
+        backgroundColor: '#0F044C',
       },
       [theme.breakpoints.up('xl')]: {
         marginLeft: '24%',
@@ -81,6 +85,11 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '10px'
       }
       ,
+      customTable: {
+        "& .MuiTableCell-sizeSmall": {
+          padding: '6px ' //
+        }
+      },
     tituloInsertar:{
         width: '55%',
         color: '#fff',
@@ -116,7 +125,9 @@ const useStyles = makeStyles((theme) => ({
           },
       },
       tablas: {
-        marginTop: '9%'       
+        marginTop: '9%',
+        padding: '6px '
+
    }
   }));
 
@@ -261,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const seleccionarUsuario=(row, caso)=>{
-      setUsuario(row);
+      
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   
@@ -372,8 +383,8 @@ const useStyles = makeStyles((theme) => ({
 
         <br />
     <FadeIn>
-       <TableContainer style={{ width: 900,  borderRadius: '10px', }} component={Paper}>
-         <Table>
+       <TableContainer style={{ width: 800, borderRadius: '10px', }} component={Paper}>
+         <Table classes={{root: styles.customTable}}>
          <TableHead>
           <StyledTableRow>
             <StyledTableCell align="center">Nombre</StyledTableCell>

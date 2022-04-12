@@ -58,6 +58,7 @@ code {
 
   .bienvenida{
         text-align: left;
+        font-variant-caps: small-caps;
         color: #F7F6F2;
         font-weight: bold;
         margin-bottom: 0; 
@@ -81,6 +82,7 @@ code {
   text-align: center;
   color: #F7F6F2;
   font-weight: bold;
+  font-variant-caps: small-caps;
   margin-bottom: 0;  
 }
   .subtitulo{

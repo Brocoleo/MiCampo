@@ -18,7 +18,6 @@ const DashAdmin = () => {
   const [nroSectores, setNroSectores] = useState();
   const [nroDatos, setNroDatos] = useState();
   const token = Cookies.get("access");
-  console.log(token)
   const config = {headers: { Authorization: `Bearer ${token}` }};
 
 
@@ -68,7 +67,7 @@ const DashAdmin = () => {
             <DataEstacion>
             <CountUp  start={0} end={nroDatos} duration={1} />
             </DataEstacion>
-            <DataLabel> Almacenados</DataLabel>
+            <DataLabel>Climatologicos</DataLabel>
           </CardEstaciones>
           </CardLink>   
           </Grid>

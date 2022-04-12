@@ -49,7 +49,7 @@ const VerButton = styled(Button)(({ theme }) => ({
 
 
 
-export default function CardEstaciones({ data, config, estacionUrl, estacion , seleccionarsector}) {
+export default function CardEstaciones({ data, config }) {
   const navigate = useNavigate ();
   const styles= useStyles();
   const verSensores = () =>{

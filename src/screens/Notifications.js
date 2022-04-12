@@ -7,8 +7,6 @@ import CheckIcon from '@mui/icons-material/Check';
 
 
 const Notifications = ({tipo, temperatura, humedad}) => {
-  console.log(temperatura)
-  console.log(humedad)
   const TipoCultivo = (tipo) => {
     switch(tipo) {
       case 'Tomate':

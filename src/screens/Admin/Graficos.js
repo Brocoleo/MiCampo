@@ -2,6 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react'
 import FadeIn from 'react-fade-in';
 import axios from 'axios';
 import LineChart from "../../components/LineChart/LineChart";
+import Water from '../../components/Animations/Water'
 import  { ChartContainer} from '../styles'
 import Cookies from "js-cookie";
 import { Container, Row, Col } from 'react-grid-system';
@@ -11,9 +12,8 @@ import {WeatherAdminContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation";
 
 
-
   const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
-const Graficos = () => {
+  const Graficos = () => {
     const sensor = Cookies.get("sensor");
     const token = Cookies.get("access");
     const tipoCultivo = Cookies.get("tipo");
@@ -30,7 +30,6 @@ const Graficos = () => {
       axios.get(historialUrl, config).then((response) => {
         const respuesta =response.data
         let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
-        console.log(filtrado)
         const largo = filtrado.length
         const inicio = filtrado.length-30
         const datos = filtrado.slice(inicio, largo);
@@ -39,16 +38,13 @@ const Graficos = () => {
           setTemperatura(datos.map(item => item.temperatura)) 
           setHumedad(datos.map(item => item.humedad))
           setPeso(datos.map(item => item.peso_actual))
-          console.log(peso)
-          console.log(temperatura)
-          console.log(humedad)
 
         }else{
           setVerGraficas(false)
         }
 
      });
-    }, [ sensor, token, humedad, peso, temperatura])
+    }, [ sensor, token])
 
     useEffect(() => {
       getHistorial()
@@ -113,12 +109,22 @@ const Graficos = () => {
           humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]}
     />
           </WeatherAdminContainer>  
-       
+          <NotificationsContainer>
+          <span className="notiLabel">Asistencia de Riego </span>
+          <Row>
+          <Col>
+          <Water />
+          </Col>
+          <Col>
+          <h2 style={{ padding : '10px' }}> 450 mm </h2>
+          </Col>
+          </Row>
+          </NotificationsContainer>
+
           <NotificationsContainer>
           <span className="notiLabel">Estado del {tipoCultivo} </span>
           <Notifications tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]} humedad={humedad[humedad.length -1]}  />
           </NotificationsContainer>
-
      </FadeIn> 
      </Col>
      <Col>

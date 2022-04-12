@@ -3,17 +3,6 @@ import { Line } from 'react-chartjs-2';
 
 
 
-const options = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
-};
 
 const LineChart = ({title, data}) => (
   <>
@@ -24,7 +13,7 @@ const LineChart = ({title, data}) => (
        </h1>
       
     </div>
-    <Line data={data} options={options} />
+    <Line data={data}  />
   </>
 );
 

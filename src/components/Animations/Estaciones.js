@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../assets/charts.json'
+import animationData from '../../assets/partlyCloudy.json'
 
 const Estaciones = () => {
 
@@ -14,7 +14,7 @@ const Estaciones = () => {
       };
     return (
         <div>
-        <Lottie options={defaultOptions} height={120} width={120}  speed={1}/>
+        <Lottie options={defaultOptions} height={120} width={120}  speed={0.6}/>
         </div>
     )
 }

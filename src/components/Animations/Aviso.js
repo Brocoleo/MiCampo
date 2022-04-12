@@ -1,8 +1,8 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import animationData from '../../assets/water.json'
+import animationData from '../../assets/charts.json'
 
-const Water = () => {
+const Aviso = () => {
 
     const defaultOptions = {
         loop: true,
@@ -14,9 +14,9 @@ const Water = () => {
       };
     return (
         <div>
-        <Lottie options={defaultOptions} height={100} width={100}  />
+        <Lottie options={defaultOptions} height={150} width={150}  />
         </div>
     )
 }
 
-export default Water
+export default Aviso

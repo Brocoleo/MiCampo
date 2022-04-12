@@ -53,12 +53,14 @@ const useStyles = makeStyles((theme) => ({
     btnDelete:{
       cursor: 'pointer',
       padding: '10px',
+      paddingLeft: '15px',
+      paddingRight: '15px',
       width: '23px',
       color: '#E02401',
       borderRadius: '20px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
-        backgroundColor: '#9c9a9a',
+        backgroundColor: '#0F044C',
       },
       [theme.breakpoints.up('xl')]: {
         width: '28%',
@@ -71,9 +73,11 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '34%',
       color: '#F78812',
       borderRadius: '20px',
+      paddingLeft: '15px',
+      paddingRight: '15px',
       backgroundColor: '#EDEDED',
       '&:hover': {
-        backgroundColor: '#9c9a9a',
+        backgroundColor: '#0F044C',
       },
       [theme.breakpoints.up('xl')]: {
         marginLeft: '24%',
@@ -196,20 +200,25 @@ const useStyles = makeStyles((theme) => ({
       nombre_nave: '',
       responsable: ''
     })
-    useEffect(() => {
-      //Obtener Sectores
+
+    const ObtenerSectores = () => {
       axios.get(baseUrl,config).then((response) => {
-      setSectores(response.data.componentes);
-      if(sectores){
-        setLoading(true)
-      }
-      });    
-      
-      //Obtener Usuarios
+        setSectores(response.data.componentes);
+        if(sectores){
+          setLoading(true)
+        }});}
+
+    const ObtenerUsuarios = () => {
       axios.get(usersUrl,config).then((response) => {
         setCorreos(response.data);
        
         }); 
+    }
+
+    useEffect(() => {
+      ObtenerSectores()
+      ObtenerUsuarios()
+      
     })
     const handleChange=e=>{
       const {name, value}=e.target;
