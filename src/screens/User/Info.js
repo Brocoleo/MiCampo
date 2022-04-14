@@ -44,7 +44,7 @@ export default function Info() {
   });
 
   return (
-    <div  className="margenDatos">
+    <div  >
     <FadeIn>
     <InfoContainer>
     <ThemeProvider theme={theme}>

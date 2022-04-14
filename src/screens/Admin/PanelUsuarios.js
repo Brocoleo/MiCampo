@@ -272,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
     }
   
     const seleccionarUsuario=(row, caso)=>{
-      
+      setUsuario(row); 
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   

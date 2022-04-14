@@ -63,7 +63,7 @@ const Login = () => {
                 navigate( '/admin/dash')}
     
               if(response.data.role === 'USER_ROLE'){
-                navigate('/user')}   
+                navigate('/user/dash')}   
             })
                  
           })
