@@ -156,7 +156,7 @@ const PanelSensores = () => {
     setSensor(sensor);
     Cookies.set("sensor", sensor );  
     Cookies.set("tipo", tipo );  
-    axios.get(graficasUrl, config).then((response) => {   
+    axios.get(graficasUrl, config).then((response) => { 
     const respuesta =response.data.historial
     let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
     let aux;

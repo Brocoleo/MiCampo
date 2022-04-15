@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, toggle }) => {
       </Icon>
       <SidebarMenu>
         <SidebarLink to='/user/dash'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
-        <SidebarLink to='/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
+        <SidebarLink to='/user/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
         <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>

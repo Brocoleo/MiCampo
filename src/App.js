@@ -27,9 +27,10 @@ function App() {
    <Router>
     
     <Routes>
-      <Route  path="/user/*" element={<User toggle={toggle} isOpen={isOpen}/> }/> 
+      <Route  path="/user/*" element={<User toggle={toggle} isOpen={isOpen}/> }>
             <Route path="dash"  element={<DashUser />} />
             <Route path="informacion" element={<Info />}  />
+      </Route>    
       <Route  path="/admin/*"  element={<Admin toggle={toggle} isOpen={isOpen}/>}>
             <Route  path="dash"   element={<DashAdmin />} />
             <Route  path="sectores"  element={<PanelSectores />} />

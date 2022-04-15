@@ -28,48 +28,8 @@ export default  makeStyles((theme) => ({
   }));
 
 
-  export const Container = styled.div`
-  margin-top: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 380px;
-  border-radius: 30px;
-  padding: 2px;
-  box-shadow: 0 9px 12px 0 #031648;
-  background: rgb(52,79,161);
-  background: linear-gradient(90deg, rgba(52,79,161,1) 28%, rgba(63,54,151,1) 72%);
-  font-family: 'Nunito', sans-serif;
-  @media (max-width: 768px) {
-    margin-top: 9%;
-  }
 
-`;
 
-export const MiniContainer = styled.div`
-  display: flex;
-  width: 70%;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 20px;
-  box-shadow: 0 9px 12px 0 #031648;
-  border: 3px solid #464b50;
-  box-shadow: 0 9px 12px 0 #031648;
-  background: #30363d;
-  font-family: 'Nunito', sans-serif;
-  @media (max-width: 768px) {
-    width: 77%;
-    margin-top: 9%;
-    margin-left: 5%;
-  }
-
-  @media only screen and (min-width: 768px) and (max-width: 1424px) {
-  width: 100%;
-  margin-top: 3%;
-  margin-left: 5%;
-}
-
-  `;
 
 export const NotificationsContainer = styled.div`
 margin-bottom:18px;
@@ -127,7 +87,7 @@ font-family: 'Nunito', sans-serif;
 }
 `;
 
-export const WeatherAdminContainer = styled.div`
+export const WeatherContainer = styled.div`
 margin-top:10px;
 margin-bottom:10px;
 display: flex;
@@ -143,6 +103,7 @@ font-family: 'Nunito', sans-serif;
   margin-top: 22%;
   margin-left: 5%;
 }
+
 `;
 
 export const ChartContainer = styled.div`
@@ -151,7 +112,7 @@ margin-bottom:10px;
 padding: 6px;
 display: blocks;
 font-size: 0.5rem;
-margin-left: 50px;
+margin-left: 60px;
 width: 70%;
 flex-direction: column;
 align-items: center;

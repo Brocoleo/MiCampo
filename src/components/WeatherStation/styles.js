@@ -14,11 +14,22 @@ export const WeatherInfoLabel = styled.span`
     width: 77%;
     margin-top: 15px;
   }
-
-  @media only screen and (min-width: 768px) and (max-width: 1424px) {
-    font-size: 1rem;
-}
 `;
+
+export const WeatherInfoSub = styled.span`
+  margin-top: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  @media (max-width: 768px) {
+    width: 77%;
+    margin-top: 10px;
+  }
+`;
+
 export const WeatherIcon = styled.img`
   width: 100px;
   height: 100px;
@@ -43,24 +54,27 @@ export const WeatherInfoContainer = styled.div`
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-
 `;
 export const InfoContainer = styled.div`
   display: flex;
-  margin: 3px 0px;
-  padding: 7px;
+  margin: 0px 0px;
+  padding: 2px;
+  padding-right: 35px;
   flex-direction: row;
-  margin: 15px;
+  margin: 20px;
+  border-radius: 10px;
+  color: #000;
+  background-color: #fff;
   justify-content: space-evenly;
   align-items: center;
 `;
 export const InfoIcon = styled.img`
-  width: 41px;
-  height: 31px;
+  width: 46px;
+  height: 36px;
   margin-right: 15px;
   @media (max-width: 1400px) {
-    width: 36px;
-    height: 26px;
+    width: 46px;
+    height: 36px;
     padding: 2px;
   }
 `;
@@ -68,18 +82,15 @@ export const InfoLabel = styled.span`
   display: flex;
   font-family: 'Nunito', sans-serif;
   flex-direction: column;
-  font-size: 16px;
-  padding: 6px;
+  font-size: 18px;
+  padding: 3px;
   font-weight: 500;
   & span {
     font-size: 18px;
     text-transform: capitalize;
   }
   @media (max-width: 1400px) {
-    font-size: 1rem;
+    font-size: 16px;
     padding: 2px;
-    & span {
-    font-size: 1rem;
-  }
   }
 `;

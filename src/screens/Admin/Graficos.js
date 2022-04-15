@@ -8,8 +8,8 @@ import Cookies from "js-cookie";
 import { Container, Row, Col } from 'react-grid-system';
 import Loading from '../../components/Loading'
 import Notifications from '../Notifications'
-import {WeatherAdminContainer, NotificationsContainer} from '../styles'
-import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation";
+import {WeatherContainer, NotificationsContainer} from '../styles'
+import WeatherStation from "../../components/WeatherStation/WeatherStation";
 
 
   const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
@@ -29,6 +29,7 @@ import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation
       const config = {headers: { Authorization: `Bearer ${token}` }};
       axios.get(historialUrl, config).then((response) => {
         const respuesta =response.data
+        console.log(sensor)
         let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
         const largo = filtrado.length
         const inicio = filtrado.length-30
@@ -104,11 +105,11 @@ import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation
           <Row>
           <Col>
       <FadeIn className='tipoGrafica'>
-          <WeatherAdminContainer >
+          <WeatherContainer >
           <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]} 
           humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]}
     />
-          </WeatherAdminContainer>  
+          </WeatherContainer>  
           <NotificationsContainer>
           <span className="notiLabel">Asistencia de Riego </span>
           <Row>

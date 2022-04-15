@@ -4,20 +4,18 @@ import axios from 'axios';
 import LineChart from "../../components/LineChart/LineChart";
 import Water from '../../components/Animations/Water'
 import  { ChartContainer} from '../styles'
-import Cookies from "js-cookie";
 import { Container, Row, Col } from 'react-grid-system';
 import Loading from '../../components/Loading'
 import Notifications from '../Notifications'
-import {WeatherAdminContainer, NotificationsContainer} from '../styles'
-import WeatherStation from "../../components/Admin/WeatherStation/WeatherStation";
+import {WeatherContainer, NotificationsContainer} from '../styles'
+import WeatherStation from "../../components/WeatherStation/WeatherStation";
 
 const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
 
-const DashUser = () => {  
-  console.log('asds')
+const DashUser = () => { 
   const sensor = "S02";
-  const token = Cookies.get("access");
-  const tipoCultivo = Cookies.get("tipo");
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQ1LCJyb2xlIjoiQURNSU5fUk9MRSIsImlhdCI6MTY0OTExOTYwMX0.PcfqJbEXcIBuf7z2dClgS4wuT9G8BOKjy5pqP9XxWgU"
+  const [tipoCultivo, setTipoCultivo] = useState();
   const [loading, setLoading] = useState(false);
   const [verGraficas, setVerGraficas] = useState(true);
   const grafico = 'linea';
@@ -28,13 +26,11 @@ const DashUser = () => {
 
 
    const getHistorial = useCallback(async () => {
-     console.log('asds')
     const config = {headers: { Authorization: `Bearer ${token}` }};
     axios.get(historialUrl, config).then((response) => {
       const respuesta =response.data
-      console.log(response.data)
       let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
-      console.log(filtrado)
+      setTipoCultivo(filtrado[0].nombre_cultivo)
       const largo = filtrado.length
       const inicio = filtrado.length-30
       const datos = filtrado.slice(inicio, largo);
@@ -105,16 +101,16 @@ const DashUser = () => {
 
   return (<>
     { verGraficas ? (
-         loading && temperatura && humedad && peso? (  <div>
+         loading && temperatura && humedad && peso && tipoCultivo? (  <div>
           <Container>
           <Row>
           <Col>
       <FadeIn className='tipoGrafica'>
-          <WeatherAdminContainer >
+          <WeatherContainer >
           <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]} 
           humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]}
     />
-          </WeatherAdminContainer>  
+          </WeatherContainer>  
           <NotificationsContainer>
           <span className="notiLabel">Asistencia de Riego </span>
           <Row>
