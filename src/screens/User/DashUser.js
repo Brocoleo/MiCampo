@@ -21,8 +21,11 @@ const DashUser = () => {
   const grafico = 'linea';
   const [indices, setIndices] = useState();
   const [temperatura, setTemperatura] = useState();
+  const [maxMin, setMaxMin] = useState();
   const [humedad, setHumedad] = useState();
   const [peso, setPeso] = useState();
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
 
 
    const getHistorial = useCallback(async () => {
@@ -30,22 +33,25 @@ const DashUser = () => {
     axios.get(historialUrl, config).then((response) => {
       const respuesta =response.data
       let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
+      setMaxMin(filtrado.map(item => item.temperatura))
+      setMin(Math.min(...maxMin))
+      setMax(Math.max(...maxMin))
       setTipoCultivo(filtrado[0].nombre_cultivo)
       const largo = filtrado.length
-      const inicio = filtrado.length-30
+      const inicio = filtrado.length-50
       const datos = filtrado.slice(inicio, largo);
       if(filtrado && datos.length > 0){
         setIndices(datos.map(item => item.hora.slice(1, -3))) 
-        setTemperatura(datos.map(item => item.temperatura)) 
+        setTemperatura(datos.map(item => item.temperatura))
         setHumedad(datos.map(item => item.humedad))
         setPeso(datos.map(item => item.peso_actual))
 
       }else{
         setVerGraficas(false)
       }
-
+    
    });
-  }, [ sensor, token])
+  }, [ sensor, token, maxMin])
 
   useEffect(() => {
     getHistorial()
@@ -101,7 +107,7 @@ const DashUser = () => {
 
   return (<>
     { verGraficas ? (
-         loading && temperatura && humedad && peso && tipoCultivo? (  <div>
+         loading && temperatura && humedad && peso && tipoCultivo && max && min? (  <div>
           <Container>
           <Row>
           <Col>
@@ -118,7 +124,7 @@ const DashUser = () => {
           <Water />
           </Col>
           <Col>
-          <h2 style={{ padding : '10px' }}> 450 mm </h2>
+          <h2 style={{ padding : '10px' }}> {max} - {min} </h2>
           </Col>
           </Row>
           </NotificationsContainer>
