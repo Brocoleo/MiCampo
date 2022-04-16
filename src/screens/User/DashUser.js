@@ -10,6 +10,34 @@ import Notifications from '../Notifications'
 import {WeatherContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 
+const radiacion = [
+    { mes : '04',
+      hora_inicio: "08:00",
+      hora_final: "08:59",
+      radiacion: 13.13,
+      },
+    { mes : '04',
+      hora_inicio: "09:00",
+      hora_final: "12:59",
+      radiacion: 19.49,
+      },
+    { mes : '04',
+      hora_inicio: "13:00",
+      hora_final: "16:59",
+      radiacion: 24.03,
+      },
+    { mes : '04',
+      hora_inicio: "17:00",
+      hora_final: "17:59",
+      radiacion: 21.60,
+      },
+    { mes : '04',
+      hora_inicio: "18:00",
+      hora_final: "18:59",
+      radiacion: 9.91,
+      }
+  ]
+
 const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
 
 const DashUser = () => { 
@@ -34,8 +62,8 @@ const DashUser = () => {
       const respuesta =response.data
       let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
       setMaxMin(filtrado.map(item => item.temperatura))
-      setMin(Math.min(...maxMin))
-      setMax(Math.max(...maxMin))
+      setMin(Math.min(...maxMin).toFixed(1))
+      setMax(Math.max(...maxMin).toFixed(1))
       setTipoCultivo(filtrado[0].nombre_cultivo)
       const largo = filtrado.length
       const inicio = filtrado.length-50
@@ -124,7 +152,7 @@ const DashUser = () => {
           <Water />
           </Col>
           <Col>
-          <h2 style={{ padding : '10px' }}> {max} - {min} </h2>
+          <h2 style={{ padding : '8px' }}>{ (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* 19.66).toFixed(1) } mm</h2>
           </Col>
           </Row>
           </NotificationsContainer>
