@@ -5,7 +5,7 @@ import Water from '../../components/Animations/Water'
 import { Container, Row, Col } from 'react-grid-system';
 import Loading from '../../components/Loading'
 import Notifications from '../Notifications'
-import {WeatherContainer, NotificationsContainer} from '../styles'
+import {WeatherUserContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 
 
@@ -71,12 +71,12 @@ const DashUser = () => {
           <Row>
           <Col>
         <FadeIn className='tipoGrafica'>
-          <WeatherContainer >
+          <WeatherUserContainer >
           <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]} 
           humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]}
         />
         
-          </WeatherContainer>  
+          </WeatherUserContainer>  
           </FadeIn> 
           </Col>
           <Col>

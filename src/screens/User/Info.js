@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#0F044C',
     borderRadius: '10px',
     backgroundColor: '#C8C6C6',
-    paddingLeft: '20px',
+    paddingLeft: '10px',
     paddingTop: '10px',
     paddingBottom: '10px'
   }

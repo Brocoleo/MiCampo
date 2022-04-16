@@ -105,9 +105,6 @@ const GraficosUser = () => {
               setTemperatura(datos.map(item => item.temperatura))
               setHumedad(datos.map(item => item.humedad))
               setPeso(datos.map(item => item.peso_actual))
-                console.log(temperatura)
-                console.log(humedad)
-                console.log(peso)
             }else{
               setVerGraficas(false)
             }
@@ -122,29 +119,46 @@ const GraficosUser = () => {
   }, [getHistorial, sensor])
 
   return (
-    <Container>    { verGraficas ? (
-        <>
+    <>    { verGraficas ? (
+        <Container>
+        <Row>
+        <Col>
     {(() => {
   
         switch (grafico) {
           case 'linea':
-                  return  <> <FadeIn> <Row><Col> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
-                  { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)} </Col>
-                  <Col> { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer >) : (<div></div>)} 
-                </Col> </Row>    </FadeIn> </>
+            return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)}
+            { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)}
+                 
+            </Row> </FadeIn> </Container>
                 default:
-                  return <> <FadeIn>  <Row>{ humedad && humedad[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer></Col>) : (<div></div>)}</Row>
-                 <Row> { temperatura && temperatura[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer></Col>) : (<div></div>)} </Row>
-                 <Row>{ peso && peso[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer ></Col>) : (<></>)}  </Row>  </FadeIn> </>
+                  return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)}
+            { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)}       
+            </Row> </FadeIn> </Container>
               }
             })()}
-           </> ):(<FadeIn>
+            </Col>
+            <Col>
+            {(() => {
+  
+        switch (grafico) {
+          case 'linea':
+                  return  <Container> <FadeIn> <Row> 
+                  { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer >) : (<div></div>)} 
+                  </Row> </FadeIn> </Container>
+                default:
+                  return <Container> <FadeIn> <Row>
+                 { peso && peso[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer ></Col>) : (<></>)}   </Row> </FadeIn> </Container>
+              }
+            })()}</Col>
+            </Row>
+           </Container> ):(<FadeIn>
           <br />
           <br />
           <br />
           <Loading />
           </FadeIn>)}
-            </Container>
+            </>
   )
 }
 

@@ -106,6 +106,25 @@ font-family: 'Nunito', sans-serif;
 
 `;
 
+export const WeatherUserContainer = styled.div`
+margin-top:40px;
+margin-bottom:10px;
+display: flex;
+width: 80%;
+flex-direction: column;
+align-items: center;
+border-radius: 20px;
+box-shadow: 0 3px 6px 0 #031648;
+background-color: #031648;
+font-family: 'Nunito', sans-serif;
+@media (max-width: 768px) {
+  width: 77%;
+  margin-top: 22%;
+  margin-left: 5%;
+}
+
+`;
+
 export const ChartContainer = styled.div`
 margin-top:10px;
 margin-bottom:10px;
