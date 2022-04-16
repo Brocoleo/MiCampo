@@ -9,7 +9,7 @@ import {
   SidebarRoute
 } from './styles';
 import { FaUser } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
+import { IoPartlySunny } from "react-icons/io5";
 
 
 const Sidebar = ({ isOpen, toggle }) => {
@@ -19,7 +19,7 @@ const Sidebar = ({ isOpen, toggle }) => {
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/user/dash'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
+        <SidebarLink to='/user/dash'><IoPartlySunny />&nbsp;&nbsp;ESTACION</SidebarLink>
         <SidebarLink to='/user/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>

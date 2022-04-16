@@ -64,9 +64,22 @@ export const InfoContainer = styled.div`
   margin: 20px;
   border-radius: 10px;
   color: #000;
-  background-color: #fff;
+  background: linear-gradient(-45deg, #F4F9F9, #fff, #E8E8E8, #F5F4F4);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
   justify-content: space-evenly;
   align-items: center;
+  @keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 `;
 export const InfoIcon = styled.img`
   width: 46px;

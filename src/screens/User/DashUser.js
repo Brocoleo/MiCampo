@@ -61,22 +61,25 @@ const DashUser = () => {
     axios.get(historialUrl, config).then((response) => {
       const respuesta =response.data
       let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
-      setMaxMin(filtrado.map(item => item.temperatura))
-      setMin(Math.min(...maxMin).toFixed(1))
-      setMax(Math.max(...maxMin).toFixed(1))
-      setTipoCultivo(filtrado[0].nombre_cultivo)
-      const largo = filtrado.length
-      const inicio = filtrado.length-50
-      const datos = filtrado.slice(inicio, largo);
-      if(filtrado && datos.length > 0){
-        setIndices(datos.map(item => item.hora.slice(1, -3))) 
-        setTemperatura(datos.map(item => item.temperatura))
-        setHumedad(datos.map(item => item.humedad))
-        setPeso(datos.map(item => item.peso_actual))
-
-      }else{
-        setVerGraficas(false)
+      if(filtrado){
+        setMaxMin(filtrado.map(item => item.temperatura))
+        setMin(Math.min(...maxMin).toFixed(1))
+        setMax(Math.max(...maxMin).toFixed(1))
+        setTipoCultivo(filtrado[0].nombre_cultivo)
+        const largo = filtrado.length
+        const inicio = filtrado.length-40
+        const datos = filtrado.slice(inicio, largo);
+        if(filtrado && datos.length > 0){
+          setIndices(datos.map(item => item.hora.slice(1, -3))) 
+          setTemperatura(datos.map(item => item.temperatura))
+          setHumedad(datos.map(item => item.humedad))
+          setPeso(datos.map(item => item.peso_actual))
+  
+        }else{
+          setVerGraficas(false)
+        }
       }
+      
     
    });
   }, [ sensor, token, maxMin])

@@ -140,10 +140,7 @@ font-family: 'Nunito', sans-serif;
   }
 `;
 
-export const TituloInfo = styled.h2`
-  margin-top: 10%;
-  margin-bottom: 10%;
-`;
+
 
 export const TituloLogin = styled.h2`
   margin-bottom: 8%;

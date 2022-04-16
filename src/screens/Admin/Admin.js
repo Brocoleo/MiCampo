@@ -3,7 +3,7 @@ import { Outlet} from "react-router-dom";
 import useStyles from '../styles'
 
 //import PanelEstaciones from './PanelEstaciones'
-import Navbar from "../../components/Admin/Navbar/Navbar"
+import Navbar from "../../components/Navbar/Navbar"
 import Sidebar from "../../components/Admin/Sidebar/Sidebar";
 
 
