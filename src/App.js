@@ -7,6 +7,7 @@ import DashAdmin from './screens/Admin/DashAdmin'
 import PanelSectores from './screens/Admin/PanelSectores'
 import PanelSensores from './screens/Admin/PanelSensores'
 import Graficos from './screens/Admin/Graficos'
+import GraficosUser from './screens/User/GraficosUser'
 import PanelEstaciones from './screens/Admin/PanelEstaciones'
 import PanelUsuarios from './screens/Admin/PanelUsuarios'
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -29,6 +30,7 @@ function App() {
     <Routes>
       <Route  path="/user/*" element={<User toggle={toggle} isOpen={isOpen}/> }>
             <Route path="dash"  element={<DashUser />} />
+            <Route  path="graficos"  element={<GraficosUser />}/>
             <Route path="informacion" element={<Info />}  />
       </Route>    
       <Route  path="/admin/*"  element={<Admin toggle={toggle} isOpen={isOpen}/>}>

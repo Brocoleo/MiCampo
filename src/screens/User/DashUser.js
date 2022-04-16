@@ -1,42 +1,14 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import FadeIn from 'react-fade-in';
 import axios from 'axios';
-import LineChart from "../../components/LineChart/LineChart";
 import Water from '../../components/Animations/Water'
-import  { ChartContainer} from '../styles'
 import { Container, Row, Col } from 'react-grid-system';
 import Loading from '../../components/Loading'
 import Notifications from '../Notifications'
 import {WeatherContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 
-const radiacion = [
-    { mes : '04',
-      hora_inicio: "08:00",
-      hora_final: "08:59",
-      radiacion: 13.13,
-      },
-    { mes : '04',
-      hora_inicio: "09:00",
-      hora_final: "12:59",
-      radiacion: 19.49,
-      },
-    { mes : '04',
-      hora_inicio: "13:00",
-      hora_final: "16:59",
-      radiacion: 24.03,
-      },
-    { mes : '04',
-      hora_inicio: "17:00",
-      hora_final: "17:59",
-      radiacion: 21.60,
-      },
-    { mes : '04',
-      hora_inicio: "18:00",
-      hora_final: "18:59",
-      radiacion: 9.91,
-      }
-  ]
+
 
 const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
 
@@ -46,8 +18,6 @@ const DashUser = () => {
   const [tipoCultivo, setTipoCultivo] = useState();
   const [loading, setLoading] = useState(false);
   const [verGraficas, setVerGraficas] = useState(true);
-  const grafico = 'linea';
-  const [indices, setIndices] = useState();
   const [temperatura, setTemperatura] = useState();
   const [maxMin, setMaxMin] = useState();
   const [humedad, setHumedad] = useState();
@@ -61,16 +31,17 @@ const DashUser = () => {
     axios.get(historialUrl, config).then((response) => {
       const respuesta =response.data
       let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
-      if(filtrado){
-        setMaxMin(filtrado.map(item => item.temperatura))
+      const reversed = filtrado.reverse();
+      if(reversed){
+        setMaxMin(reversed.map(item => item.temperatura))
         setMin(Math.min(...maxMin).toFixed(1))
         setMax(Math.max(...maxMin).toFixed(1))
-        setTipoCultivo(filtrado[0].nombre_cultivo)
-        const largo = filtrado.length
-        const inicio = filtrado.length-40
-        const datos = filtrado.slice(inicio, largo);
-        if(filtrado && datos.length > 0){
-          setIndices(datos.map(item => item.hora.slice(1, -3))) 
+        setTipoCultivo(reversed[0].nombre_cultivo)
+        const largo = reversed.length
+        const inicio = reversed.length-30
+        const datos = reversed.slice(inicio, largo);
+        console.log(datos)
+        if(reversed && datos.length > 0){
           setTemperatura(datos.map(item => item.temperatura))
           setHumedad(datos.map(item => item.humedad))
           setPeso(datos.map(item => item.peso_actual))
@@ -91,50 +62,7 @@ const DashUser = () => {
   setTimeout(() => {
     setLoading(true)
   }, 1000);
-
-
-  const temperaturaLine = {
-    labels: indices,
-    datasets: [
-      {
-        label: 'temperatura de la estacion',
-        data: temperatura,
-        fill: true,
-        backgroundColor: 'rgba(255, 38, 38, 0.2)',
-        borderColor: 'rgb(255, 38, 28)',
-      },
-    ],
-  };
-  const humedadLine = {
-    labels: indices,
-    datasets: [
-      {
-        label: 'humedad de la estacion',
-        data: humedad,
-        fill: true,
-        backgroundColor: 'rgba(17, 39, 155,0.2)',
-        borderColor: 'rgb(17, 39, 155)',
-      },
-    ],
-  };
- 
-
-
-
-  const pesoLine = {
-    labels: indices,
-    datasets: [
-      {
-        label: 'pesos de la estacion',
-        data: peso,
-        fill: true,
-        backgroundColor: 'rgba(17, 101, 48,0.2)',
-        borderColor: 'rgb(17, 101, 48)',
-      },
-    ],
-  };
- 
-
+   
 
   return (<>
     { verGraficas ? (
@@ -142,47 +70,36 @@ const DashUser = () => {
           <Container>
           <Row>
           <Col>
-      <FadeIn className='tipoGrafica'>
+        <FadeIn className='tipoGrafica'>
           <WeatherContainer >
           <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]} 
           humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]}
-    />
+        />
+        
           </WeatherContainer>  
+          </FadeIn> 
+          </Col>
+          <Col>
+          <FadeIn className='tipoGrafica'>
           <NotificationsContainer>
           <span className="notiLabel">Asistencia de Riego </span>
-          <Row>
-          <Col>
+      
           <Water />
-          </Col>
-          <Col>
+       
+
           <h2 style={{ padding : '8px' }}>{ (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* 19.66).toFixed(1) } mm</h2>
-          </Col>
-          </Row>
+   
           </NotificationsContainer>
 
           <NotificationsContainer>
           <span className="notiLabel">Estado del {tipoCultivo} </span>
           <Notifications tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]} humedad={humedad[humedad.length -1]}  />
           </NotificationsContainer>
-     </FadeIn> 
-     </Col>
-     <Col>
-     
-{(() => {
+          </FadeIn>
+          </Col>
   
-      switch (grafico) {
-        case 'linea':
-                return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)}
-                { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)}
-                { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer >) : (<div></div>)} 
-              </Row> </FadeIn> </Container>
-              default:
-                return <Container> <FadeIn>  <Row>{ humedad && humedad[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer></Col>) : (<div></div>)}
-                { temperatura && temperatura[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer></Col>) : (<div></div>)}
-                { peso && peso[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer ></Col>) : (<></>)}  </Row>  </FadeIn> </Container>
-            }
-          })()}
-</Col> </Row> </Container> </div>):( <div className="loading"><Loading /> </div>)
+     
+     </Row> </Container> </div>):( <div className="loading"><Loading /> </div>)
     ):(<FadeIn>
           <br />
           <br />
