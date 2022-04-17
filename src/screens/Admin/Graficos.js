@@ -24,18 +24,25 @@ import WeatherStation from "../../components/WeatherStation/WeatherStation";
     const [temperatura, setTemperatura] = useState();
     const [humedad, setHumedad] = useState();
     const [peso, setPeso] = useState();
+    const [min, setMin] = useState();
+    const [max, setMax] = useState();
+    const [maxMin, setMaxMin] = useState();
 
     const getHistorial = useCallback(async () => {
       const config = {headers: { Authorization: `Bearer ${token}` }};
-      axios.get(historialUrl, config).then((response) => {
+      axios.get(historialUrl, config).then((response) => {  
         const respuesta =response.data
-        console.log(sensor)
         let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
+        console.log(filtrado)
+        filtrado = filtrado.reverse();
         const largo = filtrado.length
         const inicio = filtrado.length-30
         const datos = filtrado.slice(inicio, largo);
         if(filtrado && datos.length > 0){
-          setIndices(datos.map(item => item.hora.slice(1, -3))) 
+          setMaxMin(filtrado.map(item => item.temperatura))
+          setMin(Math.min(...maxMin).toFixed(1))
+          setMax(Math.max(...maxMin).toFixed(1))
+          setIndices(datos.map(item => item.hora.slice(0, -3))) 
           setTemperatura(datos.map(item => item.temperatura)) 
           setHumedad(datos.map(item => item.humedad))
           setPeso(datos.map(item => item.peso_actual))
@@ -45,7 +52,7 @@ import WeatherStation from "../../components/WeatherStation/WeatherStation";
         }
 
      });
-    }, [ sensor, token])
+    }, [ sensor, token, maxMin])
 
     useEffect(() => {
       getHistorial()
@@ -100,7 +107,7 @@ import WeatherStation from "../../components/WeatherStation/WeatherStation";
   
     return (<>
     { verGraficas ? (
-         loading && temperatura && humedad && peso? (  <div>
+         loading && temperatura && humedad && peso  && max && min? (  <div>
           <Container>
           <Row>
           <Col>
@@ -117,7 +124,7 @@ import WeatherStation from "../../components/WeatherStation/WeatherStation";
           <Water />
           </Col>
           <Col>
-          <h2 style={{ padding : '10px' }}> 450 mm </h2>
+          <h2 style={{ padding : '10px' }}>{ (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* 19.66).toFixed(1) } mm </h2>
           </Col>
           </Row>
           </NotificationsContainer>

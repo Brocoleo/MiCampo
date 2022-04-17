@@ -32,11 +32,10 @@ export default  makeStyles((theme) => ({
 
 
 export const NotificationsContainer = styled.div`
-margin-bottom:18px;
 display: flex;
 margin-top: 5%;
 width: 50%;
-padding: 18px;
+padding: 28px;
 flex-direction: column;
 align-items: center;
 border-radius: 20px;

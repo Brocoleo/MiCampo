@@ -132,6 +132,7 @@ const PanelSensores = () => {
   )
 
   const fetchSensores = useCallback(async () => {  
+    console.log(estacionUrl, config)
     axios.get(estacionUrl, config).then((response) => {   
       var count = Object.keys(response.data).length;  
       if(count===0){  
@@ -156,9 +157,7 @@ const PanelSensores = () => {
     setSensor(sensor);
     Cookies.set("sensor", sensor );  
     Cookies.set("tipo", tipo );  
-    console.log(graficasUrl, config)
     axios.get(graficasUrl, config).then((response) => { 
-      console.log(response.data)
     const respuesta =response.data.historial
     let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
     let aux;

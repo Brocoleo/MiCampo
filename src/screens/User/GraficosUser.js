@@ -8,33 +8,7 @@ import axios from 'axios';
 import Loading from '../../components/Loading'
 
 
-const radiacion = [
-    { mes : '04',
-      hora_inicio: "08:00",
-      hora_final: "08:59",
-      radiacion: 13.13,
-      },
-    { mes : '04',
-      hora_inicio: "09:00",
-      hora_final: "12:59",
-      radiacion: 19.49,
-      },
-    { mes : '04',
-      hora_inicio: "13:00",
-      hora_final: "16:59",
-      radiacion: 24.03,
-      },
-    { mes : '04',
-      hora_inicio: "17:00",
-      hora_final: "17:59",
-      radiacion: 21.60,
-      },
-    { mes : '04',
-      hora_inicio: "18:00",
-      hora_final: "18:59",
-      radiacion: 9.91,
-      }
-  ]
+
   const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
 const GraficosUser = () => {
     const sensor = "S02";
@@ -96,9 +70,8 @@ const GraficosUser = () => {
           let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`);
           const reversed = filtrado.reverse();
           if(reversed){
-            
-            const largo = reversed.length
-            const inicio = reversed.length-30
+            const largo = reversed.length-20
+            const inicio = reversed.length-50
             const datos = reversed.slice(inicio, largo);
             if(reversed && datos.length > 0){
               setIndices(datos.map(item => item.hora.slice(0, -3))) 
@@ -121,8 +94,10 @@ const GraficosUser = () => {
   return (
     <>    { verGraficas ? (
         <Container>
+          
         <Row>
         <Col>
+        <FadeIn>
     {(() => {
   
         switch (grafico) {
@@ -137,8 +112,10 @@ const GraficosUser = () => {
             </Row> </FadeIn> </Container>
               }
             })()}
+            </FadeIn>
             </Col>
             <Col>
+            <FadeIn>
             {(() => {
   
         switch (grafico) {
@@ -150,9 +127,9 @@ const GraficosUser = () => {
                   return <Container> <FadeIn> <Row>
                  { peso && peso[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer ></Col>) : (<></>)}   </Row> </FadeIn> </Container>
               }
-            })()}</Col>
+            })()}</FadeIn></Col>
             </Row>
-           </Container> ):(<FadeIn>
+            </Container> ):(<FadeIn>
           <br />
           <br />
           <br />
