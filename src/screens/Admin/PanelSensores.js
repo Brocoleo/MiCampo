@@ -107,8 +107,8 @@ const PanelSensores = () => {
   const [modalAviso, setModaAviso]=useState(false);
   const navigate = useNavigate();  
   const styles= useStyles(); 
-  const graficasUrl = 'https://sensores-citra.herokuapp.com/api/historial/' 
-  const estacionUrl='https://sensores-citra.herokuapp.com/api/component/paginacion'  
+  const graficasUrl = 'http://localhost:3000/api/historial/' 
+  const estacionUrl='http://localhost:3000/api/component/paginacion'  
   const [sensores, setSensores] =useState([]); 
   const [sensor, setSensor]=useState() 
   

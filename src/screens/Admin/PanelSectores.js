@@ -11,8 +11,8 @@ import Paper from '@mui/material/Paper';
 import Cookies from "js-cookie"; 
 import Grid from '@mui/material/Grid';
 
-const baseUrl='https://sensores-citra.herokuapp.com/api/component/paginacion'
-const usersUrl='https://sensores-citra.herokuapp.com/api/users'
+const baseUrl='http://localhost:3000/api/component/paginacion'
+const usersUrl='http://localhost:3000/api/users'
 
 const opcionesCultivo = [
   {

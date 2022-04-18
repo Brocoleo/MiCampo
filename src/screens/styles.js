@@ -87,7 +87,7 @@ font-family: 'Nunito', sans-serif;
 `;
 
 export const WeatherContainer = styled.div`
-margin-top:10px;
+margin-top:0px;
 margin-bottom:10px;
 display: flex;
 width: 60%;
@@ -125,7 +125,7 @@ font-family: 'Nunito', sans-serif;
 `;
 
 export const ChartContainer = styled.div`
-margin-top:10px;
+margin-top:0px;
 margin-bottom:10px;
 padding: 6px;
 display: blocks;

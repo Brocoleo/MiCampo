@@ -10,7 +10,7 @@ import WeatherStation from "../../components/WeatherStation/WeatherStation";
 
 
 
-const historialUrl='https://sensores-citra.herokuapp.com/api/historial/all'
+const historialUrl='localhost:3000/api/historial/all'
 const tablaRadiacion = [
   { mes : '04',
     hora_inicio: "08:00",

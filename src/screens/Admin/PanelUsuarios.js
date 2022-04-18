@@ -10,7 +10,7 @@ import Loading from '../../components/Loading'
 import Paper from '@mui/material/Paper';
 import Cookies from "js-cookie";  
 
-const baseUrl='https://sensores-citra.herokuapp.com/api/users'
+const baseUrl='http://localhost:3000/api/users'
 
 const currencies = [
   {

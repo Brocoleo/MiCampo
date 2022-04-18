@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }
 
 }));
-const infoUrl='https://sensores-citra.herokuapp.com/api/auth/profile'
+const infoUrl='http://localhost:3000/api/auth/profile'
 
 export default function Info() {
   const token = Cookies.get("access"); 
