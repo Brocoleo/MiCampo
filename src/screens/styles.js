@@ -162,6 +162,8 @@ font-family: 'Nunito', sans-serif;
 
 export const TituloLogin = styled.h2`
   margin-bottom: 8%;
+  font-weight: 100;
+  font-size: 34px;
   color: #334257;
 `;
 

@@ -13,8 +13,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import  { InfoContainer, TituloLogin} from './styles'
 import Loading from '../components/Loading';
 import validator from 'validator';
+import Typography from '@mui/material/Typography';
 import Cookies from "js-cookie";
 import useStyles from './styles'
+import Link from '@mui/material/Link';
 const theme = createTheme();
 
 
@@ -29,6 +31,19 @@ const Login = () => {
   const profileURL='http://localhost:3000/api/auth/profile'
   const classes = useStyles();
   const navigate = useNavigate();
+
+  function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://mi-campo.vercel.app/">
+          Mi Campo
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
 
   const handleChange = (event) => {
@@ -141,7 +156,7 @@ const Login = () => {
           <TituloLogin>
             BIENVENIDO
           </TituloLogin>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             
             <Grid container spacing={0}>
             <TextField
@@ -173,16 +188,29 @@ const Login = () => {
             
              
             </Grid>
+            
             <BootstrapButton
               size="large"
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 1 }}
             >
               Ingresar
             </BootstrapButton>
-            
+            <Grid container sx={{ mt: 2, mb: 2 }}>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Olvidaste tu contraseña?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    {"Registrate aqui"}
+                  </Link>
+                </Grid>
+              </Grid>
+             <Copyright sx={{  mt: 1, mb: 1 }} />
           </Box>
           
         </Box>
