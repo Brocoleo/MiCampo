@@ -9,6 +9,10 @@ import CardAdmin from '../../components/Admin/CardAdmin/CardAdmin';
 import Users from '../../components/Animations/Users';
 import Estaciones from '../../components/Animations/Estaciones';
 import Sensores from '../../components/Animations/Sensores';
+import ChatBot from 'react-simple-chatbot';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { ThemeProvider } from 'styled-components'; 
 
 const DashAdmin = () => {
   const usuariosURL= 'http://localhost:3000/api/users/'
@@ -18,9 +22,40 @@ const DashAdmin = () => {
   const [nroSectores, setNroSectores] = useState();
   const [nroDatos, setNroDatos] = useState();
   const token = Cookies.get("access");
+  const nombre = Cookies.get("nombre");
   const config = {headers: { Authorization: `Bearer ${token}` }};
 
-
+  const BotLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius:20px;
+  font-weight: 200;
+  padding: 10px;
+  padding-left:70px;
+  padding-right:70px;
+  font-family: 'Nunito', sans-serif;
+  list-style: none;
+  transition: 0.2s ease-in-out;
+  color: #000;
+  cursor: pointer;
+  background:#fff ;
+ 
+`;
+ 
+  const theme = {
+    background: '#f5f8fb',
+    fontFamily: 'Helvetica Neue',
+    headerBgColor: '#031648',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#3E497A',
+    botFontColor: '#fff',
+    userBubbleColor: '#DEA057',
+    userFontColor: '#fff',
+  };
   useEffect(() => {
       //Obtener Usuarios
       axios.get(usuariosURL,config).then((response) => {
@@ -36,6 +71,49 @@ const DashAdmin = () => {
         }); 
       
     })
+    const steps = [
+      {
+          id: '1',
+          message:  `Hola ${nombre}, Bienvenid@ a la plataforma de monitoreo y asistencia, para
+          gestionar eliga una de las secciones: `,
+          trigger: 2,
+      },
+      
+      {
+        id: '2',
+        component: (
+          <div className="botSecciones"> <BotLink to='/admin/sensores'>MONITOREO </BotLink>
+           </div>
+        ),
+        asMessage: true,
+        trigger: 3,
+      },
+      {
+        id: '3',
+        component: (
+          <div ><BotLink to='/admin/usuarios'>USUARIOS</BotLink>
+           </div>
+        ),
+        asMessage: true,
+        trigger: 4,
+      },
+      {
+        id: '4',
+        component: (
+          <div ><BotLink to='/admin/sectores'>SENSORES</BotLink>
+           </div>
+        ),
+        asMessage: true,
+        end: true,
+      },
+      
+    ];
+
+    const [opened, setOponed] = useState(false);
+    const toggleFloating = () => {
+      setOponed(!opened);
+    };
+
     return (
         <div className="margenTop">
           <FadeIn>
@@ -62,12 +140,12 @@ const DashAdmin = () => {
           <Grid item xs>
           <CardLink to="/admin/sensores">
           <CardEstaciones>
-            <CardAdmin title="DATOS"/>
+            <CardAdmin title="MONITOREO"/>
             <Estaciones />
             <DataEstacion>
             <CountUp  start={0} end={nroDatos} duration={1} />
             </DataEstacion>
-            <DataLabel>Climatologicos</DataLabel>
+            <DataLabel>Datos Climaticos</DataLabel>
           </CardEstaciones>
           </CardLink>   
           </Grid>
@@ -90,6 +168,16 @@ const DashAdmin = () => {
 
                 
         </Grid>
+        <ThemeProvider theme={theme}>
+          <ChatBot 
+          headerTitle="Asistente Virtual 💧"
+          steps={steps}
+          floating={true}
+          opened={opened}
+          toggleFloating={toggleFloating}
+          bubbleStyle= {{maxWidth: "65%"}}
+          />
+           </ThemeProvider>
         </div>
     )
 }

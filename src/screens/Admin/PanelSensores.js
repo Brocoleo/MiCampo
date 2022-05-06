@@ -132,8 +132,8 @@ const PanelSensores = () => {
   )
 
   const fetchSensores = useCallback(async () => {  
-    console.log(estacionUrl, config)
     axios.get(estacionUrl, config).then((response) => {   
+      console.log(response.data)
       var count = Object.keys(response.data).length;  
       if(count===0){  
         setSensores([{  

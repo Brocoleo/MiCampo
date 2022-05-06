@@ -71,8 +71,10 @@ const Login = () => {
             Cookies.set("access", response.data.token );
             const token = Cookies.get("access");
             const config = {headers: { Authorization: `Bearer ${token}` }}; 
+            console.log(profileURL, config, post)
             axios.get(profileURL, config, post)
             .then(response=>{
+              Cookies.set("nombre", response.data.nombre );
               console.log(response)
               if(response.data.role === 'ADMIN_ROLE'){
                 navigate( '/admin/dash')}
@@ -205,7 +207,7 @@ const Login = () => {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="register" variant="body2">
                     {"Registrate aqui"}
                   </Link>
                 </Grid>

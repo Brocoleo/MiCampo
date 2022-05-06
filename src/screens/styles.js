@@ -167,6 +167,14 @@ export const TituloLogin = styled.h2`
   color: #334257;
 `;
 
+export const TituloRegister = styled.h2`
+  margin: 0px;
+  padding: 0px;
+  font-weight: 100;
+  font-size: 34px;
+  color: #334257;
+`;
+
 export const CardUsers = styled.div`
   margin-top:3%;
   display: flex;

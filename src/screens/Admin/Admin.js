@@ -1,26 +1,20 @@
 import React from 'react'
 import { Outlet} from "react-router-dom";
 import useStyles from '../styles'
-
-//import PanelEstaciones from './PanelEstaciones'
 import Navbar from "../../components/Navbar/Navbar"
 import Sidebar from "../../components/Admin/Sidebar/Sidebar";
 
 
 const Admin = ({ toggle, isOpen}) => {
+    
     const classes = useStyles();
-
-
 
     return (
         <>
             <Navbar toggle={toggle} isOpen={isOpen}/>
             <div className={classes.admin}>       
-            <Sidebar isOpen={isOpen} toggle={toggle} />
+            <Sidebar isOpen={isOpen} toggle={toggle} /> 
             <Outlet/>
- 
-
-       
         
       </div>
         </>
