@@ -12,7 +12,34 @@ import {WeatherContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components'; 
- 
+
+const radiacion = [
+  { mes : '04',
+    hora_inicio: "08:00",
+    hora_final: "08:59",
+    radiacion: 13.13,
+    },
+  { mes : '04',
+    hora_inicio: "09:00",
+    hora_final: "12:59",
+    radiacion: 19.49,
+    },
+  { mes : '04',
+    hora_inicio: "13:00",
+    hora_final: "16:59",
+    radiacion: 24.03,
+    },
+  { mes : '04',
+    hora_inicio: "17:00",
+    hora_final: "17:59",
+    radiacion: 21.60,
+    },
+  { mes : '04',
+    hora_inicio: "18:00",
+    hora_final: "18:59",
+    radiacion: 9.91,
+    }
+]
  
   const historialUrl='http://localhost:3000/api/historial/all' 
   const Graficos = () => { 
