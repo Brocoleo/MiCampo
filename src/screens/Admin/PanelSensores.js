@@ -111,6 +111,7 @@ const PanelSensores = () => {
   const estacionUrl='http://localhost:3000/api/component/paginacion'  
   const [sensores, setSensores] =useState([]); 
   const [sensor, setSensor]=useState() 
+  const [didMount, setDidMount] = useState(true);
   
  
   const abrirCerrarModalAviso=()=>{
@@ -133,7 +134,6 @@ const PanelSensores = () => {
 
   const fetchSensores = useCallback(async () => {  
     axios.get(estacionUrl, config).then((response) => {   
-      console.log(response.data)
       var count = Object.keys(response.data).length;  
       if(count===0){  
         setSensores([{  
@@ -146,11 +146,21 @@ const PanelSensores = () => {
         setLoading(true) 
       }}  
       );  
+      
   }, [ sensores])  
   
   useEffect(() => {  
-    fetchSensores()  
-  }, [fetchSensores])  
+    if(sensores){
+      setDidMount(false)
+    }
+    if(didMount){
+      fetchSensores()  
+    }
+    else{
+      console.log("nada")
+    }
+    
+  }, [fetchSensores, sensores, didMount])  
   
  
   const VerGraficas = (sensor, tipo) =>{  

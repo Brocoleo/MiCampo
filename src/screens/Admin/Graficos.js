@@ -12,6 +12,34 @@ import {WeatherContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components'; 
+
+const radiacion = [ 
+  { mes : '04', 
+    hora_inicio: "08:00", 
+    hora_final: "08:59", 
+    radiacion: 13.13, 
+    }, 
+  { mes : '04', 
+    hora_inicio: "09:00", 
+    hora_final: "12:59", 
+    radiacion: 19.49, 
+    }, 
+  { mes : '04', 
+    hora_inicio: "13:00", 
+    hora_final: "16:59", 
+    radiacion: 24.03, 
+    }, 
+  { mes : '04', 
+    hora_inicio: "17:00", 
+    hora_final: "17:59", 
+    radiacion: 21.60, 
+    }, 
+  { mes : '04', 
+    hora_inicio: "18:00", 
+    hora_final: "18:59", 
+    radiacion: 9.91, 
+    } 
+] 
  
  
   const historialUrl='http://localhost:3000/api/historial/all' 
@@ -33,6 +61,7 @@ import { ThemeProvider } from 'styled-components';
     const [min, setMin] = useState(); 
     const [max, setMax] = useState(); 
     const [evapotrans, seEvapotrans] = useState();
+    const [didMount, setDidMount] = useState(true);
     const [maxMin, setMaxMin] = useState(); 
     
 
@@ -79,7 +108,7 @@ import { ThemeProvider } from 'styled-components';
         id: '5',
         options: [
           { value: 1, label: 'Estimar Consumo', trigger: '8' },
-          { value: 2, label: 'Cambiar Modelo', trigger: '7' }
+          { value: 2, label: 'Elegir Modelo Hidrico', trigger: '10' }
         ],
       },
       {
@@ -106,49 +135,76 @@ import { ThemeProvider } from 'styled-components';
           { value: 2, label: 'Terminar', trigger: '7' }
         ],
       },
+      {
+        id: '10',
+        options: [
+          { value: 'Hargreaves', label: 'Hargreaves', trigger: '11' },
+          { value: 'Thornthwaite', label: 'Thornthwaite', trigger: '11' }
+        ],
+      },
+      {
+        id: '11',
+        message: 'El modelo {previousValue} fue aplicado correctamente!',
+        end: true,
+      },
     ];
     const [opened, setOponed] = useState(false);
     const toggleFloating = () => {
       setOponed(!opened);
     };
  
-    useEffect(() => { 
+    useEffect(() => {
       const config = {headers: { Authorization: `Bearer ${token}` }};
-      axios.get(historialUrl, config).then((response) => {   
-        const respuesta =response.data 
-        let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`); 
-        filtrado = filtrado.reverse(); 
-        const largo = filtrado.length 
-        const inicio = filtrado.length-30 
-        const datos = filtrado.slice(inicio, largo); 
-        if(filtrado && datos.length > 0){ 
-          setMaxMin(filtrado.map(item => item.temperatura)) 
-          if(maxMin){
-            setMin(Math.min(...maxMin).toFixed(1)) 
-            setMax(Math.max(...maxMin).toFixed(1)) 
-          }   
-          setIndices(datos.map(item => item.hora.slice(0, -3)))  
-          setTemperatura(datos.map(item => item.temperatura))  
-          setHumedad(datos.map(item => item.humedad)) 
-          setPeso(datos.map(item => item.peso_actual)) 
-          if(temperatura){
-            setTemp(temperatura[temperatura.length - 1].toFixed(1))
-          }
-          if(humedad){
-            setHum(humedad[humedad.length - 1].toFixed(1))
-          }
-          if(peso){
-            setPes(peso[peso.length - 1].toFixed(1))
-          }
-          if(min && max){
-            seEvapotrans( (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* 19.66).toFixed(1))
-          }
-          
-        }else{ 
-          setVerGraficas(false) 
-        } 
-     })
-    }, [ sensor,  token, maxMin, temperatura, temp, humedad, peso, max, min]) 
+      async function fetchData() {
+        axios.get(historialUrl, config).then((response) => {   
+          const respuesta =response.data 
+          let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`); 
+          filtrado = filtrado.reverse(); 
+          const largo = filtrado.length 
+          const inicio = filtrado.length-30 
+          const datos = filtrado.slice(inicio, largo); 
+          if(filtrado && datos.length > 0 ){ 
+            setMaxMin(filtrado.map(item => item.temperatura)) 
+            if(maxMin){
+              setMin(Math.min(...maxMin).toFixed(1)) 
+              setMax(Math.max(...maxMin).toFixed(1)) 
+            }   
+            setIndices(datos.map(item => item.hora.slice(0, -3)))  
+            setTemperatura(datos.map(item => item.temperatura))  
+            setHumedad(datos.map(item => item.humedad)) 
+            setPeso(datos.map(item => item.peso_actual)) 
+            if(temperatura){
+              setTemp(temperatura[temperatura.length - 1].toFixed(1))
+            }
+            if(humedad){
+              setHum(humedad[humedad.length - 1].toFixed(1))
+            }
+            if(peso){
+              setPes(peso[peso.length - 1].toFixed(1))
+            }
+            if(min && max){
+              seEvapotrans( (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* 19.66).toFixed(1))
+            }
+          }else{ 
+            setVerGraficas(false) 
+          } 
+         
+       })
+      }
+
+      if(humedad && min && max && peso && sensor && maxMin && temperatura){
+        setDidMount(false)
+      }
+      if(didMount){
+        fetchData();
+      }
+      else{
+        console.log("nada")
+      }
+      
+      
+    }, [humedad, min, max, peso, sensor, maxMin, temperatura, token,didMount])
+   
  
     setTimeout(() => { 
       setLoading(true) 

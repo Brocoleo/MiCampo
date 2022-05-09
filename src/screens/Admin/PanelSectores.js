@@ -161,24 +161,6 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  const ButtoInsertar = styled(Button)({
-    marginLeft: '60%',
-    textTransform: 'none',
-    fontSize: '1.2rem',
-    padding: '6px 15px',
-    border: '1px solid',
-    fontWeight: '300',
-    textShadow: '1px 1px #000',
-    boxShadow: '0 6px 9px 0 #134E5E',
-    color: '#fff',
-    backgroundColor: '#0F044C',
-    borderColor: '#0F044C',
-    '&:hover': {
-      backgroundColor: '#120b38',
-      borderColor: '#120b38',
-      boxShadow: 'none',
-    }
-  });
   
   function PanelSectores() {
     const token = Cookies.get("access"); 
@@ -188,7 +170,6 @@ const useStyles = makeStyles((theme) => ({
     const [correos, setCorreos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [data, setData]=useState([]);
-    const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
     const [modalEliminar, setModalEliminar]=useState(false);
 
@@ -230,21 +211,7 @@ const useStyles = makeStyles((theme) => ({
   
  
   
-    const peticionPost=async()=>{
-      let post = {
-        "nombre_cultivo": sector.nombre_cultivo,
-        "nombre_sensor": sector.nombre_sensor,
-        "valor_maximo": sector.valor_maximo,
-        "valor_minimo": sector.valor_minimo,
-        "nombre_nave": sector.nombre_nave,
-        "responsable": sector.responsable
-      }
-      await axios.post(baseUrl, post, config)
-      .then(response=>{
-        setData(data.concat(response.data))
-        abrirCerrarModalInsertar()
-      })
-    }
+  
   
     const peticionPut=async()=>{
       let edit = {
@@ -277,9 +244,6 @@ const useStyles = makeStyles((theme) => ({
       })
     }
   
-    const abrirCerrarModalInsertar=()=>{
-      setModalInsertar(!modalInsertar);
-    }
   
     const abrirCerrarModalEditar=()=>{
       setModalEditar(!modalEditar);
@@ -294,93 +258,7 @@ const useStyles = makeStyles((theme) => ({
       (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
     }
   
-    const bodyInsertar=(
-      <div className={styles.modal}>
-        <FadeIn>
-        <h2 className={styles.tituloInsertar}>Agregar Sensor</h2>
-        <Grid container spacing={2}>
-        <Grid item xs={6}>
-        <TextField
-         fullWidth 
-         label="Cultivo"
-         name="nombre_cultivo"
-          id="filled-select-currency-native"
-          select
-          value={sector.nombre_cultivo}
-          onChange={handleChange}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-        >
-          {opcionesCultivo.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        </Grid>
-        <Grid item xs={6}>
-        <TextField
-         fullWidth 
-         name="nombre_sensor"
-          id="filled-select-currency-native"
-          select
-          label=" Sensor"
-          value={sector.nombre_sensor}
-          onChange={handleChange}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-        >
-          {opcionesCultivo.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        </Grid>
-        </Grid>
-        <Grid container spacing={2}>
-        <Grid item xs={6}>
-        <TextField type="number" name="valor_maximo" className={styles.inputMaterial} label="Valor Maximo" onChange={handleChange} variant="outlined"/> 
-        </Grid>
-        <Grid item xs={6}>
-        <TextField type="number" name="valor_minimo" className={styles.inputMaterial} label="Valor Minimo" onChange={handleChange} variant="outlined"/> 
-        </Grid>
-        </Grid>
-        <TextField name="nombre_nave" className={styles.inputMaterial} label="Nave" onChange={handleChange} variant="outlined"/> 
-        <br />
-        <TextField
-         fullWidth 
-         name="responsable"
-          id="filled-select-currency-native"
-          select
-          label="Usuario"
-          value={sector.responsable}
-          onChange={handleChange}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-        >
-          {correos.map((option) => (
-            <option key={option.id} value={option.email}>
-              {option.email}
-            </option>
-            
-          ))}
-        </TextField>
-        <br /><br />
-        <div align="right">
-          <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
-          <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
-        </div>
-        </FadeIn>
-      </div>
-    )
-  
+   
     const bodyEditar=(
       <div className={styles.modal}>
       <FadeIn>
@@ -493,7 +371,7 @@ const useStyles = makeStyles((theme) => ({
       <div className={styles.tablas}>
         <FadeIn>
           <h1 className="bienvenida">Informacion de los Sensores</h1>
-          <ButtoInsertar  onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sensor</ButtoInsertar>
+         
           </FadeIn>
 
         <br />
@@ -537,11 +415,7 @@ const useStyles = makeStyles((theme) => ({
     </FadeIn> 
     </div>
     ):(<div className="loading"><Loading /> </div>)}   
-       <Modal
-       open={modalInsertar}
-       onClose={abrirCerrarModalInsertar}>
-          {bodyInsertar}
-       </Modal>
+     
   
        <Modal
        open={modalEditar}
