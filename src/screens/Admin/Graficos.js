@@ -13,32 +13,117 @@ import WeatherStation from "../../components/WeatherStation/WeatherStation";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components'; 
 
-const radiacion = [
+const tablaRadiacion = [
+  { mes : '03',
+  hora_inicio: "07:00",
+  hora_final: "07:59",
+  radiacion: 6.05,
+  },
+{ mes : '03',
+  hora_inicio: "08:00",
+  hora_final: "08:59",
+  radiacion: 20.18,
+  },
+{ mes : '03',
+  hora_inicio: "09:00",
+  hora_final: "09:59",
+  radiacion: 11.7,
+  },
+  { mes : '03',
+  hora_inicio: "10:00",
+  hora_final: "10:59",
+  radiacion: 24.39,
+  },
+  { mes : '03',
+  hora_inicio: "11:00",
+  hora_final: "16:59",
+  radiacion: 29.45,
+  },
+  { mes : '03',
+  hora_inicio: "17:00",
+  hora_final: "17:59",
+  radiacion: 26.43,
+  },
+  { mes : '03',
+  hora_inicio: "18:00",
+  hora_final: "18:59",
+  radiacion: 23.46,
+  },
+  { mes : '03',
+  hora_inicio: "19:00",
+  hora_final: "19:59",
+  radiacion: 3.95,
+  },
   { mes : '04',
     hora_inicio: "08:00",
     hora_final: "08:59",
-    radiacion: 13.13,
+    radiacion: 11.55,
     },
   { mes : '04',
     hora_inicio: "09:00",
     hora_final: "12:59",
-    radiacion: 19.49,
+    radiacion: 18.14,
     },
   { mes : '04',
     hora_inicio: "13:00",
     hora_final: "16:59",
-    radiacion: 24.03,
+    radiacion: 23.84,
     },
   { mes : '04',
     hora_inicio: "17:00",
     hora_final: "17:59",
-    radiacion: 21.60,
+    radiacion: 21.75,
     },
   { mes : '04',
     hora_inicio: "18:00",
     hora_final: "18:59",
-    radiacion: 9.91,
-    }
+    radiacion: 8.5,
+    },
+    { mes : '05',
+    hora_inicio: "08:00",
+    hora_final: "08:59",
+    radiacion: 4.16,
+    },
+  { mes : '05',
+    hora_inicio: "09:00",
+    hora_final: "11:59",
+    radiacion: 8.1,
+    },
+  { mes : '05',
+    hora_inicio: "12:00",
+    hora_final: "12:59",
+    radiacion: 12.61,
+    },
+  { mes : '05',
+    hora_inicio: "13:00",
+    hora_final: "17:59",
+    radiacion: 16.53,
+    },
+    { mes : '06',
+    hora_inicio: "08:00",
+    hora_final: "08:59",
+    radiacion: 0.32,
+    },
+  { mes : '06',
+    hora_inicio: "09:00",
+    hora_final: "10:59",
+    radiacion: 6.11,
+    },
+  { mes : '06',
+    hora_inicio: "11:00",
+    hora_final: "12:59",
+    radiacion: 8.77,
+    },
+  { mes : '06',
+    hora_inicio: "13:00",
+    hora_final: "13:59",
+    radiacion: 11.7,
+    },
+    { mes : '06',
+    hora_inicio: "14:00",
+    hora_final: "17:59",
+    radiacion: 14.65,
+    },
 ]
  
   const historialUrl='http://localhost:3000/api/historial/all' 
@@ -59,6 +144,7 @@ const radiacion = [
     const [pes, setPes] = useState(); 
     const [min, setMin] = useState(); 
     const [max, setMax] = useState(); 
+    const [radiacion, setRadiacion] = useState();
     const [evapotrans, seEvapotrans] = useState();
     const [didMount, setDidMount] = useState(true);
     const [maxMin, setMaxMin] = useState(); 
@@ -161,7 +247,11 @@ const radiacion = [
           filtrado = filtrado.reverse(); 
           const largo = filtrado.length 
           const inicio = filtrado.length-30 
-          const datos = filtrado.slice(inicio, largo); 
+          const datos = filtrado.slice(inicio, largo);
+          let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
+          let hora = filtrado[filtrado.length-30].hora.slice(0, -3)
+          tablaRadiacion.filter(data => data.mes === mes)
+          setRadiacion(tablaRadiacion.filter(data => data.mes === mes && data.hora_inicio<hora && data.hora_final>hora))
           if(filtrado && datos.length > 0 ){ 
             setMaxMin(filtrado.map(item => item.temperatura)) 
             if(maxMin){
@@ -172,17 +262,18 @@ const radiacion = [
             setTemperatura(datos.map(item => item.temperatura))  
             setHumedad(datos.map(item => item.humedad)) 
             setPeso(datos.map(item => item.peso_actual)) 
+            
             if(temperatura){
-              setTemp(temperatura[temperatura.length - 1].toFixed(1))
+              setTemp(temperatura[temperatura.length - 30].toFixed(1))
             }
             if(humedad){
-              setHum(humedad[humedad.length - 1].toFixed(1))
+              setHum(humedad[humedad.length - 30].toFixed(1))
             }
             if(peso){
-              setPes(peso[peso.length - 1].toFixed(1))
+              setPes(peso[peso.length - 30].toFixed(1))
             }
-            if(min && max){
-              seEvapotrans( (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* 19.66).toFixed(1))
+            if(min && max && radiacion){
+              seEvapotrans( (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
             }
           }else{ 
             setVerGraficas(false) 
@@ -202,7 +293,7 @@ const radiacion = [
       }
       
       
-    }, [humedad, min, max, peso, sensor, maxMin, temperatura, token,didMount])
+    }, [humedad, min, max, peso, sensor, maxMin, temperatura, token,didMount, radiacion])
    
  
     setTimeout(() => { 
@@ -259,11 +350,12 @@ const radiacion = [
           <Row> 
           <Col> 
       <FadeIn className='tipoGrafica'> 
+      
           <WeatherContainer > 
-          <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 1]}  
-          humedad={humedad[humedad.length -1]} peso={peso[peso.length -1]} 
+          <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 30]}  
+          humedad={humedad[humedad.length -30]} peso={peso[peso.length -30]} 
     /> 
-          </WeatherContainer>   
+          </WeatherContainer>  
           <NotificationsContainer> 
           <span className="notiTitle">Estimacion Hidrica </span> 
           <Row> 
@@ -306,7 +398,9 @@ const radiacion = [
           <h1 className="bienvenidaSensores">Sensor sin Historial</h1> 
           </FadeIn>)} 
           { temp && temp[0]!==null && hum && hum[0]!==null && pes && pes[0]!==null && evapotrans? (
+ 
             <ThemeProvider theme={theme}>
+            
           <ChatBot 
           headerTitle=" Asistente Virtual 💧"
           bubbleStyle= {{maxWidth: "65%"}}
@@ -315,7 +409,9 @@ const radiacion = [
           opened={opened}
           toggleFloating={toggleFloating}
           />
+          
            </ThemeProvider>
+
            ):(<></> ) 
           } 
           

@@ -1,4 +1,6 @@
 import React from "react";
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
 import { WeatherInfoContainer, WeatherInfoSub, WeatherInfoLabel, InfoContainer, InfoIcon, InfoLabel} from "./styles"
 
 export const WeatherInfoIcons = {
@@ -25,7 +27,13 @@ const WeatherInfoComponent = (props) => {
 };
 
 
+
+
+
 const WeatherStation = ({title, tipo, temperatura, humedad, peso}) => {
+
+
+    
    
     return (
         <>            
@@ -33,6 +41,8 @@ const WeatherStation = ({title, tipo, temperatura, humedad, peso}) => {
             <WeatherInfoLabel>{title}</WeatherInfoLabel>
             <WeatherInfoSub>Tipo de Cultivo : {tipo}</WeatherInfoSub>
             <WeatherInfoContainer>
+            
+            
                 {humedad ? (<WeatherInfoComponent name={"humedad"} value={humedad.toFixed(1)+` %`}/>) : (<div> </div>)}
                 {temperatura ? (<WeatherInfoComponent name={"temperatura"}value={temperatura.toFixed(1)+` °C`}/> ) : (<div></div>)}
                 {peso ? (<WeatherInfoComponent name={"peso"} value={peso +` gr`}/>) : (<div></div>)}

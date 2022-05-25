@@ -20,6 +20,7 @@ const DashAdmin = () => {
   const historialURL= 'http://localhost:3000/api/historial/all'
   const [nroUsuarios, setNroUsuarios] = useState();
   const [nroSectores, setNroSectores] = useState();
+  const [didMount, setDidMount] = useState(true);
   const [nroDatos, setNroDatos] = useState();
   const token = Cookies.get("access");
   const nombre = Cookies.get("nombre");
@@ -57,6 +58,7 @@ const DashAdmin = () => {
     userFontColor: '#fff',
   };
   useEffect(() => {
+    async function fetchData() {
       //Obtener Usuarios
       axios.get(usuariosURL,config).then((response) => {
        setNroUsuarios(Object.keys(response.data).length)
@@ -69,8 +71,14 @@ const DashAdmin = () => {
       axios.get(historialURL,config).then((response) => {
         setNroDatos(Object.keys(response.data).length)
         }); 
-      
-    })
+      }
+      if(nroUsuarios && nroDatos && nroSectores){
+        setDidMount(false)
+      }
+      if(didMount){
+        fetchData();
+      }
+    }, [nroUsuarios, nroDatos, nroSectores, config, didMount])
     const steps = [
       {
           id: '1',
@@ -100,8 +108,8 @@ const DashAdmin = () => {
       {
         id: '4',
         component: (
-          <div ><BotLink to='/admin/sectores'>SENSORES</BotLink>
-           </div>
+          <FadeIn><div ><BotLink to='/admin/sectores'>SENSORES</BotLink>
+           </div></FadeIn>
         ),
         asMessage: true,
         end: true,

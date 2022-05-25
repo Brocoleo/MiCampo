@@ -29,7 +29,6 @@ const Register = () => {
   const [mensajePass, setMensajePass] = useState("");
   const loginUrl='http://localhost:3000/api/auth/login'
   const baseUrl='http://localhost:3000/api/users/'
-  const profileURL='http://localhost:3000/api/auth/profile'
   const navigate = useNavigate();
   const classes = useStyles();
 

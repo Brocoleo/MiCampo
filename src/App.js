@@ -16,12 +16,13 @@ import Info from './screens/User/Info';
 
 
 
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
-
+  console.disableYellowBox = true;
   return (
 
   

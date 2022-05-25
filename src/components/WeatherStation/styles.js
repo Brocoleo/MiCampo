@@ -64,7 +64,7 @@ export const InfoContainer = styled.div`
   margin: 20px;
   border-radius: 10px;
   color: #000;
-  background: linear-gradient(-45deg, #F4F9F9, #fff, #E8E8E8, #F5F4F4);
+  background: #fff;
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   justify-content: space-evenly;
