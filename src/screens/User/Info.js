@@ -52,7 +52,6 @@ export default function Info() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
   };
   useEffect(() => {
     axios.get(infoUrl,config).then((response) => {

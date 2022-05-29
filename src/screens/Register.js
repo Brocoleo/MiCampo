@@ -14,7 +14,6 @@ import  { InfoContainer, TituloRegister} from './styles'
 import Loading from '../components/Loading';
 import validator from 'validator';
 import Typography from '@mui/material/Typography';
-import Cookies from "js-cookie";
 import useStyles from './styles'
 import Link from '@mui/material/Link';
 const theme = createTheme();

@@ -24,6 +24,7 @@ const DashAdmin = () => {
   const [nroDatos, setNroDatos] = useState();
   const token = Cookies.get("access");
   const nombre = Cookies.get("nombre");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const config = {headers: { Authorization: `Bearer ${token}` }};
 
   const BotLink = styled(Link)`

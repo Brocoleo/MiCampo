@@ -12,124 +12,16 @@ import {WeatherContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components'; 
-
-const tablaRadiacion = [
-  { mes : '03',
-  hora_inicio: "07:00",
-  hora_final: "07:59",
-  radiacion: 6.05,
-  },
-{ mes : '03',
-  hora_inicio: "08:00",
-  hora_final: "08:59",
-  radiacion: 20.18,
-  },
-{ mes : '03',
-  hora_inicio: "09:00",
-  hora_final: "09:59",
-  radiacion: 11.7,
-  },
-  { mes : '03',
-  hora_inicio: "10:00",
-  hora_final: "10:59",
-  radiacion: 24.39,
-  },
-  { mes : '03',
-  hora_inicio: "11:00",
-  hora_final: "16:59",
-  radiacion: 29.45,
-  },
-  { mes : '03',
-  hora_inicio: "17:00",
-  hora_final: "17:59",
-  radiacion: 26.43,
-  },
-  { mes : '03',
-  hora_inicio: "18:00",
-  hora_final: "18:59",
-  radiacion: 23.46,
-  },
-  { mes : '03',
-  hora_inicio: "19:00",
-  hora_final: "19:59",
-  radiacion: 3.95,
-  },
-  { mes : '04',
-    hora_inicio: "08:00",
-    hora_final: "08:59",
-    radiacion: 11.55,
-    },
-  { mes : '04',
-    hora_inicio: "09:00",
-    hora_final: "12:59",
-    radiacion: 18.14,
-    },
-  { mes : '04',
-    hora_inicio: "13:00",
-    hora_final: "16:59",
-    radiacion: 23.84,
-    },
-  { mes : '04',
-    hora_inicio: "17:00",
-    hora_final: "17:59",
-    radiacion: 21.75,
-    },
-  { mes : '04',
-    hora_inicio: "18:00",
-    hora_final: "18:59",
-    radiacion: 8.5,
-    },
-    { mes : '05',
-    hora_inicio: "08:00",
-    hora_final: "08:59",
-    radiacion: 4.16,
-    },
-  { mes : '05',
-    hora_inicio: "09:00",
-    hora_final: "11:59",
-    radiacion: 8.1,
-    },
-  { mes : '05',
-    hora_inicio: "12:00",
-    hora_final: "12:59",
-    radiacion: 12.61,
-    },
-  { mes : '05',
-    hora_inicio: "13:00",
-    hora_final: "17:59",
-    radiacion: 16.53,
-    },
-    { mes : '06',
-    hora_inicio: "08:00",
-    hora_final: "08:59",
-    radiacion: 0.32,
-    },
-  { mes : '06',
-    hora_inicio: "09:00",
-    hora_final: "10:59",
-    radiacion: 6.11,
-    },
-  { mes : '06',
-    hora_inicio: "11:00",
-    hora_final: "12:59",
-    radiacion: 8.77,
-    },
-  { mes : '06',
-    hora_inicio: "13:00",
-    hora_final: "13:59",
-    radiacion: 11.7,
-    },
-    { mes : '06',
-    hora_inicio: "14:00",
-    hora_final: "17:59",
-    radiacion: 14.65,
-    },
-]
  
   const historialUrl='http://localhost:3000/api/historial/all' 
+  const promUrl='http://localhost:3000/api/historial/promedio/' 
+  const rangoUrl='http://localhost:3000/api/radiacion/rangoRadiacion/'
+  const horasUrl='http://localhost:3000/api/radiacion/unMes/' 
+
   const Graficos = () => { 
     const sensor = Cookies.get("sensor"); 
-    const token = Cookies.get("access"); 
+    const token = Cookies.get("access");
+    const config = {headers: { Authorization: `Bearer ${token}` }};  
     const nombre = Cookies.get("nombre");
     const tipoCultivo = Cookies.get("tipo"); 
     const [loading, setLoading] = useState(false); 
@@ -141,10 +33,13 @@ const tablaRadiacion = [
     const [humedad, setHumedad] = useState(); 
     const [hum, setHum] = useState();
     const [peso, setPeso] = useState(); 
+    const [fecha, setFecha] = useState();
     const [pes, setPes] = useState(); 
     const [min, setMin] = useState(); 
     const [max, setMax] = useState(); 
+    const [hrs, setHrs] = useState(); 
     const [radiacion, setRadiacion] = useState();
+    const [promTemp, setPromTemp] = useState();
     const [evapotrans, seEvapotrans] = useState();
     const [didMount, setDidMount] = useState(true);
     const [maxMin, setMaxMin] = useState(); 
@@ -237,63 +132,92 @@ const tablaRadiacion = [
     const toggleFloating = () => {
       setOponed(!opened);
     };
- 
-    useEffect(() => {
-      const config = {headers: { Authorization: `Bearer ${token}` }};
-      async function fetchData() {
-        axios.get(historialUrl, config).then((response) => {   
-          const respuesta =response.data 
-          let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`); 
-          filtrado = filtrado.reverse(); 
-          const largo = filtrado.length 
-          const inicio = filtrado.length-30 
-          const datos = filtrado.slice(inicio, largo);
-          let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
-          let hora = filtrado[filtrado.length-30].hora.slice(0, -3)
-          tablaRadiacion.filter(data => data.mes === mes)
-          setRadiacion(tablaRadiacion.filter(data => data.mes === mes && data.hora_inicio<hora && data.hora_final>hora))
-          if(filtrado && datos.length > 0 ){ 
-            setMaxMin(filtrado.map(item => item.temperatura)) 
-            if(maxMin){
-              setMin(Math.min(...maxMin).toFixed(1)) 
-              setMax(Math.max(...maxMin).toFixed(1)) 
-            }   
-            setIndices(datos.map(item => item.hora.slice(0, -3)))  
-            setTemperatura(datos.map(item => item.temperatura))  
-            setHumedad(datos.map(item => item.humedad)) 
-            setPeso(datos.map(item => item.peso_actual)) 
-            
-            if(temperatura){
-              setTemp(temperatura[temperatura.length - 30].toFixed(1))
-            }
-            if(humedad){
-              setHum(humedad[humedad.length - 30].toFixed(1))
-            }
-            if(peso){
-              setPes(peso[peso.length - 30].toFixed(1))
-            }
-            if(min && max && radiacion){
-              seEvapotrans( (0.0023 * ((parseFloat(min)+parseFloat(max)/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
-            }
-          }else{ 
-            setVerGraficas(false) 
-          } 
-         
-       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const ObtenerHistorial = () => {
+      axios.get(historialUrl, config).then((response) => {   
+        const respuesta =response.data 
+        let filtrado = respuesta.filter(dato=>dato.nombre_sensor === `${sensor}`); 
+        filtrado = filtrado.reverse(); 
+        const largo = filtrado.length 
+        const inicio = filtrado.length-30 
+        const datos = filtrado.slice(inicio, largo);
+        setFecha(filtrado[filtrado.length-30].fecha)
+        ObtenerPromedio(sensor, filtrado[filtrado.length-30].fecha)
+        let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
+        let hora = filtrado[filtrado.length-30].hora.slice(0, -3)
+        ObtenerRadiacionHrs(mes)
+       ObtenerRadiacion(mes, hora)
+        if(filtrado && datos.length > 0 ){ 
+          setMaxMin(filtrado.map(item => item.temperatura)) 
+          if(maxMin){
+            setMin(Math.min(...maxMin).toFixed(1)) 
+            setMax(Math.max(...maxMin).toFixed(1)) 
+          }   
+          setIndices(datos.map(item => item.hora.slice(0, -3)))  
+          setTemperatura(datos.map(item => item.temperatura))  
+          setHumedad(datos.map(item => item.humedad)) 
+          setPeso(datos.map(item => item.peso_actual)) 
+          if(temperatura){
+            setTemp(temperatura[temperatura.length - 30].toFixed(1))
+          }
+          if(humedad){
+            setHum(humedad[humedad.length - 30].toFixed(1))
+          }
+          if(peso){
+            setPes(peso[peso.length - 30].toFixed(1))
+          }
+        }else{ 
+          setVerGraficas(false) 
+        } 
+       
+     })
       }
 
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const ObtenerPromedio = (nombre_sensor,fecha) => {
+        axios.get(promUrl+nombre_sensor + '/'+fecha,config).then((response) => {
+          setPromTemp(response.data.promedio[0].prom)
+         
+          }); 
+      }
+
+      const ObtenerRadiacion = (mes,hora) => {
+        axios.get(rangoUrl+mes + '/'+hora+'/'+hora,config).then((response) => {
+          setRadiacion(response.data.rango);
+         
+          }); 
+      }
+
+      const ObtenerRadiacionHrs = (mes) => {
+        axios.get(horasUrl+mes,config).then((response) => {
+          const inicio = (parseInt(response.data.mes[0].hora_inicio.slice(0, -3)))
+          const final = (parseInt(response.data.mes[response.data.mes.length-1].hora_inicio.slice(0, -3)))
+          setHrs(final-inicio)
+         
+          }); 
+      }
+      
+    useEffect(() => {
       if(humedad && min && max && peso && sensor && maxMin && temperatura){
         setDidMount(false)
       }
+      if(min && max && radiacion && promTemp && fecha && hrs){
+        //console.log(18, 24)
+        //console.log((15+23)/2)
+        //seEvapotransconsole.log( (0.0023 * (((15+23)/2)+1.78) * (Math.pow(23-15, 0.5) )* radiacion[0].radiacion).toFixed(1))
+        //seEvapotrans( (0.0023 * (((parseFloat(min)+parseFloat(max))/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
+     
+        //seEvapotrans(((hrs*(promTemp * 0.46)+8.13)/(parseInt(fecha.slice(8,10)))).toFixed(1))
+      }
       if(didMount){
-        fetchData();
+        ObtenerHistorial()
       }
       else{
-        console.log("nada")
-      }
+
+      } 
       
       
-    }, [humedad, min, max, peso, sensor, maxMin, temperatura, token,didMount, radiacion])
+    }, [humedad, min, max, peso, sensor, maxMin, temperatura, token,didMount, radiacion, ObtenerHistorial, ObtenerPromedio, promTemp, fecha, hrs])
    
  
     setTimeout(() => { 
