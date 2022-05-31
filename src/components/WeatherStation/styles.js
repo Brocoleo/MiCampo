@@ -63,8 +63,8 @@ export const InfoContainer = styled.div`
   flex-direction: row;
   margin: 20px;
   border-radius: 10px;
-  color: #000;
-  background: #fff;
+  color: #fff;
+  background: #3E497A;
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   justify-content: space-evenly;
@@ -95,7 +95,7 @@ export const InfoLabel = styled.span`
   display: flex;
   font-family: 'Nunito', sans-serif;
   flex-direction: column;
-  font-size: 18px;
+  font-size: 17px;
   padding: 3px;
   font-weight: 500;
   & span {

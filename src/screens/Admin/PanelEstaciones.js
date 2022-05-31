@@ -8,8 +8,8 @@ import CardEstaciones from '../../components/Admin/CardEstaciones/CardEstaciones
 import Cookies from "js-cookie";  
 
 
-const baseUrl='http://localhost:3000/api/component/nave'
-const estacionUrl='http://localhost:3000/api/component/sensores'
+const baseUrl='https://citra-sensores.herokuapp.com/api/component/nave'
+const estacionUrl='https://citra-sensores.herokuapp.com/api/component/sensores'
 
 const useStyles = makeStyles((theme) => ({
     modal: {

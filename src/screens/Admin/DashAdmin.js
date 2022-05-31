@@ -12,12 +12,13 @@ import Sensores from '../../components/Animations/Sensores';
 import ChatBot from 'react-simple-chatbot';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ThemeProvider } from 'styled-components'; 
+import { ThemeProvider } from 'styled-components';
+import avatar from "../../assets/avatar.png" 
 
 const DashAdmin = () => {
-  const usuariosURL= 'http://localhost:3000/api/users/'
-  const sensoresURL= 'http://localhost:3000/api/component/paginacion'
-  const historialURL= 'http://localhost:3000/api/historial/all'
+  const usuariosURL= 'https://citra-sensores.herokuapp.com/api/users/'
+  const sensoresURL= 'https://citra-sensores.herokuapp.com/api/component/paginacion'
+  const historialURL= 'https://citra-sensores.herokuapp.com/api/historial/all'
   const [nroUsuarios, setNroUsuarios] = useState();
   const [nroSectores, setNroSectores] = useState();
   const [didMount, setDidMount] = useState(true);
@@ -179,7 +180,8 @@ const DashAdmin = () => {
         </Grid>
         <ThemeProvider theme={theme}>
           <ChatBot 
-          headerTitle="Asistente Virtual 💧"
+          headerTitle="Asistente Virtual 👋"
+          botAvatar = {avatar}
           steps={steps}
           floating={true}
           opened={opened}

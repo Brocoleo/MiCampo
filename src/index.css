@@ -169,8 +169,8 @@ code {
 .notiLabel{
   font-family: 'Nunito', sans-serif;
   font-weight: 300;
+  margin-top: 14px;
   padding: 8px;
-  text-transform: uppercase;
   font-size: 1.3rem;
 }
 

@@ -27,8 +27,8 @@ const Login = () => {
   const [errorPass, setErrorPass] = useState(false);
   const [mensajeCorreo, setMensajeCorreo] = useState("");
   const [mensajePass, setMensajePass] = useState("");
-  const baseUrl='http://localhost:3000/api/auth/login'
-  const profileURL='http://localhost:3000/api/auth/profile'
+  const baseUrl='https://citra-sensores.herokuapp.com/api/auth/login'
+  const profileURL='https://citra-sensores.herokuapp.com/api/auth/profile'
   const classes = useStyles();
   const navigate = useNavigate();
 

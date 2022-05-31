@@ -9,10 +9,13 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Cookies from "js-cookie"; 
+import { ThemeProvider } from 'styled-components';
+import avatar from "../../assets/avatar.png" 
+import ChatBot from 'react-simple-chatbot';
 import Grid from '@mui/material/Grid';
 
-const baseUrl='http://localhost:3000/api/component/paginacion'
-const usersUrl='http://localhost:3000/api/users'
+const baseUrl='https://citra-sensores.herokuapp.com/api/component/paginacion'
+const usersUrl='https://citra-sensores.herokuapp.com/api/users'
 
 const opcionesCultivo = [
   {
@@ -161,6 +164,18 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+  const theme = {
+    background: '#f5f8fb',
+    fontFamily: 'Helvetica Neue',
+    headerBgColor: '#031648',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#3E497A',
+    botFontColor: '#fff',
+    userBubbleColor: '#DEA057',
+    userFontColor: '#fff',
+  };
+
   
   function PanelSectores() {
     const token = Cookies.get("access"); 
@@ -181,7 +196,18 @@ const useStyles = makeStyles((theme) => ({
       nombre_nave: '',
       responsable: ''
     })
-
+    const steps = [
+      {
+          id: '1',
+          message:  `Estas en la vista de los sensores, aqui puedes ver la informacion general de los datos del CITRA. Puedes asignarle un sensor a un usuario para que pueda verlo desde su sesion de usuario`,
+          end: true,
+      },
+     
+    ];
+    const [opened, setOponed] = useState(false);
+    const toggleFloating = () => {
+      setOponed(!opened);
+    };
     const ObtenerSectores = () => {
       axios.get(baseUrl,config).then((response) => {
         setSectores(response.data.componentes);
@@ -413,6 +439,17 @@ const useStyles = makeStyles((theme) => ({
          </Table>
        </TableContainer>
     </FadeIn> 
+    <ThemeProvider theme={theme}>
+    <ChatBot 
+    headerTitle="Asistente Virtual 👋"
+    botAvatar = {avatar}
+    steps={steps}
+    floating={true}
+    opened={opened}
+    toggleFloating={toggleFloating}
+    bubbleStyle= {{maxWidth: "65%"}}
+    />
+     </ThemeProvider>
     </div>
     ):(<div className="loading"><Loading /> </div>)}   
      

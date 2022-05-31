@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import { Container, Row, Col } from 'react-grid-system'; 
 import FadeIn from 'react-fade-in';
 import {makeStyles} from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
@@ -9,8 +10,14 @@ import { styled } from '@mui/material/styles';
 import Loading from '../../components/Loading'
 import Paper from '@mui/material/Paper';
 import Cookies from "js-cookie";  
+import SearchBar from "material-ui-search-bar";
+import { ThemeProvider } from 'styled-components';
+import TablePagination from "@material-ui/core/TablePagination";
+import avatar from "../../assets/avatar.png" 
+import ChatBot from 'react-simple-chatbot';
 
-const baseUrl='http://localhost:3000/api/users'
+
+const baseUrl='https://citra-sensores.herokuapp.com/api/users'
 
 const currencies = [
   {
@@ -86,8 +93,9 @@ const useStyles = makeStyles((theme) => ({
       }
       ,
       customTable: {
-        "& .MuiTableCell-sizeSmall": {
-          padding: '6px ' //
+        "& .MuiTableCell-sizeSmall": { 
+          padding: '2px ' ,
+          
         }
       },
     tituloInsertar:{
@@ -123,12 +131,7 @@ const useStyles = makeStyles((theme) => ({
             borderColor: '#51050F',
             boxShadow: '0 3px 6px 0 #134E5E',
           },
-      },
-      tablas: {
-        marginTop: '9%',
-        padding: '6px '
-
-   }
+      }
   }));
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -153,15 +156,26 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+  const theme = {
+    background: '#f5f8fb',
+    fontFamily: 'Helvetica Neue',
+    headerBgColor: '#031648',
+    headerFontColor: '#fff',
+    headerFontSize: '15px',
+    botBubbleColor: '#3E497A',
+    botFontColor: '#fff',
+    userBubbleColor: '#DEA057',
+    userFontColor: '#fff',
+  };
+
   const ButtonInsertar = styled(Button)({
-    marginLeft: '60%',
+    marginLeft: '40%',
     textTransform: 'none',
     fontSize: '1.2rem',
     padding: '6px 15px',
     border: '1px solid',
     fontWeight: '300',
     textShadow: '1px 1px #000',
-    boxShadow: '0 6px 9px 0 #134E5E',
     color: '#fff',
     backgroundColor: '#0F044C',
     borderColor: '#0F044C',
@@ -183,16 +197,47 @@ const useStyles = makeStyles((theme) => ({
     const [rol, setRol] = React.useState('USER_ROLE');
     const token = Cookies.get("access"); 
     const config = {headers: { Authorization: `Bearer ${token}` }}; 
+    const [searched, setSearched] = useState("");
+    const [didMount, setDidMount] = useState(false);
+    const [rows, setRows] = useState();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+  
+    const handleChangeRowsPerPage = event => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    };
 
     useEffect(() => {
-      axios.get(baseUrl,config).then((response) => {
-      setUsuarios(response.data);
-        if(usuarios){
-          setLoading(true)
-        }
-         
-    });
-    })
+      obtenerUsuarios()
+    },)
+
+    const steps = [
+      {
+          id: '1',
+          message:  `Estas en la vista de los Usuarios aqui puedes AÑADIR, EDITAR y ELIMINAR usuarios de la plataforma`,
+          end: true,
+      },
+    
+      
+    ];
+
+    const obtenerUsuarios = () => {
+      if(!didMount){
+        axios.get(baseUrl,config).then((response) => {
+        setUsuarios(response.data);
+        setRows(usuarios)
+          if(usuarios){
+            setLoading(true)
+            setDidMount(true)
+          }      
+      });
+      }
+    }
   
     const [usuario, setUsuario]=useState({
       id: '',
@@ -210,6 +255,11 @@ const useStyles = makeStyles((theme) => ({
         [name]: value
       }))
     }
+
+    const [opened, setOponed] = useState(false);
+    const toggleFloating = () => {
+      setOponed(!opened);
+    };
   
   
     const peticionPost=async()=>{
@@ -372,46 +422,110 @@ const useStyles = makeStyles((theme) => ({
         </FadeIn>
       </div>
     )
+    const requestSearch = (searchedVal) => {
+      const filteredRows = usuarios.filter((row) => {
+        return row.nombre.toLowerCase().includes(searchedVal.toLowerCase());
+      });
+      setRows(filteredRows);
+    };
   
+    const cancelSearch = () => {
+      setSearched("");
+      requestSearch(searched);
+    };
+
+    const columns = [
+      { id: "nombre", label: "Nombre", minWidth: 170 },
+      { id: "email", label: "Correo", minWidth: 100 },
+
+    ];
   
     return (
-      <>{ loading ? (       <div  className={styles.tablas}>
+      <>{ loading ? (       <div >
         <FadeIn >
-          <h1 className="bienvenida">Informacion de Usuarios</h1>
-          <ButtonInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtonInsertar>
+          <h1 className="bienvenida">Información Usuarios</h1>
           </FadeIn>
-
         <br />
     <FadeIn>
-       <TableContainer style={{ width: 800, borderRadius: '10px', }} component={Paper}>
-         <Table classes={{root: styles.customTable}}>
-         <TableHead>
-          <StyledTableRow>
-            <StyledTableCell align="center">Nombre</StyledTableCell>
-            <StyledTableCell align="center">Email</StyledTableCell>
-            <StyledTableCell align="center"></StyledTableCell>
-            <StyledTableCell align="center"></StyledTableCell> 
-          </StyledTableRow >
-        </TableHead>
-  
-           <TableBody>
-             {usuarios && usuarios.map(row=>(
-               <StyledTableRow  key={row.id}>
-                   <StyledTableCell component="th" scope="row" align="center">{row.nombre}</StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center">{row.email}</StyledTableCell>
-                    <StyledTableCell>
-                    <Edit className={styles.btnEditar} onClick={()=>seleccionarUsuario(row, 'Editar')}/>
-                   </StyledTableCell>
-                   <StyledTableCell>
-                   <Delete  className={styles.btnDelete} onClick={()=>seleccionarUsuario(row, 'Eliminar')}/>
-                   </StyledTableCell>
-               </StyledTableRow>
-             ))}
-           </TableBody>
-         </Table>
-       </TableContainer>
-    </FadeIn>     
+    <Container>
+          <Row> 
+          <Col> <SearchBar
+          placeholder='Buscar'
+          value={searched}
+          onChange={(searchVal) => requestSearch(searchVal)}
+          onCancelSearch={() => cancelSearch()}/></Col>
+          <Col><ButtonInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Usuario</ButtonInsertar></Col>
+          </Row>
+          </Container> 
 
+
+          <TableContainer style={{ width: 800, borderRadius: '10px', marginTop: '20px',}} component={Paper}>
+          <Table classes={{root: styles.customTable}}>
+            <TableHead>
+              <StyledTableRow>
+                {columns.map(column => (
+                  <StyledTableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+                <StyledTableCell align="center"></StyledTableCell>
+                 <StyledTableCell align="center"></StyledTableCell> 
+              </StyledTableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map(row => {
+                  return (
+                    <StyledTableRow  role="checkbox" tabIndex={-1} key={row.code}>
+                      {columns.map(column => {
+                        const value = row[column.id];
+                        return (
+                          <StyledTableCell key={column.id} align={column.align}>
+                            {value}
+                          </StyledTableCell>
+                        );
+                      })}
+                      <StyledTableCell>
+                      <Edit className={styles.btnEditar} onClick={()=>seleccionarUsuario(row, 'Editar')}/>
+                     </StyledTableCell>
+                     <StyledTableCell>
+                     <Delete  className={styles.btnDelete} onClick={()=>seleccionarUsuario(row, 'Eliminar')}/>
+                     </StyledTableCell>
+                    </StyledTableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+          <TablePagination
+          rowsPerPageOptions={[5, 10, 15, 20, 25, 50, 100]}
+          labelRowsPerPage= 'Registros por pagina'
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+        </TableContainer>
+        
+     
+    </FadeIn>     
+    <ThemeProvider theme={theme}>
+    <ChatBot 
+    headerTitle="Asistente Virtual 👋"
+    botAvatar = {avatar}
+    steps={steps}
+    floating={true}
+    opened={opened}
+    toggleFloating={toggleFloating}
+    bubbleStyle= {{maxWidth: "65%"}}
+    />
+     </ThemeProvider>
       </div>):(<div className="loading"><Loading /> </div>)}
       <Modal
        open={modalInsertar}
