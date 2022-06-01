@@ -182,6 +182,7 @@ const useStyles = makeStyles((theme) => ({
     const config = {headers: { Authorization: `Bearer ${token}` }}; 
     const styles= useStyles();
     const [sectores, setSectores] = useState();
+    const [didMount, setDidMount] = useState(false);
     const [correos, setCorreos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [data, setData]=useState([]);
@@ -208,6 +209,7 @@ const useStyles = makeStyles((theme) => ({
     const toggleFloating = () => {
       setOponed(!opened);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const ObtenerSectores = () => {
       axios.get(baseUrl,config).then((response) => {
         setSectores(response.data.componentes);
@@ -215,6 +217,7 @@ const useStyles = makeStyles((theme) => ({
           setLoading(true)
         }});}
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const ObtenerUsuarios = () => {
       axios.get(usersUrl,config).then((response) => {
         setCorreos(response.data);
@@ -223,10 +226,16 @@ const useStyles = makeStyles((theme) => ({
     }
 
     useEffect(() => {
-      ObtenerSectores()
-      ObtenerUsuarios()
+      if(correos && sectores){
+        setDidMount(true)
+      }
+      if(!didMount){
+        ObtenerSectores()
+        ObtenerUsuarios()
+      }
       
-    })
+      
+    },[didMount, setDidMount, sectores, correos, ObtenerSectores, ObtenerUsuarios])
     const handleChange=e=>{
       const {name, value}=e.target;
       setSector(prevState=>({

@@ -485,7 +485,7 @@ const useStyles = makeStyles((theme) => ({
                       {columns.map(column => {
                         const value = row[column.id];
                         return (
-                          <StyledTableCell key={column.id} align={column.align}>
+                          <StyledTableCell key={value} align={column.align}>
                             {value}
                           </StyledTableCell>
                         );

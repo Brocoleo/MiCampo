@@ -17,10 +17,10 @@ import styled from 'styled-components';
 import { Button} from '@material-ui/core';
 import CountUp from 'react-countup';
  
-  const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
-  const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
-  const rangoUrl='https://citra-sensores.herokuapp.com/api/radiacion/rangoRadiacion/'
-  const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
+  const historialUrl='http://localhost:3000/api/historial/all' 
+  const promUrl='http://localhost:3000/api/historial/promedio/' 
+  const rangoUrl='http://localhost:3000/api/radiacion/rangoRadiacion/'
+  const horasUrl='http://localhost:3000/api/radiacion/unMes/' 
 
   const Graficos = () => { 
     const sensor = Cookies.get("sensor"); 
