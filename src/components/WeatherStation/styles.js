@@ -9,7 +9,7 @@ export const WeatherInfoLabel = styled.span`
   color: #ffff;
   font-family: 'Tiro Kannada', serif;
   font-family: 'Titillium Web', sans-serif;
-  font-weight: 300;
+  font-weight: 700;
   font-size: 1.1rem;
   @media (max-width: 768px) {
     width: 77%;
@@ -24,7 +24,7 @@ export const WeatherInfoSub = styled.span`
   color: #ffff;
   font-family: 'Tiro Kannada', serif;
   font-family: 'Titillium Web', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 0.8rem;
   @media (max-width: 768px) {
     width: 77%;
@@ -100,7 +100,7 @@ export const InfoLabel = styled.span`
   flex-direction: column;
   font-size: 17px;
   padding: 3px;
-  font-weight: 500;
+  font-weight: 700;
   & span {
     font-size: 18px;
     text-transform: capitalize;

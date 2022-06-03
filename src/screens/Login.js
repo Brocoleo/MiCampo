@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
 import  { InfoContainer, TituloLogin} from './styles'
 import Loading from '../components/Loading';
 import validator from 'validator';
@@ -17,7 +17,16 @@ import Typography from '@mui/material/Typography';
 import Cookies from "js-cookie";
 import useStyles from './styles'
 import Link from '@mui/material/Link';
-const theme = createTheme();
+
+const theme = createMuiTheme({
+  typography: {
+   "fontFamily": `'Titillium Web', sans-serif`,
+   "fontSize": 12,
+   "fontWeightLight": 300,
+   "fontWeightRegular": 400,
+   "fontWeightMedium": 500
+  }
+});
 
 
 const Login = () => {
@@ -131,7 +140,7 @@ const Login = () => {
         backgroundColor: '#0F044C',
         borderColor: '#0F044C',
         boxShadow: '0 3px 6px 0 #134E5E',
-        fontFamily: 'Oswald, sans-serif',
+        fontFamily: 'Titillium Web, sans-serif',
         '&:hover': {
           backgroundColor: '#190680',
         },

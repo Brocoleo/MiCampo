@@ -45,3 +45,11 @@ export const NavLink = styled(Link)`
     font-size: 1.2rem;
   }
 `;
+
+export const IconLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 12%;
+
+`;

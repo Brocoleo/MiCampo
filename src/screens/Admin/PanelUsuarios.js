@@ -42,6 +42,7 @@ const THEME = createMuiTheme({
 const useStyles = makeStyles((theme) => ({
     modal: {
       position: 'absolute',
+      fontFamily: `'Titillium Web', sans-serif`,
       borderRadius: '25px',
       width: 400,
       backgroundColor: theme.palette.background.paper,
@@ -89,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
     }, 
     inputMaterial:{
       width: '100%',
+      fontFamily: `'Titillium Web', sans-serif`,
       fontSize: '1rem',
       marginTop: '20px'
     },
@@ -187,6 +189,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid',
     fontWeight: '300',
     textShadow: '1px 1px #000',
+    fontFamily: `'Titillium Web', sans-serif`,
     color: '#fff',
     backgroundColor: '#0F044C',
     borderColor: '#0F044C',
@@ -339,6 +342,7 @@ const useStyles = makeStyles((theme) => ({
   
   
     const bodyInsertar=(
+      <MuiThemeProvider theme={THEME}>
       <div className={styles.modal}>
         <FadeIn>
         <h2 className={styles.tituloInsertar}>Agregar Usuario</h2>
@@ -380,6 +384,7 @@ const useStyles = makeStyles((theme) => ({
         </div>
         </FadeIn>
       </div>
+      </MuiThemeProvider>
     )
   
     const bodyEditar=(

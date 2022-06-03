@@ -246,9 +246,14 @@ import CountUp from 'react-countup';
         } 
        
      })
-     if(min && max && radiacion && promTemp && fecha && hrs && modelo){
-      setEvapotrans( (0.0023 * (((parseFloat(min)+parseFloat(max))/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
-    }
+     if(evapotrans){
+
+     }else{
+      if(min && max && radiacion && promTemp && fecha && hrs && modelo){
+        setEvapotrans( (0.0023 * (((parseFloat(min)+parseFloat(max))/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
+      }
+     }
+     
       }
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -339,7 +344,7 @@ import CountUp from 'react-countup';
    
     return (<> 
     { verGraficas ? ( 
-         loading && temperatura && humedad && peso  && max && min && evapotrans && modelo && !didMount? (  <div> 
+         loading && temperatura && humedad && peso  && evapotrans  && !didMount? (  <div> 
           <Container> 
           <Row> 
           <Col> 

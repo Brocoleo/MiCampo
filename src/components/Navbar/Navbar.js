@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Hamburger from 'hamburger-react'
-import { NavIcon, NavLink } from './NavbarElements';
+import { NavIcon, NavLink, IconLink} from './NavbarElements';
 import logo from './logo.png';
 import green from "@material-ui/core/colors/green";
 
@@ -71,8 +71,10 @@ export default function Navbar({ toggle, isOpen}) {
         <NavIcon onClick={toggle}>
         <Hamburger toggled={isOpen}/>
      </NavIcon>
-          <Typography to="/" variant="h6" className={classes.title} color="inherit">
-          <img src={logo} alt="citra" height="50px" className={classes.image}/>
+          <Typography to="/" variant="h6"  className={classes.title} color="inherit">
+          <IconLink to='/admin/dash'>
+          <img src={logo} alt="citra" height="50px" className={classes.image}/></IconLink>
+          
       </Typography>
       <div className={classes.grow} />
       <NavLink to='/admin/usuarios'>&nbsp;&nbsp;Usuarios</NavLink>
