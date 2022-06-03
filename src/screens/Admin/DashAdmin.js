@@ -27,6 +27,7 @@ const DashAdmin = () => {
   const nombre = Cookies.get("nombre");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const config = {headers: { Authorization: `Bearer ${token}` }};
+  console.disableYellowBox = true;
 
   const BotLink = styled(Link)`
   display: flex;
@@ -39,8 +40,8 @@ const DashAdmin = () => {
   padding: 10px;
   padding-left:70px;
   padding-right:70px;
-  font-family: 'Nunito', sans-serif;
-  list-style: none;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   transition: 0.2s ease-in-out;
   color: #000;
   cursor: pointer;

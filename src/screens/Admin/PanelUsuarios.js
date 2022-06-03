@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import { Container, Row, Col } from 'react-grid-system'; 
 import FadeIn from 'react-fade-in';
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, ThemeProvider as MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
 import {Edit, Delete} from '@material-ui/icons';
 import { tableCellClasses } from '@mui/material/TableCell';
@@ -29,6 +29,16 @@ const currencies = [
     label: 'Administrador',
   }
 ];
+
+const THEME = createMuiTheme({
+  typography: {
+   "fontFamily": `'Titillium Web', sans-serif`,
+   "fontSize": 12,
+   "fontWeightLight": 300,
+   "fontWeightRegular": 400,
+   "fontWeightMedium": 500
+  }
+});
 const useStyles = makeStyles((theme) => ({
     modal: {
       position: 'absolute',
@@ -94,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
       ,
       customTable: {
         "& .MuiTableCell-sizeSmall": { 
-          padding: '2px ' ,
+          padding: '1px ' ,
           
         }
       },
@@ -133,16 +143,17 @@ const useStyles = makeStyles((theme) => ({
           },
       }
   }));
+  
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      fontSize: '18px',
+      fontSize: '17px',
       backgroundColor: '#0F044C',
       color: '#fff',
       textShadow: '1px 1px #000',
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: '17px',
+        fontSize: '16px',
     },
   }));
 
@@ -158,7 +169,7 @@ const useStyles = makeStyles((theme) => ({
 
   const theme = {
     background: '#f5f8fb',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'Titillium Web',
     headerBgColor: '#031648',
     headerFontColor: '#fff',
     headerFontSize: '15px',
@@ -443,7 +454,7 @@ const useStyles = makeStyles((theme) => ({
     return (
       <>{ loading ? (       <div >
         <FadeIn >
-          <h1 className="bienvenida">Información Usuarios</h1>
+          <h1 className="bienvenida">INFORMACION USUARIOS</h1>
           </FadeIn>
         <br />
     <FadeIn>
@@ -458,7 +469,7 @@ const useStyles = makeStyles((theme) => ({
           </Row>
           </Container> 
 
-
+          <MuiThemeProvider theme={THEME}>
           <TableContainer style={{ width: 800, borderRadius: '10px', marginTop: '20px',}} component={Paper}>
           <Table classes={{root: styles.customTable}}>
             <TableHead>
@@ -512,6 +523,7 @@ const useStyles = makeStyles((theme) => ({
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
         </TableContainer>
+        </MuiThemeProvider>
         
      
     </FadeIn>     

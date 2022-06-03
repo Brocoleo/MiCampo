@@ -7,7 +7,8 @@ export const WeatherInfoLabel = styled.span`
   text-transform: uppercase;
   text-align: center;
   color: #ffff;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   font-weight: 300;
   font-size: 1.1rem;
   @media (max-width: 768px) {
@@ -21,7 +22,8 @@ export const WeatherInfoSub = styled.span`
   text-transform: uppercase;
   text-align: center;
   color: #ffff;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   font-weight: 300;
   font-size: 0.8rem;
   @media (max-width: 768px) {
@@ -93,7 +95,8 @@ export const InfoIcon = styled.img`
 `;
 export const InfoLabel = styled.span`
   display: flex;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   flex-direction: column;
   font-size: 17px;
   padding: 3px;

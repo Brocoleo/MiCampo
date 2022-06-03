@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import Loading from '../../components/Loading'
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, ThemeProvider as MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
 import {Edit, Delete} from '@material-ui/icons';
 import { tableCellClasses } from '@mui/material/TableCell';
@@ -39,6 +39,16 @@ const opcionesCultivo = [
     label: 'Repollo',
   }
 ];
+
+const THEME = createMuiTheme({
+  typography: {
+   "fontFamily": `'Titillium Web', sans-serif`,
+   "fontSize": 12,
+   "fontWeightLight": 300,
+   "fontWeightRegular": 400,
+   "fontWeightMedium": 500
+  }
+});
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -166,7 +176,6 @@ const useStyles = makeStyles((theme) => ({
 
   const theme = {
     background: '#f5f8fb',
-    fontFamily: 'Helvetica Neue',
     headerBgColor: '#031648',
     headerFontColor: '#fff',
     headerFontSize: '15px',
@@ -411,6 +420,7 @@ const useStyles = makeStyles((theme) => ({
 
         <br />
     <FadeIn>
+    <MuiThemeProvider theme={THEME}>
        <TableContainer style={{ width: 900 , borderRadius: '10px',}} component={Paper}>
          <Table>
          <TableHead>
@@ -447,6 +457,7 @@ const useStyles = makeStyles((theme) => ({
            </TableBody>
          </Table>
        </TableContainer>
+       </MuiThemeProvider>
     </FadeIn> 
     <ThemeProvider theme={theme}>
     <ChatBot 

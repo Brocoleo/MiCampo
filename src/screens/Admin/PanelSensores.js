@@ -13,8 +13,11 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from "react-router-dom";  
 import Loading from '../../components/Loading' 
 import Aviso from '../../components/Animations/Aviso' 
+
+const font =  "'Tiro Kannada', serif";
   
 const useStyles = makeStyles((theme) => ({  
+
   modal: {
     position: 'absolute',
     borderRadius: '25px',
@@ -28,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%, -50%)'
   },
   card: {  
+    fontFamily: font,
     borderRadius: 60,  
     transition: "0.3s",  
     border: '6px solid #fff',  
@@ -37,18 +41,17 @@ const useStyles = makeStyles((theme) => ({
     }  
   },  
   info: {  
-    backgroundColor: '#fff',  
+    backgroundColor: '#0F044C', 
+    color: '#fff',  
   },   
   tituloEstacion:{  
-    textTransform: 'uppercase',  
-    fontFamily: 'Nunito'  
+    textTransform: 'uppercase'
   },  
   cultivo: {  
-    color: '#fff',  
+    color: '#000',  
     borderRadius: '90px',  
-    backgroundColor: '#0F044C',  
-    textTransform: 'uppercase',  
-    fontFamily: 'Nunito'  
+    backgroundColor: '#fff',  
+    textTransform: 'uppercase',
   },  
   sensor: {  
     textTransform: 'uppercase',  
@@ -65,7 +68,6 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       color: '#fff',
       borderRadius: '30px',
-      backgroundColor: '#0F044C',
       paddingLeft: '30px',
       paddingRight: '30px',
       paddingTop: '10px',
@@ -185,20 +187,20 @@ const PanelSensores = () => {
     </FadeIn>  
     <br />  
     <br />  
-      <Container>  
+      <Container className="bienvenidaSensores">  
         <Row>  
             {sensores && sensores.map((anObjectMapped, index) => {    
               return (  
               <Col key={index}>  
                     <FadeIn>  
-              <Card sx={{ width: 250 ,  borderRadius: 6, margin: 1}} className={styles.card}>  
+              <Card sx={{ width: 250 ,  borderRadius: 6, margin: 1, backgroundColor: '#fff',}} className={styles.card}>  
                 <CardActionArea onClick={()=>VerGraficas(anObjectMapped.nombre_sensor, anObjectMapped.nombre_cultivo)}>  
                 <img className={styles.image} src={require(`../../assets/${anObjectMapped.nombre_cultivo}.jpg`)} alt="" width="240" height="200"/>  
                   <CardContent className={styles.info}>  
                   <Typography gutterBottom variant="h6" className={styles.cultivo} component="div">  
                   {anObjectMapped.nombre_cultivo}  
                   </Typography>  
-                  <Typography variant="body1" className={styles.sensor} color="#272727">  
+                  <Typography variant="body1" className={styles.sensor} color="#fff">  
                   {'Sensor ' + anObjectMapped.nombre_sensor}   
                   </Typography>  
                   </CardContent>  

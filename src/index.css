@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Kannada&family=Titillium+Web:wght@300;400;600;700&display=swap');
 body {
     margin-top: 3%;
     margin-bottom: 67%;
     background: linear-gradient(0deg, #001e6c 0%, rgba(147,181,198,1) 100%);
     display: flex;
     justify-content: center;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Tiro Kannada', serif;
+    font-family: 'Titillium Web', sans-serif; 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
@@ -14,19 +14,22 @@ body {
 }
 
 code {
-    font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
     
 }
 .title{
     display: contents;
     font-weight: 900;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Tiro Kannada', serif;
+    font-family: 'Titillium Web', sans-serif;
 }
 
 
 .reactive-btn .content {
     position: relative;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Tiro Kannada', serif;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 18px;
 }
 
@@ -78,7 +81,7 @@ code {
 }
 
 .bienvenidaSensores{
-  margin-top: 60px;
+  margin-top: 30px;
   text-align: center;
   color: #F7F6F2;
   font-weight: bold;
@@ -126,7 +129,7 @@ code {
   }
 
   .margenTop {
-    margin-top: 7%;
+    margin-top: 0%;
   }
 
   .btnGraficas {
@@ -156,7 +159,8 @@ code {
 }
 
 .notiTitle{
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   font-weight: 300;
   text-transform: uppercase;
   font-size: 1.1rem;
@@ -167,7 +171,8 @@ code {
 }
 
 .notiLabel{
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   font-weight: 300;
   margin-top: 14px;
   padding: 8px;

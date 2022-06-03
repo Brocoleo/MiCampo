@@ -53,7 +53,8 @@ export const SidebarLink = styled(Link)`
   font-size: 1.5rem;
   text-decoration: none;
   font-weight: 200;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   list-style: none;
   transition: 0.2s ease-in-out;
   color: #171717;
