@@ -17,12 +17,13 @@ import styled from 'styled-components';
 import { Button} from '@material-ui/core';
 import CountUp from 'react-countup';
  
-  const historialUrl='http://localhost:3000/api/historial/all' 
-  const promUrl='http://localhost:3000/api/historial/promedio/' 
-  const rangoUrl='http://localhost:3000/api/radiacion/rangoRadiacion/'
-  const horasUrl='http://localhost:3000/api/radiacion/unMes/' 
-
+  const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
+  const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
+  const rangoUrl='https://citra-sensores.herokuapp.com/api/radiacion/rangoRadiacion/'
+  const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
+  console.disableYellowBox = true;
   const Graficos = () => { 
+
     const sensor = Cookies.get("sensor"); 
     const token = Cookies.get("access");
     const config = {headers: { Authorization: `Bearer ${token}` }};  
@@ -184,21 +185,35 @@ import CountUp from 'react-countup';
     
     const cambiarModelo=(value)=>{
       if(value === 'Hergreaves'){
-        setEvapotrans( (0.0023 * (((parseFloat(min)+parseFloat(max))/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
+        const media = (parseFloat(min)+parseFloat(max))/2
+        const resta = parseFloat(max)-parseFloat(min)
+        const radiacionE = radiacion[0].radiacion
+        const op1 = 0.0023 * ((media)+1.78) 
+        const op2 = (Math.pow(resta, 0.5))
+        setEvapotrans((op1* op2* radiacionE).toFixed(1))
         setModelo('Hergreaves')
        
       }if(value === 'Blaney Criddle'){
-        setEvapotrans(((hrs*(promTemp * 0.46)+8.13)/(parseInt(fecha.slice(8,10)))).toFixed(1))
+        const op1 = hrs*(promTemp * 0.46)+8.13
+        const op2 = parseInt(fecha.slice(8,10))
+        setEvapotrans(((op1)/(op2)).toFixed(1))
         setModelo('Blaney Criddle')
       }
     }
 
     const switchModelo=()=>{
       if(modelo === 'Hergreaves'){
-        setEvapotrans(((hrs*(promTemp * 0.46)+8.13)/(parseInt(fecha.slice(8,10)))).toFixed(1))
+        const op1 = hrs*(promTemp * 0.46)+8.13
+        const op2 = parseInt(fecha.slice(8,10))
+        setEvapotrans(((op1)/(op2)).toFixed(1))
         setModelo('Blaney Criddle')
       }if(modelo === 'Blaney Criddle'){
-        setEvapotrans( (0.0023 * (((parseFloat(min)+parseFloat(max))/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
+        const media = (parseFloat(min)+parseFloat(max))/2
+        const resta = parseFloat(max)-parseFloat(min)
+        const radiacionE = radiacion[0].radiacion
+        const op1 = 0.0023 * ((media)+1.78) 
+        const op2 = (Math.pow(resta, 0.5))
+        setEvapotrans((op1* op2* radiacionE).toFixed(1))
         setModelo('Hergreaves')
       }
     }
@@ -233,6 +248,7 @@ import CountUp from 'react-countup';
           setHumedad(datos.map(item => item.humedad)) 
           setPeso(datos.map(item => item.peso_actual)) 
           if(temperatura){
+            console.log(temperatura)
             setTemp(temperatura[temperatura.length - 30].toFixed(1))
           }
           if(humedad){
@@ -250,7 +266,12 @@ import CountUp from 'react-countup';
 
      }else{
       if(min && max && radiacion && promTemp && fecha && hrs && modelo){
-        setEvapotrans( (0.0023 * (((parseFloat(min)+parseFloat(max))/2)+1.78) * (Math.pow(parseFloat(max)-parseFloat(min), 0.5) )* radiacion[0].radiacion).toFixed(1))
+        const media = (parseFloat(min)+parseFloat(max))/2
+        const resta = parseFloat(max)-parseFloat(min)
+        const radiacionE = radiacion[0].radiacion
+        const op1 = 0.0023 * ((media)+1.78) 
+        const op2 = (Math.pow(resta, 0.5))
+        setEvapotrans((op1* op2* radiacionE).toFixed(1))
       }
      }
      
@@ -273,9 +294,10 @@ import CountUp from 'react-countup';
 
       const ObtenerRadiacionHrs = (mes) => {
         axios.get(horasUrl+mes,config).then((response) => {
-          const inicio = (parseInt(response.data.mes[0].hora_inicio.slice(0, -3)))
-          const final = (parseInt(response.data.mes[response.data.mes.length-1].hora_inicio.slice(0, -3)))
-          setHrs(final-inicio)
+          const dia = response.data.mes
+          const inicio = dia[0].hora_inicio.slice(0, -3)
+          const final = dia[dia.length-1].hora_inicio.slice(0, -3)
+          setHrs(parseInt(final)-parseInt(inicio))
          
           }); 
       }

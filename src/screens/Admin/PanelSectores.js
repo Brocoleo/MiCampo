@@ -41,6 +41,17 @@ const opcionesCultivo = [
 ];
 
 const THEME = createMuiTheme({
+  overrides: {
+    MuiTableCell: {
+      root: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        "&:last-child": {
+          paddingRight: 5
+        }
+      }
+    }
+  },
   typography: {
    "fontFamily": `'Titillium Web', sans-serif`,
    "fontSize": 12,
@@ -48,6 +59,7 @@ const THEME = createMuiTheme({
    "fontWeightRegular": 400,
    "fontWeightMedium": 500
   }
+  
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +85,8 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '20px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
-        backgroundColor: '#0F044C',
+        backgroundColor: '#BDBDBD',
+        color: '#B31C00',
       },
       [theme.breakpoints.up('xl')]: {
         width: '28%',
@@ -90,7 +103,8 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: '15px',
       backgroundColor: '#EDEDED',
       '&:hover': {
-        backgroundColor: '#0F044C',
+        backgroundColor: '#BDBDBD',
+         color: '#C56C0E',
       },
       [theme.breakpoints.up('xl')]: {
         marginLeft: '24%',
@@ -154,8 +168,9 @@ const useStyles = makeStyles((theme) => ({
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      fontSize: '18px',
+      fontSize: '17px',
       backgroundColor: '#0F044C',
+      padding: '15px',
       color: '#fff',
       textShadow: '1px 1px #000',
     },
@@ -414,7 +429,7 @@ const useStyles = makeStyles((theme) => ({
       <>{ loading && correos? ( 
       <div className={styles.tablas}>
         <FadeIn>
-          <h1 className="bienvenida">Informacion de los Sensores</h1>
+          <h1 className="bienvenida">INFORMACION SENSORES</h1>
          
           </FadeIn>
 

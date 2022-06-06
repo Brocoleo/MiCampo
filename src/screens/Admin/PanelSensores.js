@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import Loading from '../../components/Loading' 
 import Aviso from '../../components/Animations/Aviso' 
 
-const font =  "'Tiro Kannada', serif";
   
 const useStyles = makeStyles((theme) => ({  
 
@@ -31,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translate(-50%, -50%)'
   },
   card: {  
-    fontFamily: font,
     borderRadius: 60,  
     transition: "0.3s",  
     border: '6px solid #fff',  
@@ -183,11 +181,11 @@ const PanelSensores = () => {
   return (  
   <>  
   { loading ? (  <><FadeIn>  
-    <h1 className="bienvenidaSensores">Selecciona un sensor para monitorear</h1>  
+    <h1 className="bienvenidaSensores">SELECCIONA UN SENSOR PARA MONITOREAR</h1>  
     </FadeIn>  
     <br />  
     <br />  
-      <Container className="bienvenidaSensores">  
+      <Container >  
         <Row>  
             {sensores && sensores.map((anObjectMapped, index) => {    
               return (  

@@ -31,6 +31,17 @@ const currencies = [
 ];
 
 const THEME = createMuiTheme({
+  overrides: {
+    MuiTableCell: {
+      root: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        "&:last-child": {
+          paddingRight: 5
+        }
+      }
+    }
+  },
   typography: {
    "fontFamily": `'Titillium Web', sans-serif`,
    "fontSize": 12,
@@ -38,6 +49,7 @@ const THEME = createMuiTheme({
    "fontWeightRegular": 400,
    "fontWeightMedium": 500
   }
+  
 });
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -63,7 +75,8 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '20px',
       backgroundColor: '#EDEDED ',
       '&:hover': {
-        backgroundColor: '#0F044C',
+        backgroundColor: '#BDBDBD',
+        color: '#B31C00',  
       },
       [theme.breakpoints.up('xl')]: {
         width: '28%',
@@ -80,7 +93,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '20px',
       backgroundColor: '#EDEDED',
       '&:hover': {
-        backgroundColor: '#0F044C',
+        backgroundColor: '#BDBDBD',
+         color: '#C56C0E',
+        
       },
       [theme.breakpoints.up('xl')]: {
         marginLeft: '24%',
@@ -106,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
       ,
       customTable: {
         "& .MuiTableCell-sizeSmall": { 
-          padding: '1px ' ,
+          padding: '0px ' ,
           
         }
       },
@@ -151,6 +166,7 @@ const useStyles = makeStyles((theme) => ({
     [`&.${tableCellClasses.head}`]: {
       fontSize: '17px',
       backgroundColor: '#0F044C',
+      padding: '15px',
       color: '#fff',
       textShadow: '1px 1px #000',
     },
@@ -203,7 +219,6 @@ const useStyles = makeStyles((theme) => ({
   function PanelUsuarios() {
     const styles= useStyles();
     const [usuarios, setUsuarios] = useState();
-    const [data, setData]=useState([]);
     const [loading, setLoading] = useState(false);
     const [modalInsertar, setModalInsertar]=useState(false);
     const [modalEditar, setModalEditar]=useState(false);
@@ -281,11 +296,11 @@ const useStyles = makeStyles((theme) => ({
         "nombre": usuario.nombre,
         "email": usuario.email ,
         "password": usuario.password,
-        "role": usuario.role
+        "role": rol
       }
       await axios.post(baseUrl, post, config)
       .then(response=>{
-        setData(data.concat(response.data))
+        setRows(rows.concat(response.data))
         abrirCerrarModalInsertar()
       })
     }
@@ -296,10 +311,11 @@ const useStyles = makeStyles((theme) => ({
         "email": usuario.email ,
         "role": usuario.role
       }
-      console.log(baseUrl+`/`+usuario.id,edit,config)
       await axios.patch(baseUrl+`/`+usuario.id,edit,config)
       .then(response=>{
-        var dataNueva=data;
+
+        obtenerUsuarios()
+        var dataNueva=usuarios;
         // eslint-disable-next-line
         dataNueva.map(data=>{
           if(data.id===usuario.id){
@@ -309,7 +325,7 @@ const useStyles = makeStyles((theme) => ({
             data.role=usuario.role;
           }
         })
-        setData(dataNueva);
+        setRows(dataNueva);
         abrirCerrarModalEditar();
       })
     }
@@ -318,7 +334,7 @@ const useStyles = makeStyles((theme) => ({
     const peticionDelete=async()=>{
       await axios.delete(baseUrl+`/`+usuario.id,config)
       .then(response=>{
-        setData(data.filter(consola=>consola.id!==usuario.id));
+        setRows(rows.filter(consola=>consola.id!==usuario.id));
         abrirCerrarModalEliminar();
       })
     }
@@ -350,7 +366,7 @@ const useStyles = makeStyles((theme) => ({
         <br />
         <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} variant="outlined"/>
         <br />
-        <TextField name="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange} variant="outlined"/>
+        <TextField name="password" type="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange} variant="outlined"/>
         <br />
         <br />
         <TextField
@@ -360,7 +376,6 @@ const useStyles = makeStyles((theme) => ({
           select
           label="Rol"
           value={rol}
-          onChange={handleChange}
           SelectProps={{
             native: true,
           }}
