@@ -551,6 +551,7 @@ const useStyles = makeStyles((theme) => ({
     <ChatBot 
     headerTitle="Asistente Virtual 👋"
     botAvatar = {avatar}
+    style= {{height: '80vh', width: '350px'}}
     steps={steps}
     floating={true}
     opened={opened}

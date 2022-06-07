@@ -49,17 +49,17 @@ const DashAdmin = () => {
  
 `;
  
-  const theme = {
-    background: '#f5f8fb',
-    fontFamily: 'Helvetica Neue',
-    headerBgColor: '#031648',
-    headerFontColor: '#fff',
-    headerFontSize: '15px',
-    botBubbleColor: '#3E497A',
-    botFontColor: '#fff',
-    userBubbleColor: '#DEA057',
-    userFontColor: '#fff',
-  };
+const theme = {
+  background: '#f5f8fb',
+  fontFamily: 'Titillium Web',
+  headerBgColor: '#031648',
+  headerFontColor: '#fff',
+  headerFontSize: '15px',
+  botBubbleColor: '#3E497A',
+  botFontColor: '#fff',
+  userBubbleColor: '#DEA057',
+  userFontColor: '#fff',
+};
   useEffect(() => {
     async function fetchData() {
       //Obtener Usuarios
@@ -185,6 +185,7 @@ const DashAdmin = () => {
           botAvatar = {avatar}
           steps={steps}
           floating={true}
+          style= {{height: '80vh', width: '350px'}}
           opened={opened}
           toggleFloating={toggleFloating}
           bubbleStyle= {{maxWidth: "65%"}}

@@ -150,7 +150,8 @@ font-family: 'Titillium Web', sans-serif;
 
 export const InfoContainer = styled.div`
 display: flex;
-padding: 10px;
+padding: 8px;
+margin-top: -1px;
 width: 380px;
 flex-direction: column;
 align-items: center;
@@ -167,7 +168,7 @@ font-family: 'Titillium Web', sans-serif;
 
 
 export const TituloLogin = styled.h2`
-  margin-bottom: 8%;
+  margin-bottom: 2%;
   font-weight: 100;
   font-size: 34px;
   color: #334257;

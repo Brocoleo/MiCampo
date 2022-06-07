@@ -480,6 +480,7 @@ const useStyles = makeStyles((theme) => ({
     botAvatar = {avatar}
     steps={steps}
     floating={true}
+    style= {{height: '80vh', width: '350px'}}
     opened={opened}
     toggleFloating={toggleFloating}
     bubbleStyle= {{maxWidth: "65%"}}

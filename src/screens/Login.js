@@ -163,7 +163,7 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-          <img src={logo} alt="citra" height="110px" className={classes.image}/>
+          <img src={logo} alt="citra" height="80px" className={classes.image}/>
           <TituloLogin>
             BIENVENIDO
           </TituloLogin>
@@ -205,11 +205,11 @@ const Login = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 1 }}
+              sx={{ mt: 2, mb: 1 }}
             >
               Ingresar
             </BootstrapButton>
-            <Grid container sx={{ mt: 2, mb: 2 }}>
+            <Grid container sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs>
                   <Link href="#" variant="body2">
                     Olvidaste tu contraseña?

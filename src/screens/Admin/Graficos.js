@@ -53,14 +53,14 @@ import CountUp from 'react-countup';
 
     const theme = {
       background: '#f5f8fb',
-      fontFamily: 'Helvetica Neue',
+      fontFamily: 'Titillium Web',
       headerBgColor: '#031648',
       headerFontColor: '#fff',
       headerFontSize: '15px',
       botBubbleColor: '#3E497A',
       botFontColor: '#fff',
-      userBubbleColor: '#F1D00A',
-      userFontColor: '#000',
+      userBubbleColor: '#DEA057',
+      userFontColor: '#fff',
     };
 
     const ButtonChat = styled(Button)({
@@ -430,6 +430,7 @@ import CountUp from 'react-countup';
           bubbleStyle= {{maxWidth: "65%"}}
           botAvatar = {avatar}
           steps={steps}
+          style= {{height: '80vh', width: '350px'}}
           floating={true}
           opened={opened}
           toggleFloating={toggleFloating}
