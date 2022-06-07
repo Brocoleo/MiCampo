@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { Modal, Button} from '@material-ui/core';
 import { Container, Row, Col } from 'react-grid-system';  
 import axios from 'axios';  
+import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
 import FadeIn from 'react-fade-in'; 
 import { styled } from '@mui/material/styles'; 
 import {makeStyles} from '@material-ui/core/styles';  
@@ -99,6 +100,15 @@ const ButtonOK = styled(Button)({
   }
 });
   
+const theme = createMuiTheme({
+  typography: {
+   "fontFamily": `'Titillium Web', sans-serif`,
+   "fontSize": 12,
+   "fontWeightLight": 300,
+   "fontWeightRegular": 400,
+   "fontWeightMedium": 500
+  }
+});
   
 const token = Cookies.get("access");   
 const config = {headers: { Authorization: `Bearer ${token}` }};   
@@ -185,6 +195,7 @@ const PanelSensores = () => {
     </FadeIn>  
     <br />  
     <br />  
+    <ThemeProvider theme={theme}>
       <Container >  
         <Row>  
             {sensores && sensores.map((anObjectMapped, index) => {    
@@ -212,6 +223,7 @@ const PanelSensores = () => {
             <br /><br />  
             </Row>  
       </Container> 
+      </ThemeProvider>
       <Modal
        open={modalAviso}
        onClose={abrirCerrarModalAviso}>
