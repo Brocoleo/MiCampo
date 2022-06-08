@@ -16,12 +16,38 @@ import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import { Button} from '@material-ui/core';
 import CountUp from 'react-countup';
+import Location from '../../components/Location/Location';
+
  
   const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
   const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
   const rangoUrl='https://citra-sensores.herokuapp.com/api/radiacion/rangoRadiacion/'
   const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
   console.disableYellowBox = true;
+
+  const ButtonModelo = styled(Button)({
+    textTransform: 'none',
+    fontSize: '14px',
+    marginTop: '14px',
+    padding: '-1px 46px',
+    fontWeight: '300',
+    color: '#fff',
+    backgroundColor: '#3E497A',
+    '&:hover': {
+      backgroundColor: '#fff',
+      color: '#000',
+      boxShadow: 'none',
+    }
+  });
+
+  const ButtonChat = styled(Button)({
+    color: '#fff',
+    backgroundColor: '#3E497A',
+  });
+
+  
+
+
   const Graficos = () => { 
 
     const sensor = Cookies.get("sensor"); 
@@ -49,6 +75,8 @@ import CountUp from 'react-countup';
     const [didMount, setDidMount] = useState(true);
     const [maxMin, setMaxMin] = useState(); 
     const [modelo, setModelo] = useState('Hergreaves'); 
+    const [latitud, setLatitud] = useState(); 
+    const [longitud, setLongitud] = useState(); 
     
 
     const theme = {
@@ -63,25 +91,8 @@ import CountUp from 'react-countup';
       userFontColor: '#fff',
     };
 
-    const ButtonChat = styled(Button)({
-      color: '#fff',
-      backgroundColor: '#3E497A',
-    });
-
-  const ButtonModelo = styled(Button)({
-    textTransform: 'none',
-    fontSize: '14px',
-    marginTop: '14px',
-    padding: '-1px 46px',
-    fontWeight: '300',
-    color: '#fff',
-    backgroundColor: '#3E497A',
-    '&:hover': {
-      backgroundColor: '#fff',
-      color: '#000',
-      boxShadow: 'none',
-    }
-  });
+   
+  
       
       
     
@@ -182,6 +193,14 @@ import CountUp from 'react-countup';
    
     ];
 
+    const getUserLocation = async() =>{
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitud(position.coords.latitude)
+          setLongitud(position.coords.longitude)
+        }
+      )
+    }
     
     const cambiarModelo=(value)=>{
       if(value === 'Hergreaves'){
@@ -248,7 +267,6 @@ import CountUp from 'react-countup';
           setHumedad(datos.map(item => item.humedad)) 
           setPeso(datos.map(item => item.peso_actual)) 
           if(temperatura){
-            console.log(temperatura)
             setTemp(temperatura[temperatura.length - 30].toFixed(1))
           }
           if(humedad){
@@ -286,6 +304,7 @@ import CountUp from 'react-countup';
       }
 
       const ObtenerRadiacion = (mes,hora) => {
+    
         axios.get(rangoUrl+mes + '/'+hora+'/'+hora,config).then((response) => {
           setRadiacion(response.data.rango);
          
@@ -303,10 +322,20 @@ import CountUp from 'react-countup';
       }
       
     useEffect(() => {
+      //reemplazar 5 por J al final
+      const varphi = (Math.PI/180) *  11.417
+      const dr = 1+ (0.033 * Math.cos(((2*Math.PI*15)/(365))))
+      const delta = 0.409 * Math.sin((((2*Math.PI)/(365))*15)-1.39)
+      const ws = Math.acos(-Math.tan(varphi) * Math.tan(delta))
+      const op1 = ((24*60)/(Math.PI))*0.082* dr
+      const op2 = ws*Math.sin(varphi)* Math.sin(delta)+Math.cos(varphi)* Math.cos(delta)*Math.sin(ws)
+      //console.log(Math.acos(-1))
+      console.log((op1)*(op2)*0.408)
       if(humedad && min && max && peso && sensor && maxMin && temperatura){
         setDidMount(false)
       }
       if(didMount){
+        getUserLocation()
         ObtenerHistorial()
       }
       else{
@@ -371,7 +400,6 @@ import CountUp from 'react-countup';
           <Row> 
           <Col> 
       <FadeIn className='tipoGrafica'> 
-      
           <WeatherContainer > 
           <WeatherStation title={` Sensor ` +sensor} tipo={tipoCultivo} temperatura={temperatura[temperatura.length - 30]}  
           humedad={humedad[humedad.length -30]} peso={peso[peso.length -30]} 
@@ -404,12 +432,12 @@ import CountUp from 'react-countup';
    
       switch (grafico) { 
         case 'linea': 
-                return  <Container> <FadeIn> <Row> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
+                return  <Container> <FadeIn> <Row> <Location latitud={latitud} longitud={longitud} /> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
                 { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)} 
                 { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer >) : (<div></div>)}  
               </Row> </FadeIn> </Container> 
               default: 
-                return <Container> <FadeIn>  <Row>{ humedad && humedad[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer></Col>) : (<div></div>)} 
+                return <Container> <FadeIn>  <Row> <Location latitud={latitud} longitud={longitud} />{ humedad && humedad[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer></Col>) : (<div></div>)} 
                 { temperatura && temperatura[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer></Col>) : (<div></div>)} 
                 { peso && peso[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer ></Col>) : (<></>)}  </Row>  </FadeIn> </Container> 
             } 

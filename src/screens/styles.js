@@ -155,7 +155,7 @@ margin-top: -1px;
 width: 380px;
 flex-direction: column;
 align-items: center;
-border-radius: 30px;
+border-radius: 20px;
 box-shadow: 0 9px 12px 0 #031648;
 background: #fff;  
 font-family: 'Tiro Kannada', serif;
