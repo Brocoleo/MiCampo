@@ -4,29 +4,22 @@ import styled from "styled-components";
 
 export const GeoContainer = styled.button`
   display: flex;
+  cursor: pointer;
   margin-left: 28%;
   padding: 4px;
   flex-direction: row;
   border-radius: 20px;
   margin-bottom : 10px;
+  border: 3px solid #F3F1F5;
   width : 40%;
   color: #000;
   background: #fff;
-  background-size: 4% 4%;
-  animation: gradient 15s ease infinite;
   justify-content: center;
   align-items: center;
-  @keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+  &:hover {
+    color: #333333;
+  background: #E5E5E5;
+  }
 `;
 export const InfoGeo = styled.img`
   width: 36px;

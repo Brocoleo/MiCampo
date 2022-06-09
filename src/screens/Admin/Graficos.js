@@ -13,8 +13,9 @@ import {WeatherContainer, NotificationsContainer} from '../styles'
 import WeatherStation from "../../components/WeatherStation/WeatherStation";
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components'; 
+import {makeStyles} from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { Button} from '@material-ui/core';
+import { Modal, Button, TextField} from '@material-ui/core';
 import CountUp from 'react-countup';
 import Location from '../../components/Location/Location';
 
@@ -45,11 +46,112 @@ import Location from '../../components/Location/Location';
     backgroundColor: '#3E497A',
   });
 
+  const useStyles = makeStyles((theme) => ({
+    modal: {
+      position: 'absolute',
+      fontFamily: `'Titillium Web', sans-serif`,
+      borderRadius: '25px',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #0F044C',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    },
+    btnDelete:{
+      cursor: 'pointer',
+      padding: '10px',
+      paddingLeft: '15px',
+      paddingRight: '15px',
+      width: '23px',
+      color: '#E02401',
+      borderRadius: '20px',
+      backgroundColor: '#EDEDED ',
+      '&:hover': {
+        backgroundColor: '#BDBDBD',
+        color: '#B31C00',  
+      },
+      [theme.breakpoints.up('xl')]: {
+        width: '28%',
+      },
+    }, 
+    btnEditar:{
+      cursor: 'pointer',
+      width: '23px',
+      padding: '10px',
+      paddingLeft: '15px',
+      paddingRight: '15px',
+      marginLeft: '34%',
+      color: '#F78812',
+      borderRadius: '20px',
+      backgroundColor: '#EDEDED',
+      '&:hover': {
+        backgroundColor: '#BDBDBD',
+         color: '#C56C0E',
+        
+      },
+      [theme.breakpoints.up('xl')]: {
+        marginLeft: '24%',
+        width: '28%',
+      },
+      
+    }, 
+    inputMaterial:{
+      width: '100%',
+      fontFamily: `'Titillium Web', sans-serif`,
+      fontSize: '1rem',
+      marginTop: '20px'
+    },
+    tituloEditar:{
+        width: '88%',
+        color: '#fff',
+        borderRadius: '30px',
+        backgroundColor: '#0F044C',
+        paddingLeft: '30px',
+        paddingTop: '10px',
+        paddingBottom: '10px'
+      }
+      ,
+      customTable: {
+        "& .MuiTableCell-sizeSmall": { 
+          padding: '0px ' ,
+          
+        }
+      },
+      btnAgregar:{
+        cursor: 'pointer',
+        color: '#fff',
+        background : '#289672',
+        marginRight:'10px',
+        boxShadow: '0 3px 6px 0 #134E5E',
+        '&:hover': {
+            color: '#fff',
+            backgroundColor: '#1E6F5C',
+            borderColor: '#1E6F5C',
+            boxShadow: '0 3px 6px 0 #134E5E',
+          },
+      },
+      btnCancelar:{
+        cursor: 'pointer',
+        color: '#fff',
+        background  : '#E02401',
+        boxShadow: '0 3px 6px 0 #134E5E',
+        '&:hover': {
+            color: '#fff',
+            backgroundColor: '#51050F',
+            borderColor: '#51050F',
+            boxShadow: '0 3px 6px 0 #134E5E',
+          },
+      }
+  })); 
+
   
 
 
   const Graficos = () => { 
-
+    const styles= useStyles();
     const sensor = Cookies.get("sensor"); 
     const token = Cookies.get("access");
     const config = {headers: { Authorization: `Bearer ${token}` }};  
@@ -77,6 +179,7 @@ import Location from '../../components/Location/Location';
     const [modelo, setModelo] = useState('Hergreaves'); 
     const [latitud, setLatitud] = useState(); 
     const [longitud, setLongitud] = useState(); 
+    const [modalEditar, setModalEditar]=useState(false);
     
 
     const theme = {
@@ -91,7 +194,26 @@ import Location from '../../components/Location/Location';
       userFontColor: '#fff',
     };
 
-   
+    const bodyEditar=(
+
+      <div className={styles.modal}>
+        <FadeIn>
+        <h2 className={styles.tituloEditar}>Coloca tu ubicacion</h2>
+        <TextField name="latitud" className={styles.inputMaterial} label="Latitud"  value={latitud} variant="outlined"/>
+        <br />
+        <TextField name="longitud" className={styles.inputMaterial} label="Longitud"  value={longitud} variant="outlined"/>
+
+        <br />
+       
+        <br />
+        <br /><br />
+        <div align="right">
+          <Button className={styles.btnAgregar} >Editar</Button>
+          <Button className={styles.btnCancelar} >Cancelar</Button>
+        </div>
+        </FadeIn>
+      </div>
+    )
   
       
       
@@ -320,6 +442,10 @@ import Location from '../../components/Location/Location';
          
           }); 
       }
+
+      const abrirCerrarModalEditar=()=>{
+        setModalEditar(!modalEditar);
+      }
       
     useEffect(() => {
       //reemplazar 5 por J al final
@@ -432,9 +558,9 @@ import Location from '../../components/Location/Location';
    
       switch (grafico) { 
         case 'linea': 
-                return  <Container> <FadeIn> <Row> <Location latitud={latitud} longitud={longitud} /> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
+                return  <Container> <FadeIn> <Row> <Location latitud={latitud} longitud={longitud} funcion={abrirCerrarModalEditar} /> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
                 { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)} 
-                { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer >) : (<div></div>)}  
+                { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} funcion={abrirCerrarModalEditar}/> </ChartContainer >) : (<div></div>)}  
               </Row> </FadeIn> </Container> 
               default: 
                 return <Container> <FadeIn>  <Row> <Location latitud={latitud} longitud={longitud} />{ humedad && humedad[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer></Col>) : (<div></div>)} 
@@ -463,7 +589,11 @@ import Location from '../../components/Location/Location';
           opened={opened}
           toggleFloating={toggleFloating}
           />
-          
+          <Modal
+       open={modalEditar}
+       onClose={abrirCerrarModalEditar}>
+          {bodyEditar}
+       </Modal>
            </ThemeProvider>
 
            ):(<></> ) 
