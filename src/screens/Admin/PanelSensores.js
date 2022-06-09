@@ -143,19 +143,21 @@ const PanelSensores = () => {
   )
 
   const fetchSensores = useCallback(async () => {  
-    axios.get(estacionUrl, config).then((response) => {   
-      var count = Object.keys(response.data).length;  
-      if(count===0){  
-        setSensores([{  
-          nombreComponente: '',  
-          tipoCultivo: 'Sin Sensores'  
-        }]);  
-      }else{  
-        setSensores(response.data.componentes)   
-      }if(sensores){
-        setLoading(true) 
-      }}  
-      );  
+    if(config){
+      axios.get(estacionUrl, config).then((response) => {   
+        var count = Object.keys(response.data).length;  
+        if(count===0){  
+          setSensores([{  
+            nombreComponente: '',  
+            tipoCultivo: 'Sin Sensores'  
+          }]);  
+        }else{  
+          setSensores(response.data.componentes)   
+        }if(sensores){
+          setLoading(true) 
+        }}  
+        );  
+    }
       
   }, [ sensores])  
   

@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import { Modal, Button, TextField} from '@material-ui/core';
 import CountUp from 'react-countup';
 import Location from '../../components/Location/Location';
+import ReactSpeedometer from "react-d3-speedometer"
 
  
   const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
@@ -553,21 +554,55 @@ import Location from '../../components/Location/Location';
      </FadeIn>  
      </Col> 
      <Col> 
-      
+     
 {(() => { 
    
       switch (grafico) { 
         case 'linea': 
                 return  <Container> <FadeIn> <Row> <Location latitud={latitud} longitud={longitud} funcion={abrirCerrarModalEditar} /> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
                 { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)} 
-                { peso && peso[0]!==null? (<ChartContainer><LineChart title='Peso' data={pesoLine} funcion={abrirCerrarModalEditar}/> </ChartContainer >) : (<div></div>)}  
+                { <div style={{
+                    width: "380px",
+                    height: "200px",
+                    background: "#EFEFEF",
+                    padding: "20px",
+                    borderRadius: '20px',
+                    marginLeft: '50px',
+                    boxShadow: '0 9px 12px 0 #031648'
+                  }}>
+                    <ReactSpeedometer
+                      fluidWidth={false}
+                      minValue={0}
+                      maxValue={1000}
+                      value={pes}
+                      currentValueText="Peso: ${value} gr"
+                      needleTransitionDuration={4000}
+                      needleColor="steelblue"
+                    />
+                  </div>}  
               </Row> </FadeIn> </Container> 
               default: 
                 return <Container> <FadeIn>  <Row> <Location latitud={latitud} longitud={longitud} />{ humedad && humedad[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer></Col>) : (<div></div>)} 
                 { temperatura && temperatura[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer></Col>) : (<div></div>)} 
-                { peso && peso[0]!==null? (<Col sm={6}><ChartContainer><LineChart title='Peso' data={pesoLine} /> </ChartContainer ></Col>) : (<></>)}  </Row>  </FadeIn> </Container> 
-            } 
-          })()} 
+                {<div style={{
+                    width: "380px",
+                    height: "200px",
+                    background: "#EFEFEF",
+                    padding: "20px",
+                    borderRadius: '20px',
+                    marginLeft: '50px',
+                    boxShadow: '0 9px 12px 0 #031648'
+                  }}>
+                    <ReactSpeedometer
+                      fluidWidth={false}
+                      minValue={0}
+                      maxValue={1000}
+                      value={pes}
+                      currentValueText="Peso: ${value} gr"
+                      needleTransitionDuration={4000}
+                      needleColor="steelblue"
+                    />
+                  </div>}   </Row>  </FadeIn> </Container> } })()} 
 </Col> </Row> </Container> </div>):( <div className="loading"><Loading /> </div>) 
     ):(<FadeIn> 
           <br /> 
