@@ -25,7 +25,6 @@ import ReactSpeedometer from "react-d3-speedometer"
   const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
   const rangoUrl='https://citra-sensores.herokuapp.com/api/radiacion/rangoRadiacion/'
   const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
-  console.disableYellowBox = true;
 
   const ButtonModelo = styled(Button)({
     textTransform: 'none',
@@ -176,6 +175,7 @@ import ReactSpeedometer from "react-d3-speedometer"
     const [promTemp, setPromTemp] = useState();
     const [evapotrans, setEvapotrans] = useState();
     const [didMount, setDidMount] = useState(true);
+    const [maxPeso, setMaxPeso] = useState(); 
     const [maxMin, setMaxMin] = useState(); 
     const [modelo, setModelo] = useState('Hergreaves'); 
     const [latitud, setLatitud] = useState(); 
@@ -378,13 +378,18 @@ import ReactSpeedometer from "react-d3-speedometer"
         let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
         let hora = filtrado[filtrado.length-30].hora.slice(0, -3)
         ObtenerRadiacionHrs(mes)
-       ObtenerRadiacion(mes, hora)
+         ObtenerRadiacion(mes, hora)
         if(filtrado && datos.length > 0 ){ 
           setMaxMin(filtrado.map(item => item.temperatura)) 
           if(maxMin){
             setMin(Math.min(...maxMin).toFixed(1)) 
             setMax(Math.max(...maxMin).toFixed(1)) 
-          }   
+          } 
+          const pesos = datos.map(item => item.peso_actual) 
+          if(pesos){
+            console.log(pesos)
+            setMaxPeso(Math.max(...pesos).toFixed(1)) 
+          }
           setIndices(datos.map(item => item.hora.slice(0, -3)))  
           setTemperatura(datos.map(item => item.temperatura))  
           setHumedad(datos.map(item => item.humedad)) 
@@ -506,23 +511,11 @@ import ReactSpeedometer from "react-d3-speedometer"
  
  
  
-      const pesoLine = { 
-        labels: indices, 
-        datasets: [ 
-          { 
-            label: 'Gramos gr', 
-            data: peso, 
-            fill: true, 
-            backgroundColor: 'rgba(17, 101, 48,0.2)', 
-            borderColor: 'rgb(17, 101, 48)', 
-          }, 
-        ], 
-      }; 
  
    
     return (<> 
     { verGraficas ? ( 
-         loading && temperatura && humedad && peso  && evapotrans  && !didMount? (  <div> 
+         loading && temperatura && humedad && peso  && evapotrans  && !didMount && maxPeso? (  <div> 
           <Container> 
           <Row> 
           <Col> 
@@ -573,8 +566,9 @@ import ReactSpeedometer from "react-d3-speedometer"
                     <ReactSpeedometer
                       fluidWidth={false}
                       minValue={0}
-                      maxValue={1000}
+                      maxValue={maxPeso}
                       value={pes}
+                      // eslint-disable-next-line no-template-curly-in-string
                       currentValueText="Peso: ${value} gr"
                       needleTransitionDuration={4000}
                       needleColor="steelblue"
@@ -598,9 +592,11 @@ import ReactSpeedometer from "react-d3-speedometer"
                       minValue={0}
                       maxValue={1000}
                       value={pes}
+                      
+                      // eslint-disable-next-line no-template-curly-in-string
                       currentValueText="Peso: ${value} gr"
                       needleTransitionDuration={4000}
-                      needleColor="steelblue"
+                      needleColor="#031648"
                     />
                   </div>}   </Row>  </FadeIn> </Container> } })()} 
 </Col> </Row> </Container> </div>):( <div className="loading"><Loading /> </div>) 

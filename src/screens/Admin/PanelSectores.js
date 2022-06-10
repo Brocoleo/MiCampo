@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
+import { useState } from "react/cjs/react.development"
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import Loading from '../../components/Loading'
 import {makeStyles, ThemeProvider as MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {Table, TableContainer, TableHead, TableCell, TableBody, TableRow, Modal, Button, TextField} from '@material-ui/core';
-import {Edit, Delete} from '@material-ui/icons';
+import {Edit} from '@material-ui/icons';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -14,8 +15,9 @@ import avatar from "../../assets/avatar.png"
 import ChatBot from 'react-simple-chatbot';
 import Grid from '@mui/material/Grid';
 
-const baseUrl='https://citra-sensores.herokuapp.com/api/component/paginacion'
-const usersUrl='https://citra-sensores.herokuapp.com/api/users'
+const baseUrl='http://localhost:3000/api/component/paginacion'
+const editUrl='http://localhost:3000/api/component/'
+const usersUrl='http://localhost:3000/api/users'
 
 const opcionesCultivo = [
   {
@@ -44,7 +46,7 @@ const THEME = createMuiTheme({
   overrides: {
     MuiTableCell: {
       root: {
-        paddingTop: 10,
+        padding: 10,
         paddingBottom: 10,
         "&:last-child": {
           paddingRight: 5
@@ -75,32 +77,16 @@ const useStyles = makeStyles((theme) => ({
       left: '50%',
       transform: 'translate(-50%, -50%)'
     },
-    btnDelete:{
-      cursor: 'pointer',
-      padding: '10px',
-      paddingLeft: '15px',
-      paddingRight: '15px',
-      width: '23px',
-      color: '#E02401',
-      borderRadius: '20px',
-      backgroundColor: '#EDEDED ',
-      '&:hover': {
-        backgroundColor: '#BDBDBD',
-        color: '#B31C00',
-      },
-      [theme.breakpoints.up('xl')]: {
-        width: '28%',
-      },
-    }, 
+    
     btnEditar:{
       cursor: 'pointer',
       width: '23px',
       padding: '10px',
-      marginLeft: '34%',
       color: '#F78812',
       borderRadius: '20px',
       paddingLeft: '15px',
       paddingRight: '15px',
+      marginRight: '20px',
       backgroundColor: '#EDEDED',
       '&:hover': {
         backgroundColor: '#BDBDBD',
@@ -168,14 +154,14 @@ const useStyles = makeStyles((theme) => ({
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      fontSize: '17px',
+      fontSize: '14px',
       backgroundColor: '#0F044C',
-      padding: '15px',
+      padding: '14px',
       color: '#fff',
       textShadow: '1px 1px #000',
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: '17px',
+      fontSize: '15px',
     },
   }));
 
@@ -209,18 +195,19 @@ const useStyles = makeStyles((theme) => ({
     const [didMount, setDidMount] = useState(false);
     const [correos, setCorreos] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [data, setData]=useState([]);
+    const [data, setData]=useState();
     const [modalEditar, setModalEditar]=useState(false);
-    const [modalEliminar, setModalEliminar]=useState(false);
 
-    const [sector, setSector]=useState({
-      nombre_cultivo: '',
-      nombre_sensor: '',
-      valor_maximo: '',
-      valor_minimo: '',
-      nombre_nave: '',
-      responsable: ''
-    })
+    const [opened, setOponed] = useState(false);
+    const [usuario, setUsuario] = useState();
+    const [nombreCultivo, setNombreCultivo] = useState();
+    const [nombreSensor, setNombreSensor] = useState();
+    const [maxTemp, setMaxTemp] = useState();
+    const [minTemp, setMinTemp] = useState();
+    const [maxHumedad, setMaxHumedad] = useState();
+    const [minHumedad, setMinHumedad] = useState();
+
+  
     const steps = [
       {
           id: '1',
@@ -229,7 +216,7 @@ const useStyles = makeStyles((theme) => ({
       },
      
     ];
-    const [opened, setOponed] = useState(false);
+    
     const toggleFloating = () => {
       setOponed(!opened);
     };
@@ -237,6 +224,7 @@ const useStyles = makeStyles((theme) => ({
     const ObtenerSectores = () => {
       axios.get(baseUrl,config).then((response) => {
         setSectores(response.data.componentes);
+        setData(sectores)
         if(sectores){
           setLoading(true)
         }});}
@@ -260,34 +248,32 @@ const useStyles = makeStyles((theme) => ({
       
       
     },[didMount, setDidMount, sectores, correos, ObtenerSectores, ObtenerUsuarios])
-    const handleChange=e=>{
-      const {name, value}=e.target;
-      setSector(prevState=>({
-        ...prevState,
-        [name]: value
-      }))
-    }
-  
- 
-  
-  
+
+
+   
   
     const peticionPut=async()=>{
       let edit = {
-        "nombre_cultivo": sector.nombre_cultivo,
-        "nombre_sensor": sector.nombre_sensor,
-        "valor_maximo": sector.valor_maximo,
-        "valor_minimo": sector.valor_minimo,
-        "nombre_nave": sector.nombre_nave,
-        "responsable": sector.responsable
+        "nombreCultivo": nombreCultivo,
+        "nombreSensor": nombreSensor,
+        "valorMaximoTemp": maxTemp,
+        "valorMinimoTemp": minTemp,
+        "valorMaximoHumedad": maxHumedad,
+        "valorMinimoHumedad": minHumedad,
+        "user_id": usuario,
       }
-      await axios.patch(baseUrl+`/`+sector.nombre_sensor, edit, config)
+      await axios.patch(editUrl+`/`+nombreSensor, edit, config)
       .then(response=>{
-        var dataNueva=data;
+        var dataNueva=sectores;
         // eslint-disable-next-line
         dataNueva.map(data=>{
-          if(data.nombre_sensor===sector.nombre_sensor){
-            data.nombre_cultivo=sector.nombre_cultivo;
+          if(data.nombre_sensor===nombreSensor){
+            data.nombre_cultivo=nombreCultivo;
+            data.nombre_sensor=nombreSensor;
+            data.valor_maximo_Humedad=maxHumedad;
+            data.valor_maximo_Temp=maxTemp;
+            data.valor_minimo_Humedad=minHumedad;
+            data.valor_minimo_Temp=minTemp;
           }
         })
         setData(dataNueva);
@@ -295,26 +281,24 @@ const useStyles = makeStyles((theme) => ({
       })
     }
   
-    const peticionDelete=async()=>{
-      await axios.delete(baseUrl+sector.id)
-      .then(response=>{
-        setData(data.filter(consola=>consola.id!==sector.id));
-        abrirCerrarModalEliminar();
-      })
-    }
+   
   
   
     const abrirCerrarModalEditar=()=>{
       setModalEditar(!modalEditar);
     }
   
-    const abrirCerrarModalEliminar=()=>{
-      setModalEliminar(!modalEliminar);
-    }
+   
   
-    const seleccionarsector=(row, caso)=>{
-      setSector(row);
-      (caso==='Editar')?abrirCerrarModalEditar():abrirCerrarModalEliminar()
+    const seleccionarsector=(row)=>{
+      setNombreSensor(row.nombre_sensor)
+      setNombreCultivo(row.nombre_cultivo)
+      setMaxTemp(row.valor_maximo_Temp)
+      setMinTemp(row.valor_minimo_Temp)
+      setMaxHumedad(row.valor_maximo_Humedad)
+      setMinHumedad(row.valor_minimo_Humedad)
+      setUsuario(row.id_usuario)
+        abrirCerrarModalEditar()
     }
   
    
@@ -331,8 +315,8 @@ const useStyles = makeStyles((theme) => ({
          name="nombre_cultivo"
           id="filled-select-currency-native"
           select
-          value={sector && sector.nombre_cultivo}
-          onChange={handleChange}
+          value={nombreCultivo}
+          onChange={event => setNombreCultivo(event.target.value)}
           SelectProps={{
             native: true,
           }}
@@ -353,8 +337,8 @@ const useStyles = makeStyles((theme) => ({
           id="filled-select-currency-native"
           select
           label=" Sensor"
-          value={sector && sector.nombre_sensor}
-          onChange={handleChange}
+          value={nombreSensor}
+          onChange={event => setNombreSensor(event.target.value)}
           SelectProps={{
             native: true,
           }}
@@ -368,18 +352,24 @@ const useStyles = makeStyles((theme) => ({
         </TextField>
         </Grid>
         </Grid>
-        <Grid container spacing={2}>
-      
-        <Grid item xs={6}>
-        <TextField type="number" name="valor_maximo" className={styles.inputMaterial} label="Valor Maximo" onChange={handleChange} value={sector && sector.valor_maximo} variant="outlined"/>
-        </Grid>
-        <Grid item xs={6}>
-        <TextField type="number" name="valor_minimo" className={styles.inputMaterial} label="Valor Minimo" onChange={handleChange} value={sector && sector.valor_minimo} variant="outlined"/>
-        </Grid>
-     
-      </Grid>
 
-        <TextField name="nombre_nave" className={styles.inputMaterial} label="Nave" onChange={handleChange} value={sector && sector.nombre_nave} variant="outlined"/>
+        <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_maximo_Temp" className={styles.inputMaterial} label="Temp. Maximo" onChange={event => setMaxTemp(event.target.value)} value={maxTemp} variant="outlined"/>
+        </Grid>
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_minimo_Temp" className={styles.inputMaterial} label="Temp. Minima" onChange={event => setMinTemp(event.target.value)} value={minTemp} variant="outlined"/>
+        </Grid>
+        </Grid>
+
+        <Grid container spacing={2}>
+        <Grid item xs={6}>
+        <TextField type="number" name="valor_maximo_Humedad" className={styles.inputMaterial} label="Hum. Maximo" onChange={event => setMaxHumedad(event.target.value)} value={maxHumedad} variant="outlined"/>
+        </Grid>
+        <Grid item xs={6}>
+        <TextField type="number"  name="valor_minimo_Humedad" className={styles.inputMaterial} label="Hum. Minima" onChange={event => setMinHumedad(event.target.value)} value={minHumedad} variant="outlined"/>
+        </Grid>
+        </Grid>
         <br />
         <TextField
          fullWidth 
@@ -387,8 +377,8 @@ const useStyles = makeStyles((theme) => ({
           id="filled-select-currency-native"
           select
           label="Usuario"
-          value={sector && sector.responsable}
-          onChange={handleChange}
+          value={usuario}
+          onChange={setUsuario}
           SelectProps={{
             native: true,
           }}
@@ -402,7 +392,9 @@ const useStyles = makeStyles((theme) => ({
           ))}
         </TextField>
         <br />
-    
+
+ 
+  
         <div align="right">
           <Button className={styles.btnAgregar} onClick={()=>peticionPut()}>Editar</Button>
           <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
@@ -411,18 +403,7 @@ const useStyles = makeStyles((theme) => ({
       </div>
     )
   
-    const bodyEliminar=(
-      <div className={styles.modal}>
-         <FadeIn>
-        <p>Estás seguro que deseas eliminar a <b>{sector && sector.nombreSector}</b> ? </p>
-        <div align="right">
-          <Button color="secondary" onClick={()=>peticionDelete()} >Sí</Button>
-          <Button onClick={()=>abrirCerrarModalEliminar()}>No</Button>
   
-        </div>
-        </FadeIn>
-      </div>
-    )
   
   
     return (
@@ -436,37 +417,35 @@ const useStyles = makeStyles((theme) => ({
         <br />
     <FadeIn>
     <MuiThemeProvider theme={THEME}>
-       <TableContainer style={{ width: 900 , borderRadius: '10px',}} component={Paper}>
+       <TableContainer style={{ width: 1200 , borderRadius: '10px',}} component={Paper}>
          <Table>
          <TableHead>
           <StyledTableRow>
             <StyledTableCell align="center">Cultivo</StyledTableCell>
             <StyledTableCell align="center">Sensor</StyledTableCell>
-            <StyledTableCell align="center">Valor Maximo</StyledTableCell>
-            <StyledTableCell align="center">Valor Minimo</StyledTableCell>
-            <StyledTableCell align="center">Nave</StyledTableCell>
+            <StyledTableCell align="center">Temp. Maximo</StyledTableCell>
+            <StyledTableCell align="center">Temp. Minimo</StyledTableCell>
+            <StyledTableCell align="center">Hum. Maximo</StyledTableCell>
+            <StyledTableCell align="center">Hum. Minimo</StyledTableCell>
             <StyledTableCell align="center">Usuario</StyledTableCell>
-            <StyledTableCell align="center"></StyledTableCell>
             <StyledTableCell align="center"></StyledTableCell>
                        
           </StyledTableRow >
         </TableHead>
   
            <TableBody>
-             {sectores && sectores.map(row=>(
+             {data && data.map(row=>(
                <StyledTableRow  key={row.nombre_cultivo}>
                     <StyledTableCell component="th" scope="row" align="center"> {row.nombre_cultivo}  </StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center"> {row.nombre_sensor}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_maximo}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.nombre_nave}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_maximo_Temp}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Temp}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_maximo_Humedad}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Humedad}  </StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center"> {row.responsable}  </StyledTableCell>
                     <StyledTableCell align="center">
-                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row, 'Editar')}/>
+                    <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row)}/>
                     </StyledTableCell>
-                    <StyledTableCell align="center">
-                    <Delete  className={styles.btnDelete} onClick={()=>seleccionarsector(row, 'Eliminar')}/>
-                   </StyledTableCell>
                </StyledTableRow>
              ))}
            </TableBody>
@@ -496,11 +475,7 @@ const useStyles = makeStyles((theme) => ({
           {bodyEditar}
        </Modal>
   
-       <Modal
-       open={modalEliminar}
-       onClose={abrirCerrarModalEliminar}>
-          {bodyEliminar}
-       </Modal>
+  
       
       </> 
     );
