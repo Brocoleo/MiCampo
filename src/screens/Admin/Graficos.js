@@ -509,9 +509,6 @@ import ReactSpeedometer from "react-d3-speedometer"
         ], 
       }; 
  
- 
- 
- 
    
     return (<> 
     { verGraficas ? ( 
@@ -571,7 +568,7 @@ import ReactSpeedometer from "react-d3-speedometer"
                       // eslint-disable-next-line no-template-curly-in-string
                       currentValueText="Peso: ${value} gr"
                       needleTransitionDuration={4000}
-                      needleColor="steelblue"
+                      needleColor="#0F044C"
                     />
                   </div>}  
               </Row> </FadeIn> </Container> 
@@ -592,11 +589,11 @@ import ReactSpeedometer from "react-d3-speedometer"
                       minValue={0}
                       maxValue={1000}
                       value={pes}
-                      
+                      textColor="#000"
                       // eslint-disable-next-line no-template-curly-in-string
                       currentValueText="Peso: ${value} gr"
                       needleTransitionDuration={4000}
-                      needleColor="#031648"
+                      needleColor="#0F044C"
                     />
                   </div>}   </Row>  </FadeIn> </Container> } })()} 
 </Col> </Row> </Container> </div>):( <div className="loading"><Loading /> </div>) 
