@@ -197,9 +197,8 @@ const useStyles = makeStyles((theme) => ({
     const [loading, setLoading] = useState(false);
     const [data, setData]=useState();
     const [modalEditar, setModalEditar]=useState(false);
-
+    const [correo, setCorreo] = useState();
     const [opened, setOponed] = useState(false);
-    const [usuario, setUsuario] = useState();
     const [nombreCultivo, setNombreCultivo] = useState();
     const [nombreSensor, setNombreSensor] = useState();
     const [maxTemp, setMaxTemp] = useState();
@@ -233,7 +232,6 @@ const useStyles = makeStyles((theme) => ({
     const ObtenerUsuarios = () => {
       axios.get(usersUrl,config).then((response) => {
         setCorreos(response.data);
-       
         }); 
     }
 
@@ -253,6 +251,7 @@ const useStyles = makeStyles((theme) => ({
    
   
     const peticionPut=async()=>{
+      const idUser = correos.filter(dato=>dato.email === `${correo}`)
       let edit = {
         "nombreCultivo": nombreCultivo,
         "nombreSensor": nombreSensor,
@@ -260,10 +259,11 @@ const useStyles = makeStyles((theme) => ({
         "valorMinimoTemp": minTemp,
         "valorMaximoHumedad": maxHumedad,
         "valorMinimoHumedad": minHumedad,
-        "user_id": usuario,
+        "userId": idUser[0].id,
       }
       await axios.patch(editUrl+`/`+nombreSensor, edit, config)
       .then(response=>{
+        console.log(response)
         var dataNueva=sectores;
         // eslint-disable-next-line
         dataNueva.map(data=>{
@@ -297,7 +297,7 @@ const useStyles = makeStyles((theme) => ({
       setMinTemp(row.valor_minimo_Temp)
       setMaxHumedad(row.valor_maximo_Humedad)
       setMinHumedad(row.valor_minimo_Humedad)
-      setUsuario(row.id_usuario)
+      setCorreo(row.responsable)
         abrirCerrarModalEditar()
     }
   
@@ -333,23 +333,23 @@ const useStyles = makeStyles((theme) => ({
         <Grid item xs={6}>
         <TextField
          fullWidth 
-         name="nombre_sensor"
+         name="responsable"
           id="filled-select-currency-native"
           select
-          label=" Sensor"
-          value={nombreSensor}
-          onChange={event => setNombreSensor(event.target.value)}
+          label="Usuario"
+          value={correo}
+          onChange={event => setCorreo(event.target.value)}
           SelectProps={{
             native: true,
           }}
           variant="outlined"
         >
-          {opcionesCultivo.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {correos.map((option) => (
+            <option key={option.id} value={option.email}>
+              {option.email}
+            </option> ))}
         </TextField>
+        
         </Grid>
         </Grid>
 
@@ -370,27 +370,7 @@ const useStyles = makeStyles((theme) => ({
         <TextField type="number"  name="valor_minimo_Humedad" className={styles.inputMaterial} label="Hum. Minima" onChange={event => setMinHumedad(event.target.value)} value={minHumedad} variant="outlined"/>
         </Grid>
         </Grid>
-        <br />
-        <TextField
-         fullWidth 
-         name="responsable"
-          id="filled-select-currency-native"
-          select
-          label="Usuario"
-          value={usuario}
-          onChange={setUsuario}
-          SelectProps={{
-            native: true,
-          }}
-          variant="outlined"
-        >
-          {correos.map((option) => (
-            <option key={option.id} value={option.email}>
-              {option.email}
-            </option>
-            
-          ))}
-        </TextField>
+        <TextField type="text" name="nombre>sensor" className={styles.inputMaterial} label="Sensor" onChange={event => setNombreSensor(event.target.value)} value={nombreSensor} variant="outlined"/>
         <br />
 
  
