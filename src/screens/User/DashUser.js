@@ -21,9 +21,9 @@ import Location from '../../components/Location/Location';
 import ReactSpeedometer from "react-d3-speedometer"
 
  
-  const historialUrl='http://localhost:3000/api/historial/all' 
-  const promUrl='http://localhost:3000/api/historial/promedio/' 
-  const horasUrl='http://localhost:3000/api/radiacion/unMes/' 
+  const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
+  const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
+  const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
 
   const ButtonModelo = styled(Button)({
     textTransform: 'none',

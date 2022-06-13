@@ -15,9 +15,9 @@ import avatar from "../../assets/avatar.png"
 import ChatBot from 'react-simple-chatbot';
 import Grid from '@mui/material/Grid';
 
-const baseUrl='http://localhost:3000/api/component/paginacion'
-const editUrl='http://localhost:3000/api/component/'
-const usersUrl='http://localhost:3000/api/users'
+const baseUrl='https://citra-sensores.herokuapp.com/api/component/paginacion'
+const editUrl='https://citra-sensores.herokuapp.com/api/component/'
+const usersUrl='https://citra-sensores.herokuapp.com/api/users'
 
 const opcionesCultivo = [
   {

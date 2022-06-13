@@ -9,7 +9,7 @@ import Loading from '../../components/Loading'
 
 
 
-  const historialUrl='http://localhost:3000/api/historial/all'
+  const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all'
 const GraficosUser = () => {
     const sensor = "S02";
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQ1LCJyb2xlIjoiQURNSU5fUk9MRSIsImlhdCI6MTY0OTExOTYwMX0.PcfqJbEXcIBuf7z2dClgS4wuT9G8BOKjy5pqP9XxWgU"
