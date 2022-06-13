@@ -150,7 +150,6 @@ import ReactSpeedometer from "react-d3-speedometer"
 
 
   const DashUser = () => { 
-    console.log("aaquiiii")
     const styles= useStyles();
     const sensor = "S02"; 
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQ1LCJyb2xlIjoiQURNSU5fUk9MRSIsImlhdCI6MTY1NTAwNTk3Nn0.6qbZV9Pt2fNoSJKeHsr0yaVDojFmp20eN4iO961jMwA";
@@ -374,7 +373,6 @@ import ReactSpeedometer from "react-d3-speedometer"
         const datos = filtrado.slice(inicio, largo);
         setFecha(filtrado[filtrado.length-30].fecha)
         ObtenerPromedio(sensor, filtrado[filtrado.length-30].fecha)
-        console.log(fecha)
         let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
         setDia(parseInt(fecha.slice(8, 11))+(parseInt(mes)*31))
         ObtenerRadiacionHrs(mes)
@@ -442,7 +440,6 @@ import ReactSpeedometer from "react-d3-speedometer"
       const ObtenerRadiacionHrs = (mes) => {
         axios.get(horasUrl+mes,config).then((response) => {
           const dia = response.data.mes
-          console.log(dia)
           const inicio = dia[3].hora_inicio.slice(0, -3)
           const final = dia[dia.length-2].hora_inicio.slice(0, -3)
           setHrs(parseInt(final)-parseInt(inicio))

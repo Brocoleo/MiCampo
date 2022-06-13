@@ -441,7 +441,6 @@ import ReactSpeedometer from "react-d3-speedometer"
       const ObtenerRadiacionHrs = (mes) => {
         axios.get(horasUrl+mes,config).then((response) => {
           const dia = response.data.mes
-          console.log(dia)
           const inicio = dia[3].hora_inicio.slice(0, -3)
           const final = dia[dia.length-2].hora_inicio.slice(0, -3)
           setHrs(parseInt(final)-parseInt(inicio))

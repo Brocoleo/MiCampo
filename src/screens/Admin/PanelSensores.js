@@ -169,7 +169,6 @@ const PanelSensores = () => {
       fetchSensores()  
     }
     else{
-      console.log("nada")
     }
     
   }, [fetchSensores, sensores, didMount])  

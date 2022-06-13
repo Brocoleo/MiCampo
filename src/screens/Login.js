@@ -80,7 +80,6 @@ const Login = () => {
             Cookies.set("access", response.data.token );
             const token = Cookies.get("access");
             const config = {headers: { Authorization: `Bearer ${token}` }}; 
-            console.log(profileURL, config, post)
             axios.get(profileURL, config, post)
             .then(response=>{
               Cookies.set("nombre", response.data.nombre );
@@ -96,7 +95,6 @@ const Login = () => {
           .catch(function (error) {
             if (error.response.data) {
               setLoading(false)
-              console.log(error.response.status);
               setError(true)
               setErrorPass(true)
               setMensajePass('Credenciales no validas')
