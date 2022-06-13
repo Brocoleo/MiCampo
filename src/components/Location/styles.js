@@ -20,6 +20,12 @@ export const GeoContainer = styled.button`
     color: #333333;
   background: #E5E5E5;
   }
+  @media only screen and (max-width: 768px) {
+    width: 72%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 15%;
+  }
 `;
 export const InfoGeo = styled.img`
   width: 36px;

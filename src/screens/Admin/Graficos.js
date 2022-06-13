@@ -375,7 +375,7 @@ import ReactSpeedometer from "react-d3-speedometer"
         ObtenerPromedio(sensor, filtrado[filtrado.length-30].fecha)
         console.log(fecha)
         let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
-        setDia(parseInt(fecha.slice(8, 11))+(parseInt(mes)*31))
+        setDia(parseInt(fecha.slice(8, 11))+((parseInt(mes)-1)*31))
         ObtenerRadiacionHrs(mes)
         ObtenerRadiacion()
         if(filtrado && datos.length > 0 ){ 

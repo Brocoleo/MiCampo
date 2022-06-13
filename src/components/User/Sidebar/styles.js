@@ -5,7 +5,7 @@ import { FaTimes } from 'react-icons/fa';
 export const SidebarContainer = styled.aside`
   position: fixed;
   z-index: 999;
-  width: 350px;
+  width: 300px;
   height: 100%;
   background: rgba(255,255,255,1);
   display: grid;
@@ -19,7 +19,7 @@ export const SidebarContainer = styled.aside`
 `;
 
 export const CloseIcon = styled(FaTimes)`
-  color: #000;
+  color: #171717;
 `;
 
 export const Icon = styled.div`
@@ -35,13 +35,14 @@ export const Icon = styled.div`
 `;
 
 export const SidebarMenu = styled.div`
-  margin-top: 60px;
   display: grid;
+  margin-top: 60px;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, 90px);
+  grid-template-rows: repeat(5, 70px);
   text-align: center;
   @media screen and (max-width: 480px) {
-    grid-template-rows: repeat(3, 80px);
+    margin-top: 60px;
+    grid-template-rows: repeat(5, 60px);
   }
 `;
 
@@ -51,8 +52,9 @@ export const SidebarLink = styled(Link)`
   justify-content: center;
   font-size: 1.5rem;
   text-decoration: none;
-  font-weight: 300;
-  font-family: 'Nunito', sans-serif;
+  font-weight: 200;
+  font-family: 'Tiro Kannada', serif;
+  font-family: 'Titillium Web', sans-serif;
   list-style: none;
   transition: 0.2s ease-in-out;
   color: #171717;
@@ -61,6 +63,9 @@ export const SidebarLink = styled(Link)`
     background:#93B5C6 ;
     color: #fff;
     transition: 0.2s ease-in-out;
+  }
+  @media screen and (max-width: 1400px) {
+    font-size: 1.2rem;
   }
 `;
 

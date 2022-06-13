@@ -21,10 +21,9 @@ import Location from '../../components/Location/Location';
 import ReactSpeedometer from "react-d3-speedometer"
 
  
-  const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
-  const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
-  const rangoUrl='https://citra-sensores.herokuapp.com/api/radiacion/rangoRadiacion/'
-  const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
+  const historialUrl='http://localhost:3000/api/historial/all' 
+  const promUrl='http://localhost:3000/api/historial/promedio/' 
+  const horasUrl='http://localhost:3000/api/radiacion/unMes/' 
 
   const ButtonModelo = styled(Button)({
     textTransform: 'none',
@@ -151,9 +150,10 @@ import ReactSpeedometer from "react-d3-speedometer"
 
 
   const DashUser = () => { 
+    console.log("aaquiiii")
     const styles= useStyles();
-    const sensor = Cookies.get("sensor"); 
-    const token = Cookies.get("access");
+    const sensor = "S02"; 
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQ1LCJyb2xlIjoiQURNSU5fUk9MRSIsImlhdCI6MTY1NTAwNTk3Nn0.6qbZV9Pt2fNoSJKeHsr0yaVDojFmp20eN4iO961jMwA";
     const config = {headers: { Authorization: `Bearer ${token}` }};  
     const nombre = Cookies.get("nombre");
     const tipoCultivo = Cookies.get("tipo"); 
@@ -167,6 +167,7 @@ import ReactSpeedometer from "react-d3-speedometer"
     const [hum, setHum] = useState();
     const [peso, setPeso] = useState(); 
     const [fecha, setFecha] = useState();
+    const [dia, setDia] = useState();
     const [pes, setPes] = useState(); 
     const [min, setMin] = useState(); 
     const [max, setMax] = useState(); 
@@ -186,7 +187,7 @@ import ReactSpeedometer from "react-d3-speedometer"
     const theme = {
       background: '#f5f8fb',
       fontFamily: 'Titillium Web',
-      headerBgColor: '#031648',
+      headerBgColor: '#7858A6',
       headerFontColor: '#fff',
       headerFontSize: '15px',
       botBubbleColor: '#3E497A',
@@ -329,10 +330,9 @@ import ReactSpeedometer from "react-d3-speedometer"
       if(value === 'Hergreaves'){
         const media = (parseFloat(min)+parseFloat(max))/2
         const resta = parseFloat(max)-parseFloat(min)
-        const radiacionE = radiacion[0].radiacion
         const op1 = 0.0023 * ((media)+1.78) 
         const op2 = (Math.pow(resta, 0.5))
-        setEvapotrans((op1* op2* radiacionE).toFixed(1))
+        setEvapotrans((op1* op2* radiacion).toFixed(1))
         setModelo('Hergreaves')
        
       }if(value === 'Blaney Criddle'){
@@ -352,10 +352,9 @@ import ReactSpeedometer from "react-d3-speedometer"
       }if(modelo === 'Blaney Criddle'){
         const media = (parseFloat(min)+parseFloat(max))/2
         const resta = parseFloat(max)-parseFloat(min)
-        const radiacionE = radiacion[0].radiacion
         const op1 = 0.0023 * ((media)+1.78) 
         const op2 = (Math.pow(resta, 0.5))
-        setEvapotrans((op1* op2* radiacionE).toFixed(1))
+        setEvapotrans((op1* op2* radiacion).toFixed(1))
         setModelo('Hergreaves')
       }
     }
@@ -375,10 +374,11 @@ import ReactSpeedometer from "react-d3-speedometer"
         const datos = filtrado.slice(inicio, largo);
         setFecha(filtrado[filtrado.length-30].fecha)
         ObtenerPromedio(sensor, filtrado[filtrado.length-30].fecha)
+        console.log(fecha)
         let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
-        let hora = filtrado[filtrado.length-30].hora.slice(0, -3)
+        setDia(parseInt(fecha.slice(8, 11))+(parseInt(mes)*31))
         ObtenerRadiacionHrs(mes)
-         ObtenerRadiacion(mes, hora)
+        ObtenerRadiacion()
         if(filtrado && datos.length > 0 ){ 
           setMaxMin(filtrado.map(item => item.temperatura)) 
           if(maxMin){
@@ -387,7 +387,6 @@ import ReactSpeedometer from "react-d3-speedometer"
           } 
           const pesos = datos.map(item => item.peso_actual) 
           if(pesos){
-            console.log(pesos)
             setMaxPeso(Math.max(...pesos).toFixed(1)) 
           }
           setIndices(datos.map(item => item.hora.slice(0, -3)))  
@@ -414,10 +413,9 @@ import ReactSpeedometer from "react-d3-speedometer"
       if(min && max && radiacion && promTemp && fecha && hrs && modelo){
         const media = (parseFloat(min)+parseFloat(max))/2
         const resta = parseFloat(max)-parseFloat(min)
-        const radiacionE = radiacion[0].radiacion
         const op1 = 0.0023 * ((media)+1.78) 
         const op2 = (Math.pow(resta, 0.5))
-        setEvapotrans((op1* op2* radiacionE).toFixed(1))
+        setEvapotrans((op1* op2* radiacion).toFixed(1))
       }
      }
      
@@ -431,19 +429,22 @@ import ReactSpeedometer from "react-d3-speedometer"
           }); 
       }
 
-      const ObtenerRadiacion = (mes,hora) => {
-    
-        axios.get(rangoUrl+mes + '/'+hora+'/'+hora,config).then((response) => {
-          setRadiacion(response.data.rango);
-         
-          }); 
+      const ObtenerRadiacion = () => {
+      const varphi = (Math.PI/180) *  latitud
+      const dr = 1+ (0.033 * Math.cos(((2*Math.PI*dia)/(365))))
+      const delta = 0.409 * Math.sin((((2*Math.PI)/(365))*dia)-1.39)
+      const ws = Math.acos(-Math.tan(varphi) * Math.tan(delta))
+      const op1 = ((24*60)/(Math.PI))*0.082* dr
+      const op2 = ws*Math.sin(varphi)* Math.sin(delta)+Math.cos(varphi)* Math.cos(delta)*Math.sin(ws)
+      setRadiacion((op1)*(op2)*0.408)
       }
 
       const ObtenerRadiacionHrs = (mes) => {
         axios.get(horasUrl+mes,config).then((response) => {
           const dia = response.data.mes
-          const inicio = dia[0].hora_inicio.slice(0, -3)
-          const final = dia[dia.length-1].hora_inicio.slice(0, -3)
+          console.log(dia)
+          const inicio = dia[3].hora_inicio.slice(0, -3)
+          const final = dia[dia.length-2].hora_inicio.slice(0, -3)
           setHrs(parseInt(final)-parseInt(inicio))
          
           }); 
@@ -454,16 +455,8 @@ import ReactSpeedometer from "react-d3-speedometer"
       }
       
     useEffect(() => {
-      //reemplazar 5 por J al final
-      const varphi = (Math.PI/180) *  11.417
-      const dr = 1+ (0.033 * Math.cos(((2*Math.PI*15)/(365))))
-      const delta = 0.409 * Math.sin((((2*Math.PI)/(365))*15)-1.39)
-      const ws = Math.acos(-Math.tan(varphi) * Math.tan(delta))
-      const op1 = ((24*60)/(Math.PI))*0.082* dr
-      const op2 = ws*Math.sin(varphi)* Math.sin(delta)+Math.cos(varphi)* Math.cos(delta)*Math.sin(ws)
-      //console.log(Math.acos(-1))
-      console.log((op1)*(op2)*0.408)
-      if(humedad && min && max && peso && sensor && maxMin && temperatura){
+ 
+      if(humedad && min && max && peso && sensor && maxMin && temperatura && radiacion){
         setDidMount(false)
       }
       if(didMount){
@@ -555,10 +548,11 @@ import ReactSpeedometer from "react-d3-speedometer"
                     width: "380px",
                     height: "200px",
                     background: "#fff",
-                    padding: "20px",
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
                     borderRadius: '20px',
-                    marginLeft: '50px',
-                    boxShadow: '0 9px 12px 0 #031648'
+                    marginLeft: '11%',
+                    boxShadow: '0 9px 12px 0 #031648',
                   }}>
                     <ReactSpeedometer
                       fluidWidth={false}
@@ -579,10 +573,12 @@ import ReactSpeedometer from "react-d3-speedometer"
                     width: "380px",
                     height: "200px",
                     background: "#fff",
-                    padding: "20px",
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
                     borderRadius: '20px',
-                    marginLeft: '50px',
-                    boxShadow: '0 9px 12px 0 #031648'
+                    marginLeft: '11%',
+                    boxShadow: '0 9px 12px 0 #031648',
+                 
                   }}>
                     <ReactSpeedometer
                       fluidWidth={false}

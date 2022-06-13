@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet} from "react-router-dom";
 import useStyles from '../styles'
-import Navbar from "../../components/Navbar/Navbar";
+import Navbar from "../../components/NavbarUser/Navbar";
 import Sidebar from "../../components/User/Sidebar/Sidebar";
 
 

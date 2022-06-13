@@ -9,9 +9,9 @@ import {
   SidebarRoute
 } from './styles';
 import { FaUser } from "react-icons/fa";
-import { BsFillBarChartFill } from "react-icons/bs";
 import { IoPartlySunny } from "react-icons/io5";
-
+import { FaHome } from "react-icons/fa";
+import { FaMicrochip } from "react-icons/fa";
 
 const Sidebar = ({ isOpen, toggle }) => {
   return (
@@ -20,10 +20,8 @@ const Sidebar = ({ isOpen, toggle }) => {
         <CloseIcon />
       </Icon>
       <SidebarMenu>
-        <SidebarLink to='/user/dash'><IoPartlySunny />&nbsp;&nbsp;ESTACION</SidebarLink>
-        <SidebarLink to='/user/graficos'><BsFillBarChartFill />&nbsp;&nbsp; GRAFICOS</SidebarLink>
-        <SidebarLink to='/user/informacion'><FaUser />&nbsp;&nbsp;PERFIL</SidebarLink>
-        
+        <SidebarLink to='/user/dash'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
+        <SidebarLink to='/user/informacion'><FaUser />&nbsp;&nbsp;INFORMACION </SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
         <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>

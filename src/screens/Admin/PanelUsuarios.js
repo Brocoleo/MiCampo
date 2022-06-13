@@ -309,7 +309,7 @@ const useStyles = makeStyles((theme) => ({
       let edit = {
         "nombre": usuario.nombre ,
         "email": usuario.email ,
-        "role": usuario.role
+        "role": rol
       }
       await axios.patch(baseUrl+`/`+usuario.id,edit,config)
       .then(response=>{

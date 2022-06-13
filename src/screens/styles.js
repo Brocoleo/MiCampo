@@ -46,7 +46,7 @@ font-family: 'Tiro Kannada', serif;
 font-family: 'Titillium Web', sans-serif;
 
 @media (max-width: 768px) {
-  width: 77%;
+  width: 72%;
   margin-top: 9%;
   margin-left: 5%;
 }
@@ -76,7 +76,7 @@ font-family: 'Tiro Kannada', serif;
 font-family: 'Titillium Web', sans-serif;
 
 @media only screen and (max-width: 768px) {
-  width: 77%;
+  width: 72%;
   margin-top: 9%;
   margin-left: 5%;
 }
@@ -102,7 +102,6 @@ font-family: 'Tiro Kannada', serif;
 font-family: 'Titillium Web', sans-serif;
 @media (max-width: 768px) {
   width: 77%;
-  margin-top: 22%;
   margin-left: 5%;
 }
 

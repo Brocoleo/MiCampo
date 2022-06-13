@@ -46,7 +46,7 @@ const THEME = createMuiTheme({
   overrides: {
     MuiTableCell: {
       root: {
-        padding: 10,
+        paddingTop: 10,
         paddingBottom: 10,
         "&:last-child": {
           paddingRight: 5
@@ -86,7 +86,6 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '20px',
       paddingLeft: '15px',
       paddingRight: '15px',
-      marginRight: '20px',
       backgroundColor: '#EDEDED',
       '&:hover': {
         backgroundColor: '#BDBDBD',
@@ -263,11 +262,11 @@ const useStyles = makeStyles((theme) => ({
       }
       await axios.patch(editUrl+`/`+nombreSensor, edit, config)
       .then(response=>{
-        console.log(response)
         var dataNueva=sectores;
         // eslint-disable-next-line
         dataNueva.map(data=>{
           if(data.nombre_sensor===nombreSensor){
+            data.responsable = correo;
             data.nombre_cultivo=nombreCultivo;
             data.nombre_sensor=nombreSensor;
             data.valor_maximo_Humedad=maxHumedad;
@@ -397,16 +396,14 @@ const useStyles = makeStyles((theme) => ({
         <br />
     <FadeIn>
     <MuiThemeProvider theme={THEME}>
-       <TableContainer style={{ width: 1200 , borderRadius: '10px',}} component={Paper}>
+       <TableContainer style={{ width: 800 , borderRadius: '10px',}} component={Paper}>
          <Table>
          <TableHead>
           <StyledTableRow>
             <StyledTableCell align="center">Cultivo</StyledTableCell>
             <StyledTableCell align="center">Sensor</StyledTableCell>
-            <StyledTableCell align="center">Temp. Maximo</StyledTableCell>
-            <StyledTableCell align="center">Temp. Minimo</StyledTableCell>
-            <StyledTableCell align="center">Hum. Maximo</StyledTableCell>
-            <StyledTableCell align="center">Hum. Minimo</StyledTableCell>
+            <StyledTableCell align="center">Temperatura</StyledTableCell>
+            <StyledTableCell align="center">Humedad</StyledTableCell>
             <StyledTableCell align="center">Usuario</StyledTableCell>
             <StyledTableCell align="center"></StyledTableCell>
                        
@@ -418,10 +415,8 @@ const useStyles = makeStyles((theme) => ({
                <StyledTableRow  key={row.nombre_cultivo}>
                     <StyledTableCell component="th" scope="row" align="center"> {row.nombre_cultivo}  </StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center"> {row.nombre_sensor}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_maximo_Temp}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Temp}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_maximo_Humedad}  </StyledTableCell>
-                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Humedad}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Temp} - {row.valor_maximo_Temp}  </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Humedad} - {row.valor_maximo_Humedad}  </StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center"> {row.responsable}  </StyledTableCell>
                     <StyledTableCell align="center">
                     <Edit className={styles.btnEditar} onClick={()=>seleccionarsector(row)}/>
