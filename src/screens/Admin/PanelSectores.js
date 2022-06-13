@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-import { useState } from "react/cjs/react.development"
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import Loading from '../../components/Loading'
