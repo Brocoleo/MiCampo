@@ -373,9 +373,9 @@ import ReactSpeedometer from "react-d3-speedometer"
         const datos = filtrado.slice(inicio, largo);
         setFecha(filtrado[filtrado.length-30].fecha)
         ObtenerPromedio(sensor, filtrado[filtrado.length-30].fecha)
-        console.log(fecha)
         let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
-        setDia(parseInt(fecha.slice(8, 11))+((parseInt(mes)-1)*31))
+        let dia  = filtrado[filtrado.length-30].fecha.slice(8, 11)
+        setDia(parseInt(dia)+((parseInt(mes)-1)*31))
         ObtenerRadiacionHrs(mes)
         ObtenerRadiacion()
         if(filtrado && datos.length > 0 ){ 
@@ -555,7 +555,7 @@ import ReactSpeedometer from "react-d3-speedometer"
                       fluidWidth={false}
                       minValue={0}
                       maxValue={maxPeso}
-                      value={pes}
+                      value={parseInt(pes)}
                       // eslint-disable-next-line no-template-curly-in-string
                       currentValueText="Peso: ${value} gr"
                       needleTransitionDuration={4000}
@@ -578,8 +578,8 @@ import ReactSpeedometer from "react-d3-speedometer"
                     <ReactSpeedometer
                       fluidWidth={false}
                       minValue={0}
-                      maxValue={1000}
-                      value={pes}
+                      maxValue={maxPeso}
+                      value={parseInt(pes)}
                       textColor="#000"
                       // eslint-disable-next-line no-template-curly-in-string
                       currentValueText="Peso: ${value} gr"
