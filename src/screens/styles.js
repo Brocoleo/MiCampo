@@ -177,8 +177,13 @@ export const TituloRegister = styled.h2`
   margin: 0px;
   padding: 0px;
   font-weight: 100;
-  font-size: 34px;
+  font-size: 24px;
   color: #334257;
+`;
+
+export const pRegister = styled.p`
+  margin: 0px;
+  padding: 0px;
 `;
 
 export const CardUsers = styled.div`

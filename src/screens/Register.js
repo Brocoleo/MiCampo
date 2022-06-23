@@ -9,14 +9,23 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import  { InfoContainer, TituloRegister} from './styles'
+import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
+import  { InfoContainer, TituloRegister, pRegister} from './styles'
 import Loading from '../components/Loading';
 import validator from 'validator';
 import Typography from '@mui/material/Typography';
 import useStyles from './styles'
 import Link from '@mui/material/Link';
-const theme = createTheme();
+
+const theme = createMuiTheme({
+  typography: {
+   "fontFamily": `'Titillium Web', sans-serif`,
+   "fontSize": 12,
+   "fontWeightLight": 300,
+   "fontWeightRegular": 400,
+   "fontWeightMedium": 500
+  }
+});
 
 
 const Register = () => {
@@ -26,8 +35,8 @@ const Register = () => {
   const [errorPass, setErrorPass] = useState(false);
   const [mensajeCorreo, setMensajeCorreo] = useState("");
   const [mensajePass, setMensajePass] = useState("");
-  const loginUrl='http://localhost:3000/api/auth/login'
-  const baseUrl='http://localhost:3000/api/users/'
+  const loginUrl='https://citra-sensores.herokuapp.com/api/auth/login'
+  const baseUrl='https://citra-sensores.herokuapp.com/api/users/'
   const navigate = useNavigate();
   const classes = useStyles();
 
@@ -152,11 +161,11 @@ const Register = () => {
             alignItems: 'center',
           }}
         >
-          <img src={logo} alt="citra" height="110px" className={classes.image}/>
+          <img src={logo} alt="citra" height="80px" className={classes.image}/>
           <TituloRegister>
             REGRISTRATE
           </TituloRegister>
-          <p>Rellena con tus datos para registrarte</p>
+          <pRegister>Rellena con tus datos para registrarte</pRegister>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 0 }}>
             
             <Grid container spacing={0}>
@@ -204,11 +213,11 @@ const Register = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 1 }}
+              sx={{ mt: 1, mb: 1 }}
             >
               Guardar
             </BootstrapButton>
-            <Grid container sx={{ mt: 2, mb: 2 }}>
+            <Grid container sx={{ mt: 0, mb: 1 }}>
                 <Grid item xs>
                 
                 </Grid>

@@ -363,11 +363,10 @@ const useStyles = makeStyles((theme) => ({
         <FadeIn>
         <h2 className={styles.tituloInsertar}>Agregar Usuario</h2>
         <TextField name="nombre" className={styles.inputMaterial} label="Nombre" onChange={handleChange} variant="outlined"/>
-        <br />
+
         <TextField name="email" className={styles.inputMaterial} label="Email" onChange={handleChange} variant="outlined"/>
-        <br />
+      
         <TextField name="password" type="password" className={styles.inputMaterial} label="Contraseña" onChange={handleChange} variant="outlined"/>
-        <br />
         <br />
         <TextField
          fullWidth 
@@ -388,11 +387,8 @@ const useStyles = makeStyles((theme) => ({
           ))}
         </TextField>
 
-   
-       
         <br />
-        
-        <br /><br />
+
         <div align="right">
           <Button  className={styles.btnAgregar} onClick={()=>peticionPost()}>Guardar</Button>
           <Button  className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
