@@ -209,13 +209,11 @@ const Login = () => {
             </BootstrapButton>
             <Grid container sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Olvidaste tu contraseña?
-                  </Link>
+                 
                 </Grid>
                 <Grid item>
                   <Link href="register" variant="body2">
-                    {"Registrate aqui"}
+                    {"No tienes cuenta? Registrate aqui"}
                   </Link>
                 </Grid>
               </Grid>
