@@ -36,9 +36,9 @@ function App() {
       </Route>    
       <Route  path="/admin/*"  element={<Admin toggle={toggle} isOpen={isOpen}/>}>
             <Route  path="dash"   element={<DashAdmin />} />
-            <Route  path="sectores"  element={<PanelSectores />} />
+            <Route  path="sensores"  element={<PanelSectores />} />
             <Route  path="usuarios"  element={<PanelUsuarios />} />
-            <Route  path="sensores"   element={<PanelSensores />}/>
+            <Route  path="monitoreo"   element={<PanelSensores />}/>
             <Route  path="graficos"  element={<Graficos />}/>
             <Route  path="estaciones"  element={<PanelEstaciones/>}/>
             <Route  path="configuracionadmin"  element={<h1>Configuraciones</h1>} />

@@ -8,6 +8,9 @@ import { Container, Row, Col } from 'react-grid-system';
 import axios from 'axios';  
 import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
 import FadeIn from 'react-fade-in'; 
+import { ThemeProvider as StyledTheme } from 'styled-components';
+import avatar from "../../assets/avatar.png"
+import ChatBot from 'react-simple-chatbot';
 import { styled } from '@mui/material/styles'; 
 import {makeStyles} from '@material-ui/core/styles';  
 import Typography from '@mui/material/Typography';  
@@ -109,10 +112,22 @@ const theme = createMuiTheme({
    "fontWeightMedium": 500
   }
 });
+
+const chattema = {
+  background: '#f5f8fb',
+  headerBgColor: '#031648',
+  headerFontColor: '#fff',
+  headerFontSize: '15px',
+  botBubbleColor: '#3E497A',
+  botFontColor: '#fff',
+  userBubbleColor: '#DEA057',
+  userFontColor: '#fff',
+};
   
 const token = Cookies.get("access");   
 const config = {headers: { Authorization: `Bearer ${token}` }};   
 const PanelSensores = () => {  
+  const [opened, setOponed] = useState(false);
   const [loading, setLoading] = useState(false);  
   const [modalAviso, setModaAviso]=useState(false);
   const navigate = useNavigate();  
@@ -123,7 +138,14 @@ const PanelSensores = () => {
   const [sensor, setSensor]=useState() 
   const [didMount, setDidMount] = useState(true);
   
- 
+  const steps = [
+    {
+        id: '1',
+        message:  `Estás en la vista de monitoreo, aquí puedes ver los sensores disponibles para visualizar la información, los gráficos y la estimación hídrica de consumo.`,
+        end: true,
+    },
+   
+  ];
   const abrirCerrarModalAviso=()=>{
     setModaAviso(!modalAviso);
   }
@@ -173,6 +195,9 @@ const PanelSensores = () => {
     
   }, [fetchSensores, sensores, didMount])  
   
+  const toggleFloating = () => {
+    setOponed(!opened);
+  };
  
   const VerGraficas = (sensor, tipo) =>{  
     setSensor(sensor);
@@ -225,6 +250,20 @@ const PanelSensores = () => {
             </Row>  
       </Container> 
       </ThemeProvider>
+
+
+      <StyledTheme theme={chattema}>
+    <ChatBot 
+    headerTitle="Asistente Virtual 👋"
+    botAvatar = {avatar}
+    style= {{height: '80vh', width: '350px'}}
+    steps={steps}
+    floating={true}
+    opened={opened}
+    toggleFloating={toggleFloating}
+    bubbleStyle= {{maxWidth: "65%"}}
+    />
+     </StyledTheme>
       <Modal
        open={modalAviso}
        onClose={abrirCerrarModalAviso}>

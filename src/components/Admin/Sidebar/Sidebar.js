@@ -22,11 +22,11 @@ const Sidebar = ({ isOpen, toggle }) => {
       <SidebarMenu>
         <SidebarLink to='/admin/dash'><FaHome />&nbsp;&nbsp;INICIO</SidebarLink>
         <SidebarLink to='/admin/usuarios'><FaUsers />&nbsp;&nbsp;USUARIOS</SidebarLink>
-        <SidebarLink to='/admin/sectores'>< FaMicrochip/>&nbsp;&nbsp;SENSORES</SidebarLink>
-        <SidebarLink to='/admin/sensores'><IoPartlySunny />&nbsp;&nbsp;MONITOREO </SidebarLink>
+        <SidebarLink to='/admin/sensores'>< FaMicrochip/>&nbsp;&nbsp;SENSORES</SidebarLink>
+        <SidebarLink to='/admin/monitoreo'><IoPartlySunny />&nbsp;&nbsp;MONITOREO </SidebarLink>
       </SidebarMenu>
       <SideBtnWrap>
-        <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESION</SidebarRoute>
+        <SidebarRoute to='/' onClick={() => {window.location.href="/"}}>CERRAR SESIÓN</SidebarRoute>
       </SideBtnWrap>
     </SidebarContainer>
   );

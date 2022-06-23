@@ -208,7 +208,7 @@ const useStyles = makeStyles((theme) => ({
     const steps = [
       {
           id: '1',
-          message:  `Estas en la vista de los sensores, aqui puedes ver la informacion general de los datos del CITRA. Puedes asignarle un sensor a un usuario para que pueda verlo desde su sesion de usuario`,
+          message:  `Estás en la vista de los Usuarios, aquí puedes AÑADIR, EDITAR y ELIMINAR usuarios de la plataforma.`,
           end: true,
       },
      

@@ -57,7 +57,7 @@ const theme = {
   headerFontSize: '15px',
   botBubbleColor: '#3E497A',
   botFontColor: '#fff',
-  userBubbleColor: '#DEA057',
+  userBubbleColor: '#334257',
   userFontColor: '#fff',
 };
   useEffect(() => {
@@ -85,15 +85,15 @@ const theme = {
     const steps = [
       {
           id: '1',
-          message:  `Hola ${nombre}, Bienvenid@ a la plataforma de monitoreo y asistencia, para
-          gestionar eliga una de las secciones: `,
+          message:  `Hola ${nombre}, Bienvenid@ a la plataforma de monitoreo y asistencia para
+          gestionar, elija una de las secciones: `,
           trigger: 2,
       },
       
       {
         id: '2',
         component: (
-          <div className="botSecciones"> <BotLink to='/admin/sensores'>MONITOREO </BotLink>
+          <div className="botSecciones"> <BotLink to='/admin/monitoreo'>MONITOREO </BotLink>
            </div>
         ),
         asMessage: true,
@@ -111,7 +111,7 @@ const theme = {
       {
         id: '4',
         component: (
-          <FadeIn><div ><BotLink to='/admin/sectores'>SENSORES</BotLink>
+          <FadeIn><div ><BotLink to='/admin/sensores'>SENSORES</BotLink>
            </div></FadeIn>
         ),
         asMessage: true,
@@ -129,7 +129,7 @@ const theme = {
         <div className="margenTop">
           <FadeIn>
           <h1 className="bienvenida">Hola, Bienvenido al CITRA</h1>
-          <div className="subtitulo">Administracion de las estaciones meteorologicas para monitoreo y asistencia de riego</div>
+          <div className="subtitulo">Administración de las estaciones meteorológicas para monitoreo y asistencia de riego.</div>
           </FadeIn>
         <Grid container spacing={6}> 
         <FadeIn>
@@ -156,7 +156,7 @@ const theme = {
             <DataEstacion>
             <CountUp  start={0} end={nroDatos} duration={1} />
             </DataEstacion>
-            <DataLabel>Datos Climaticos</DataLabel>
+            <DataLabel>Datos Climáticos</DataLabel>
           </CardEstaciones>
           </CardLink>   
           </Grid>

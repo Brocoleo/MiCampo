@@ -248,7 +248,7 @@ const useStyles = makeStyles((theme) => ({
     const steps = [
       {
           id: '1',
-          message:  `Estas en la vista de los Usuarios aqui puedes AÑADIR, EDITAR y ELIMINAR usuarios de la plataforma`,
+          message:  `Estás en la vista de los Usuarios, aquí puedes AÑADIR, EDITAR y ELIMINAR usuarios de la plataforma.`,
           end: true,
       },
     

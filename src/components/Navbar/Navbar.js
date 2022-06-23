@@ -78,8 +78,8 @@ export default function Navbar({ toggle, isOpen}) {
       </Typography>
       <div className={classes.grow} />
       <NavLink to='/admin/usuarios'>&nbsp;&nbsp;Usuarios</NavLink>
-      <NavLink to='/admin/sectores'>&nbsp;&nbsp;Sensores</NavLink>
-      <NavLink to='/admin/sensores'>&nbsp;&nbsp;Moniroteo</NavLink>
+      <NavLink to='/admin/sensores'>&nbsp;&nbsp;Sensores</NavLink>
+      <NavLink to='/admin/monitoreo'>&nbsp;&nbsp;Moniroteo</NavLink>
         </Toolbar>
       </AppBar>
   

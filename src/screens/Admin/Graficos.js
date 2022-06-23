@@ -23,7 +23,6 @@ import ReactSpeedometer from "react-d3-speedometer"
  
   const historialUrl='https://citra-sensores.herokuapp.com/api/historial/all' 
   const promUrl='https://citra-sensores.herokuapp.com/api/historial/promedio/' 
-  const horasUrl='https://citra-sensores.herokuapp.com/api/radiacion/unMes/' 
 
   const ButtonModelo = styled(Button)({
     textTransform: 'none',
@@ -42,6 +41,7 @@ import ReactSpeedometer from "react-d3-speedometer"
 
   const ButtonChat = styled(Button)({
     color: '#fff',
+    fontSize: '12px',
     backgroundColor: '#3E497A',
   });
 
@@ -191,7 +191,7 @@ import ReactSpeedometer from "react-d3-speedometer"
       headerFontSize: '15px',
       botBubbleColor: '#3E497A',
       botFontColor: '#fff',
-      userBubbleColor: '#DEA057',
+      userBubbleColor: '#737c8c',
       userFontColor: '#fff',
     };
 
@@ -200,17 +200,17 @@ import ReactSpeedometer from "react-d3-speedometer"
       <div className={styles.modal}>
         <FadeIn>
         <h2 className={styles.tituloEditar}>Coloca tu ubicacion</h2>
-        <TextField name="latitud" className={styles.inputMaterial} label="Latitud"  value={latitud} variant="outlined"/>
+        <TextField name="latitud" className={styles.inputMaterial} label="Latitud"  value={latitud} onChange={e => setLatitud(e.target.value)} variant="outlined"/>
         <br />
-        <TextField name="longitud" className={styles.inputMaterial} label="Longitud"  value={longitud} variant="outlined"/>
+        <TextField name="longitud" className={styles.inputMaterial} label="Longitud"  value={longitud} onChange={e => setLongitud(e.target.value)} variant="outlined"/>
 
         <br />
        
         <br />
         <br /><br />
         <div align="right">
-          <Button className={styles.btnAgregar} >Editar</Button>
-          <Button className={styles.btnCancelar} >Cancelar</Button>
+          <Button className={styles.btnAgregar} onClick={()=>abrirCerrarModalEditar()}>Editar</Button>
+          <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalEditar()}>Cancelar</Button>
         </div>
         </FadeIn>
       </div>
@@ -222,14 +222,14 @@ import ReactSpeedometer from "react-d3-speedometer"
   const steps = [
       {
           id: '1',
-          message:  `${nombre}, soy el asistente virtual selecciona algunas de las opciones de monitoreo`,
+          message:  `${nombre}, soy el asistente virtual, selecciona algunas de las opciones de monitoreo.`,
           trigger: 2,
       },
       {
         id: '2',
         options: [
           { value: 1, label: 'Info Cultivo 🌱', trigger: '3' },
-          { value: 2, label: 'Consumo Hidrico 💧', trigger: '4' }
+          { value: 2, label: 'Consumo Hídrico 💧', trigger: '4' }
         ],
       },
       {
@@ -239,7 +239,7 @@ import ReactSpeedometer from "react-d3-speedometer"
       },
       {
         id: '4',
-        message: 'Elige una opcion del consumo hidrico de tu cultivo',
+        message: 'Elige una opción del consumo hídrico de tu cultivo.',
         trigger: '5',
       },
       {
@@ -258,12 +258,15 @@ import ReactSpeedometer from "react-d3-speedometer"
       },
       {
         id: '7',
-        message: `Adios :)`,
+        message: `Adiós :)`,
         end: true,
       },
       {
         id: '8',
-        message: `El cultivo necesita ${evapotrans} mm de agua durante el dia.`,
+        component: (
+          <div>El cultivo necesita {evapotrans} mm de agua durante el día. </div>
+        ),
+        asMessage: true,
         trigger: '5',
       },
       {
@@ -376,7 +379,6 @@ import ReactSpeedometer from "react-d3-speedometer"
         let mes  = filtrado[filtrado.length-30].fecha.slice(5, -3)
         let dia  = filtrado[filtrado.length-30].fecha.slice(8, 11)
         setDia(parseInt(dia)+((parseInt(mes)-1)*31))
-        ObtenerRadiacionHrs(mes)
         ObtenerRadiacion()
         if(filtrado && datos.length > 0 ){ 
           setMaxMin(filtrado.map(item => item.temperatura)) 
@@ -436,16 +438,12 @@ import ReactSpeedometer from "react-d3-speedometer"
       const op1 = ((24*60)/(Math.PI))*0.082* dr
       const op2 = ws*Math.sin(varphi)* Math.sin(delta)+Math.cos(varphi)* Math.cos(delta)*Math.sin(ws)
       setRadiacion((op1)*(op2)*0.408)
+      ObtenerRadiacionHrs(ws)
       }
 
-      const ObtenerRadiacionHrs = (mes) => {
-        axios.get(horasUrl+mes,config).then((response) => {
-          const dia = response.data.mes
-          const inicio = dia[3].hora_inicio.slice(0, -3)
-          const final = dia[dia.length-2].hora_inicio.slice(0, -3)
-          setHrs(parseInt(final)-parseInt(inicio))
-         
-          }); 
+      const ObtenerRadiacionHrs = (ws) => {
+        const horas = ws * (24/Math.PI)
+        setHrs(horas)
       }
 
       const abrirCerrarModalEditar=()=>{
@@ -453,8 +451,7 @@ import ReactSpeedometer from "react-d3-speedometer"
       }
       
     useEffect(() => {
- 
-      if(humedad && min && max && peso && sensor && maxMin && temperatura && radiacion){
+      if(humedad && min && max && peso && sensor && maxMin && temperatura && radiacion && hrs){
         setDidMount(false)
       }
       if(didMount){
