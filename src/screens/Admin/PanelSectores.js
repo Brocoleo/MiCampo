@@ -14,8 +14,8 @@ import avatar from "../../assets/avatar.png"
 import ChatBot from 'react-simple-chatbot';
 import Grid from '@mui/material/Grid';
 
-const baseUrl='https://citra-sensores.herokuapp.com/api/component/paginacion'
-const editUrl='https://citra-sensores.herokuapp.com/api/component/'
+const baseUrl='http://localhost:3000/api/component/paginacion'
+const editUrl='http://localhost:3000/api/component/'
 const usersUrl='https://citra-sensores.herokuapp.com/api/users'
 
 const opcionesCultivo = [
@@ -61,6 +61,25 @@ const THEME = createMuiTheme({
    "fontWeightMedium": 500
   }
   
+});
+const ButtonInsertar = styled(Button)({
+  marginLeft: '60%',
+  textTransform: 'none',
+  fontSize: '1.2rem',
+  padding: '6px 15px',
+  marginBottom: '6px',
+  border: '1px solid',
+  fontWeight: '300',
+  textShadow: '1px 1px #000',
+  fontFamily: `'Titillium Web', sans-serif`,
+  color: '#fff',
+  backgroundColor: '#0F044C',
+  borderColor: '#0F044C',
+  '&:hover': {
+    backgroundColor: '#120b38',
+    borderColor: '#120b38',
+    boxShadow: 'none',
+  }
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -189,15 +208,16 @@ const useStyles = makeStyles((theme) => ({
     const token = Cookies.get("access"); 
     const config = {headers: { Authorization: `Bearer ${token}` }}; 
     const styles= useStyles();
+    const [modalInsertar, setModalInsertar]=useState(false);
     const [sectores, setSectores] = useState();
     const [didMount, setDidMount] = useState(false);
     const [correos, setCorreos] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [data, setData]=useState();
+    const [rows, setRows] = useState();
     const [modalEditar, setModalEditar]=useState(false);
     const [correo, setCorreo] = useState();
     const [opened, setOponed] = useState(false);
-    const [nombreCultivo, setNombreCultivo] = useState();
+    const [nombreCultivo, setNombreCultivo] = useState('Lechuga');
     const [nombreSensor, setNombreSensor] = useState();
     const [maxTemp, setMaxTemp] = useState();
     const [minTemp, setMinTemp] = useState();
@@ -221,7 +241,7 @@ const useStyles = makeStyles((theme) => ({
     const ObtenerSectores = () => {
       axios.get(baseUrl,config).then((response) => {
         setSectores(response.data.componentes);
-        setData(sectores)
+        setRows(sectores)
         if(sectores){
           setLoading(true)
         }});}
@@ -246,9 +266,44 @@ const useStyles = makeStyles((theme) => ({
     },[didMount, setDidMount, sectores, correos, ObtenerSectores, ObtenerUsuarios])
 
 
-   
+    const peticionPost=async()=>{
+      let idUser
+      if(correo){
+        idUser = correos.filter(dato=>dato.email === `${correo}`)
+      }else{
+        idUser = correos.filter(dato=>dato.email === `${correos[0].email}`)
+      }
+    
+      
+      let post = {
+        "nombreCultivo": nombreCultivo,
+        "nombreSensor": nombreSensor,
+        "valorMaximoTemp": maxTemp,
+        "valorMinimoTemp": minTemp,
+        "valorMaximoHumedad": maxHumedad,
+        "valorMinimoHumedad": minHumedad,
+        "userId": idUser[0].id,
+      }
+      await axios.post(editUrl, post, config)
+      .then(response=>{
+        console.log(idUser[0].email)
+        console.log(response.data)
+        let respuesta = {
+          "nombre_cultivo": response.data.nombreCultivo,
+          "nombre_sensor": response.data.nombreSensor,
+          "responsable": idUser[0].email,
+          "user_id": response.data.userId,
+          "valor_maximo_Humedad": response.data.valorMaximoHumedad,
+          "valor_maximo_Temp": response.data.valorMaximoTemp,
+          "valor_minimo_Humedad": response.data.valorMinimoHumedad,
+          "valor_minimo_Temp": response.data.valorMinimoTemp
+        }
+       setRows(rows.concat(respuesta))
+       abrirCerrarModalInsertar();
+      })
+    }
   
-    const peticionPut=async()=>{
+    const peticionPut=async()=>{ 
       const idUser = correos.filter(dato=>dato.email === `${correo}`)
       let edit = {
         "nombreCultivo": nombreCultivo,
@@ -272,22 +327,20 @@ const useStyles = makeStyles((theme) => ({
             data.valor_maximo_Temp=maxTemp;
             data.valor_minimo_Humedad=minHumedad;
             data.valor_minimo_Temp=minTemp;
-          }
-        })
-        setData(dataNueva);
+          }})
+        setRows(dataNueva);
         abrirCerrarModalEditar();
       })
     }
-  
-   
-  
-  
+
+    const abrirCerrarModalInsertar=()=>{
+      setModalInsertar(!modalInsertar);
+    }
+
     const abrirCerrarModalEditar=()=>{
       setModalEditar(!modalEditar);
     }
-  
-   
-  
+
     const seleccionarsector=(row)=>{
       setNombreSensor(row.nombre_sensor)
       setNombreCultivo(row.nombre_cultivo)
@@ -298,6 +351,88 @@ const useStyles = makeStyles((theme) => ({
       setCorreo(row.responsable)
         abrirCerrarModalEditar()
     }
+
+    const bodyInsertar=(
+      <MuiThemeProvider theme={THEME}>
+      <div className={styles.modal}>
+      <FadeIn>
+      <h2 className={styles.tituloEditar}>Agregar Sensor</h2>
+      <br />
+      <Grid container spacing={2}>
+      <Grid item xs={6}>
+      <TextField
+         fullWidth 
+         label="Cultivo"
+         name="nombre_cultivo"
+          id="filled-select-currency-native"
+          select
+          value={nombreCultivo}
+          onChange={event => setNombreCultivo(event.target.value)}
+          SelectProps={{
+            native: true,
+          }}
+          variant="outlined"
+        >
+        {opcionesCultivo.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </TextField>
+     
+      </Grid>
+      <Grid item xs={6}>
+      <TextField
+       fullWidth 
+       name="responsable"
+        id="filled-select-currency-native"
+        select
+        label="Usuario"
+        onChange={event => setCorreo(event.target.value)}
+        SelectProps={{
+          native: true,
+        }}
+        variant="outlined"
+      >
+        {correos.map((option) => (
+          <option key={option.id} value={option.email}>
+            {option.email}
+          </option> ))}
+      </TextField>
+      
+      </Grid>
+      </Grid>
+
+      <Grid container spacing={2}>
+      <Grid item xs={6}>
+      <TextField type="number" name="valor_maximo_Temp" className={styles.inputMaterial} label="Temp. Maximo" onChange={event => setMaxTemp(event.target.value)} variant="outlined"/>
+      </Grid>
+      <Grid item xs={6}>
+      <TextField type="number" name="valor_minimo_Temp" className={styles.inputMaterial} label="Temp. Minima" onChange={event => setMinTemp(event.target.value)}  variant="outlined"/>
+      </Grid>
+      </Grid>
+
+      <Grid container spacing={2}>
+      <Grid item xs={6}>
+      <TextField type="number" name="valor_maximo_Humedad" className={styles.inputMaterial} label="Hum. Maximo" onChange={event => setMaxHumedad(event.target.value)} variant="outlined"/>
+      </Grid>
+      <Grid item xs={6}>
+      <TextField type="number"  name="valor_minimo_Humedad" className={styles.inputMaterial} label="Hum. Minima" onChange={event => setMinHumedad(event.target.value)}  variant="outlined"/>
+      </Grid>
+      </Grid>
+      <TextField type="text" name="nombre>sensor" className={styles.inputMaterial} label="Sensor" onChange={event => setNombreSensor(event.target.value)}  variant="outlined"/>
+      <br />
+
+
+
+      <div align="right">
+        <Button className={styles.btnAgregar} onClick={()=>peticionPost()}>Agregar</Button>
+        <Button className={styles.btnCancelar} onClick={()=>abrirCerrarModalInsertar()}>Cancelar</Button>
+      </div>
+      </FadeIn>
+      </div>
+      </MuiThemeProvider>
+    )
   
    
     const bodyEditar=(
@@ -391,7 +526,7 @@ const useStyles = makeStyles((theme) => ({
           <h1 className="bienvenida">INFORMACION SENSORES</h1>
          
           </FadeIn>
-
+          <ButtonInsertar onClick={()=>abrirCerrarModalInsertar()}>Nuevo Sensor</ButtonInsertar>
         <br />
     <FadeIn>
     <MuiThemeProvider theme={THEME}>
@@ -410,8 +545,8 @@ const useStyles = makeStyles((theme) => ({
         </TableHead>
   
            <TableBody>
-             {data && data.map(row=>(
-               <StyledTableRow  key={row.nombre_cultivo}>
+             {rows && rows.map(row=>(
+               <StyledTableRow  key={row.nombre_sensor}>
                     <StyledTableCell component="th" scope="row" align="center"> {row.nombre_cultivo}  </StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center"> {row.nombre_sensor}  </StyledTableCell>
                     <StyledTableCell component="th" scope="row" align="center"> {row.valor_minimo_Temp} - {row.valor_maximo_Temp}  </StyledTableCell>
@@ -448,7 +583,12 @@ const useStyles = makeStyles((theme) => ({
        onClose={abrirCerrarModalEditar}>
           {bodyEditar}
        </Modal>
-  
+
+       <Modal
+       open={modalInsertar}
+       onClose={abrirCerrarModalInsertar}>
+          {bodyInsertar}
+       </Modal>
   
       
       </> 
