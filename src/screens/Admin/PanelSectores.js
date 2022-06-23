@@ -67,7 +67,7 @@ const ButtonInsertar = styled(Button)({
   textTransform: 'none',
   fontSize: '1.2rem',
   padding: '6px 15px',
-  marginBottom: '6px',
+  marginBottom: '12px',
   border: '1px solid',
   fontWeight: '300',
   textShadow: '1px 1px #000',

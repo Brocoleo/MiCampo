@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { createMuiTheme, ThemeProvider } from '@mui/material/styles';
-import  { InfoContainer, TituloRegister, pRegister} from './styles'
+import  { InfoContainer, TituloRegister} from './styles'
 import Loading from '../components/Loading';
 import validator from 'validator';
 import Typography from '@mui/material/Typography';
