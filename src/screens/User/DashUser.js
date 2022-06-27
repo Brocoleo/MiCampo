@@ -186,12 +186,12 @@ import ReactSpeedometer from "react-d3-speedometer"
     const theme = {
       background: '#f5f8fb',
       fontFamily: 'Titillium Web',
-      headerBgColor: '#7858A6',
+      headerBgColor: '#EC9B3B',
       headerFontColor: '#fff',
       headerFontSize: '15px',
       botBubbleColor: '#3E497A',
       botFontColor: '#fff',
-      userBubbleColor: '#DEA057',
+      userBubbleColor: '#737c8c',
       userFontColor: '#fff',
     };
 
@@ -542,13 +542,13 @@ import ReactSpeedometer from "react-d3-speedometer"
                 return  <Container> <FadeIn> <Row> <Location latitud={latitud} longitud={longitud} funcion={abrirCerrarModalEditar} /> { humedad && humedad[0]!==null? (<ChartContainer><LineChart title='Humedad' data={humedadLine} /></ChartContainer>) : (<div></div>)} 
                 { temperatura && temperatura[0]!==null? (<ChartContainer><LineChart title='Temperatura' data={temperaturaLine} /> </ChartContainer>) : (<div></div>)} 
                 { <div style={{
-                    width: "380px",
+                    width: "370px",
                     height: "200px",
                     background: "#fff",
                     paddingTop: "10px",
                     paddingBottom: "10px",
                     borderRadius: '20px',
-                    marginLeft: '11%',
+                    marginLeft: '3%',
                     boxShadow: '0 9px 12px 0 #031648',
                   }}>
                     <ReactSpeedometer
@@ -605,7 +605,7 @@ import ReactSpeedometer from "react-d3-speedometer"
           bubbleStyle= {{maxWidth: "65%"}}
           botAvatar = {avatar}
           steps={steps}
-          style= {{height: '80vh', width: '350px'}}
+          style= {{height: '70vh', width: '350px',}}
           floating={true}
           opened={opened}
           toggleFloating={toggleFloating}

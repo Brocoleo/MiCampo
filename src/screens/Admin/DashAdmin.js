@@ -149,7 +149,7 @@ const theme = {
 
         <FadeIn>
           <Grid item xs>
-          <CardLink to="/admin/sensores">
+          <CardLink to="/admin/monitoreo">
           <CardEstaciones>
             <CardAdmin title="MONITOREO"/>
             <Estaciones />
@@ -164,7 +164,7 @@ const theme = {
 
           <FadeIn>
           <Grid item xs>
-          <CardLink to="/admin/sectores">
+          <CardLink to="/admin/sensores">
           <CardSensores>
             <CardAdmin title="SENSORES"/>
             <Sensores />

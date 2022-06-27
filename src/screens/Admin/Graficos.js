@@ -199,7 +199,7 @@ import ReactSpeedometer from "react-d3-speedometer"
 
       <div className={styles.modal}>
         <FadeIn>
-        <h2 className={styles.tituloEditar}>Coloca tu ubicacion</h2>
+        <h2 className={styles.tituloEditar}>Coloca tu ubicación</h2>
         <TextField name="latitud" className={styles.inputMaterial} label="Latitud"  value={latitud} onChange={e => setLatitud(e.target.value)} variant="outlined"/>
         <br />
         <TextField name="longitud" className={styles.inputMaterial} label="Longitud"  value={longitud} onChange={e => setLongitud(e.target.value)} variant="outlined"/>
